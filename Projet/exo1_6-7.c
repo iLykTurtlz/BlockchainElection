@@ -1,6 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
+#include <errno.h>
+
+
+int is_prime_naive(long p)	{
+	/* Hyp : p impair.  Complexité O(p) n=log2p (le nb de bits pour stocker p), donc complexite O(2^n)*/
+	if (p<2)	{
+		return 0;
+	}
+	for (long i=3; i<p; i++)	{
+		if (p%i == 0){
+			return 0;
+		}
+	}
+	return 1;
+}
 
 long modpow_naive(long a, long m, long n)	{
 	/* retourne a^m mod n, complexite O(m) = O(2^(log2(m)))*/
@@ -60,7 +74,7 @@ int is_prime_miller(long p, int k)  {
     long a;
     int i;
     for (i=0; i<k; i++) {
-        a = randlong(2, p-1);
+        a = rand_long(2, p-1);
         if (witness(a,b,d,p))   {
             return 0;
         }
@@ -69,41 +83,47 @@ int is_prime_miller(long p, int k)  {
 }
 
 int main(int argc, char **argv)	{
-    if (argc != 2)  {
-        fprintf(stderr,"usage : %s <val_max de m>\n",argv[0]);
+    
+    if (argc != 4)  {
+        fprintf(stderr,"usage : %s <val_de_p> <val_max_de_k> <nb_essais>\n",argv[0]);
         exit(1);
     }
 
-    long MAX = atoi(argv[1]);
-    long a = rand();
-    long n = rand();
+    char *end_pointer;
+    long p = strtol(argv[1], &end_pointer,10);
+    int MAX_K = atoi(argv[2]);
+    int nb_essais = atoi(argv[3]);
+    int echecs=0;
 
-    clock_t temps_fin, temps_init;
-    double tNaive, tOpti;
+    if (p == 0) {
+        if (errno == EINVAL)    {
+            printf("Erreur de lecture de p\n");
+            exit(1);
+        }
+    }
 
-    FILE *stream = fopen("comparaisonExponentiationModulaire.txt","w");
-    if (!stream)    {
+
+    //clock_t temps_fin, temps_init;
+
+    FILE *ostream = fopen("fiabiliteTestMillerRabin.txt","w");
+    if (!ostream)    {
         fprintf(stderr,"Erreur a l'ouverture du fichier\n");
+        exit(1);
     }
 
-    fprintf(stream,"%20s %20s %20s\n","m","modpowNaive","modpow");
+    fprintf(ostream,"p = %ld\n",p);
+    fprintf(ostream,"%20s %20s\n","k","prob_echec");
 
-    for (long m=1; m<=MAX; m++) {
-        temps_init = clock();
-        modpow_naive(a,m,n);
-        temps_fin = clock();
-        tNaive = (double)(temps_fin - temps_init)/CLOCKS_PER_SEC;
-
-        temps_init = clock();
-        modpow(a,m,n);
-        temps_fin = clock();
-        tOpti = (double)(temps_fin - temps_init)/CLOCKS_PER_SEC;
-
-        fprintf(stream,"%20ld %20f %20f\n",m,tNaive,tOpti);
-
+ 
+    
+    for (int k=1; k<=MAX_K; k++)    {
+        for (long i=0; i<=nb_essais; i++) {
+            if (is_prime_miller(p,k))  {
+                echecs++;
+            }
+        }
+        fprintf(ostream,"%20d %20f\n",k,((double)(echecs))/((double)(nb_essais)));
     }
-
-    fclose(stream);
-
+    fclose(ostream);
     return 0;
 }

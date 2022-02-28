@@ -39,12 +39,12 @@ int main(int argc, char **argv)	{
     clock_t temps_fin, temps_init;
     double tNaive, tOpti;
 
-    FILE *stream = fopen("comparaisonExponentiationModulaire.txt","w");
-    if (!stream)    {
+    FILE *ostream = fopen("comparaisonExponentiationModulaire.txt","w");
+    if (!ostream)    {
         fprintf(stderr,"Erreur a l'ouverture du fichier\n");
     }
 
-    fprintf(stream,"%20s %20s %20s\n","m","modpowNaive","modpow");
+    fprintf(ostream,"%20s %20s %20s\n","m","modpowNaive","modpow");
 
     for (long m=1; m<=MAX; m++) {
         temps_init = clock();
@@ -57,11 +57,11 @@ int main(int argc, char **argv)	{
         temps_fin = clock();
         tOpti = (double)(temps_fin - temps_init)/CLOCKS_PER_SEC;
 
-        fprintf(stream,"%20ld %20f %20f\n",m,tNaive,tOpti);
+        fprintf(ostream,"%20ld %20f %20f\n",m,tNaive,tOpti);
 
     }
 
-    fclose(stream);
+    fclose(ostream);
 
     return 0;
 }
