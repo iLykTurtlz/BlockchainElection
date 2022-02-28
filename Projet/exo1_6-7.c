@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <errno.h>
+
 
 
 int is_prime_naive(long p)	{
@@ -89,18 +89,11 @@ int main(int argc, char **argv)	{
         exit(1);
     }
 
-    char *end_pointer;
-    long p = strtol(argv[1], &end_pointer,10);
+    long p = atol(argv[1]);
     int MAX_K = atoi(argv[2]);
     int nb_essais = atoi(argv[3]);
     int echecs=0;
 
-    if (p == 0) {
-        if (errno == EINVAL)    {
-            printf("Erreur de lecture de p\n");
-            exit(1);
-        }
-    }
 
 
     //clock_t temps_fin, temps_init;
