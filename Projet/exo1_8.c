@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 
 
@@ -16,14 +17,6 @@ int is_prime_naive(long p)	{
 	return 1;
 }
 
-long modpow_naive(long a, long m, long n)	{
-	/* retourne a^m mod n, complexite O(m) = O(2^(log2(m)))*/
-	long res=1;
-	for (long i=0; i<m; i++)	{
-		res = (res*a) % n;
-	}
-	return res;
-}
 
 long modpow(long a, long m, long n)	{
 	/* complexite O(log2(m))*/
@@ -82,46 +75,41 @@ int is_prime_miller(long p, int k)  {
     return 1;
 }
 
+long random_prime_number(int min_size, int max_size, int k)  {
+    long p = pow(2,min_size);
+    long max_p = pow(2,(max_size+1));
+    while (p < max_p)   {
+        if (is_prime_miller(p,k))   {
+            return p;
+        }
+        p++;
+    }
+    return -1;  //cas d'echec
+}
+
 int main(int argc, char **argv)	{
     
-    if (argc != 3)  {
-        fprintf(stderr,"usage : %s <val_max_de_k> <nb_essais>\n",argv[0]);
+    if (argc != 4)  {
+        fprintf(stderr,"usage : %s <val_de_k> <min_size> <max_size>\n",argv[0]);
         exit(1);
     }
 
-    long p,k;
-    int MAX_K = atoi(argv[1]);
-    int nb_essais = atoi(argv[2]);
-    int echecs=0;
 
 
+    int k = atoi(argv[1]);
+    int min_size = atoi(argv[2]);
+    int max_size = atoi(argv[3]);
 
-    //clock_t temps_fin, temps_init;
-
-    FILE *ostream = fopen("fiabiliteTestMillerRabin.txt","w");
-    if (!ostream)    {
-        fprintf(stderr,"Erreur a l'ouverture du fichier\n");
+    if (min_size < 0 || max_size > 32)  {
+        fprintf(stderr,"usage : min et max entre 0 et 32\n");
         exit(1);
     }
 
-    fprintf(ostream,"%20s %20s\n","p","erreur?");
+    printf("Generation d'un nombre premier de taille comprise entre %d et %d : %ld\n",min_size, max_size, random_prime_number(min_size,max_size,k));
+   
+
+
 
  
-    
-
-    for (long i=0; i<=nb_essais; i++) {
-        p = rand_long(2,2147483647);
-        k = rand_long(1,MAX_K);
-        if (is_prime_miller(p,k) != is_prime_naive(p))  {
-            fprintf(ostream,"%20ld %20s\n",p,"erreur");
-            echecs++;
-        } else {
-            fprintf(ostream,"%20ld %20s\n",p,"pas d'erreur");
-        }
-    }
-    fprintf(ostream,"Prob d'erreur du test Miller : ");
-    fprintf(ostream,"%20f\n",((double)(echecs))/((double)(nb_essais)));
-
-    fclose(ostream);
     return 0;
 }

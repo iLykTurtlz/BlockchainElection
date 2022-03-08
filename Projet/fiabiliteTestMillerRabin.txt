@@ -1,102 +1,503 @@
-p = 63
-                   k           prob_echec
-                   1             0.016540
-                   2             0.016760
-                   3             0.016760
-                   4             0.016760
-                   5             0.016760
-                   6             0.016760
-                   7             0.016760
-                   8             0.016760
-                   9             0.016760
-                  10             0.016760
-                  11             0.016760
-                  12             0.016760
-                  13             0.016760
-                  14             0.016760
-                  15             0.016760
-                  16             0.016760
-                  17             0.016760
-                  18             0.016760
-                  19             0.016760
-                  20             0.016760
-                  21             0.016760
-                  22             0.016760
-                  23             0.016760
-                  24             0.016760
-                  25             0.016760
-                  26             0.016760
-                  27             0.016760
-                  28             0.016760
-                  29             0.016760
-                  30             0.016760
-                  31             0.016760
-                  32             0.016760
-                  33             0.016760
-                  34             0.016760
-                  35             0.016760
-                  36             0.016760
-                  37             0.016760
-                  38             0.016760
-                  39             0.016760
-                  40             0.016760
-                  41             0.016760
-                  42             0.016760
-                  43             0.016760
-                  44             0.016760
-                  45             0.016760
-                  46             0.016760
-                  47             0.016760
-                  48             0.016760
-                  49             0.016760
-                  50             0.016760
-                  51             0.016760
-                  52             0.016760
-                  53             0.016760
-                  54             0.016760
-                  55             0.016760
-                  56             0.016760
-                  57             0.016760
-                  58             0.016760
-                  59             0.016760
-                  60             0.016760
-                  61             0.016760
-                  62             0.016760
-                  63             0.016760
-                  64             0.016760
-                  65             0.016760
-                  66             0.016760
-                  67             0.016760
-                  68             0.016760
-                  69             0.016760
-                  70             0.016760
-                  71             0.016760
-                  72             0.016760
-                  73             0.016760
-                  74             0.016760
-                  75             0.016760
-                  76             0.016760
-                  77             0.016760
-                  78             0.016760
-                  79             0.016760
-                  80             0.016760
-                  81             0.016760
-                  82             0.016760
-                  83             0.016760
-                  84             0.016760
-                  85             0.016760
-                  86             0.016760
-                  87             0.016760
-                  88             0.016760
-                  89             0.016760
-                  90             0.016760
-                  91             0.016760
-                  92             0.016760
-                  93             0.016760
-                  94             0.016760
-                  95             0.016760
-                  96             0.016760
-                  97             0.016760
-                  98             0.016760
-                  99             0.016760
-                 100             0.016760
+                   p              erreur?
+               16809         pas d'erreur
+           984943660         pas d'erreur
+           470211274         pas d'erreur
+          1457850880         pas d'erreur
+          2007237711         pas d'erreur
+          1784484494         pas d'erreur
+           114807989         pas d'erreur
+            16531731         pas d'erreur
+           896544305         pas d'erreur
+          1998097159         pas d'erreur
+           197493101         pas d'erreur
+          1505795337         pas d'erreur
+           563613514         pas d'erreur
+          1580723812         pas d'erreur
+          1358580981         pas d'erreur
+           784558823         pas d'erreur
+          1551901395         pas d'erreur
+           156091747         pas d'erreur
+           585640196         pas d'erreur
+          1646035003         pas d'erreur
+           590357946         pas d'erreur
+           357571492         pas d'erreur
+          1927702198         pas d'erreur
+           130060905         pas d'erreur
+          1108728551         pas d'erreur
+          1060806855         pas d'erreur
+          2035308230         pas d'erreur
+          1075260300         pas d'erreur
+           595028637         pas d'erreur
+           997389816         pas d'erreur
+           107554538         pas d'erreur
+          1654001671         pas d'erreur
+            34075631         pas d'erreur
+          1351934197         pas d'erreur
+          2146319453         pas d'erreur
+           657821125         pas d'erreur
+          1269406754         pas d'erreur
+           884936718         pas d'erreur
+           578354440         pas d'erreur
+          1153851503         pas d'erreur
+           382955830         pas d'erreur
+          1227619360         pas d'erreur
+            70982399         pas d'erreur
+          2051621611         pas d'erreur
+          1912844177         pas d'erreur
+           343098144         pas d'erreur
+          1534827970         pas d'erreur
+           195400262         pas d'erreur
+             6441596         pas d'erreur
+            57716397         pas d'erreur
+           515204532         pas d'erreur
+           681910964         pas d'erreur
+          1400285367         pas d'erreur
+           828530769         pas d'erreur
+           316824714         pas d'erreur
+          1815859903         pas d'erreur
+          1194314740         pas d'erreur
+          2111631618         pas d'erreur
+           304555642         pas d'erreur
+           541437337         pas d'erreur
+          2063936100         pas d'erreur
+           428975321         pas d'erreur
+           272112291         pas d'erreur
+          1724586128         pas d'erreur
+          1023129508         pas d'erreur
+           436476772         pas d'erreur
+          1936329096         pas d'erreur
+           304987846         pas d'erreur
+           881140536         pas d'erreur
+          1901915396         pas d'erreur
+           348318740         pas d'erreur
+           784559592         pas d'erreur
+           290145161         pas d'erreur
+           750597387         pas d'erreur
+          2000755541         pas d'erreur
+          1459413498         pas d'erreur
+           537140625         pas d'erreur
+          1086531970         pas d'erreur
+          1755699917         pas d'erreur
+          2043046044         pas d'erreur
+           943454681         pas d'erreur
+          1507977297         pas d'erreur
+          1828087694         pas d'erreur
+          1154112993         pas d'erreur
+           889119399         pas d'erreur
+           944975827         pas d'erreur
+          1536830213         pas d'erreur
+          1592822763         pas d'erreur
+          1127401870         pas d'erreur
+           140002778         pas d'erreur
+          1049997441         pas d'erreur
+           428540558         pas d'erreur
+          1859468874         pas d'erreur
+          1168120096         pas d'erreur
+           967113757         pas d'erreur
+           957828017         pas d'erreur
+          1893015682         pas d'erreur
+          1004016857         pas d'erreur
+           454233504         pas d'erreur
+           329863110         pas d'erreur
+          1323602333         pas d'erreur
+          1660760810         pas d'erreur
+           685428653         pas d'erreur
+          1461495733         pas d'erreur
+          1522395421         pas d'erreur
+           175530182         pas d'erreur
+          1351995225         pas d'erreur
+           174076739         pas d'erreur
+          2034837527         pas d'erreur
+          1486421566         pas d'erreur
+          1668306650         pas d'erreur
+           907225552         pas d'erreur
+           416541978         pas d'erreur
+           411938556         pas d'erreur
+           524102506         pas d'erreur
+           293034750         pas d'erreur
+          1290659380         pas d'erreur
+          1778878211         pas d'erreur
+           552265485         pas d'erreur
+           471180775         pas d'erreur
+          1706755178         pas d'erreur
+          1616927226         pas d'erreur
+          1360280368         pas d'erreur
+          1284660446         pas d'erreur
+           684570287         pas d'erreur
+          1637608157         pas d'erreur
+          1262696578         pas d'erreur
+          1509658268         pas d'erreur
+           347221713         pas d'erreur
+          1746474821         pas d'erreur
+           678620593         pas d'erreur
+           667306635         pas d'erreur
+           925238590         pas d'erreur
+           795054875         pas d'erreur
+          1021979360         pas d'erreur
+           599777256         pas d'erreur
+           794014917         pas d'erreur
+          1452207732         pas d'erreur
+          1564674548         pas d'erreur
+          2028841240         pas d'erreur
+          2018984928         pas d'erreur
+           988774859         pas d'erreur
+           862929595         pas d'erreur
+           322968420         pas d'erreur
+           738342587         pas d'erreur
+          1780776565         pas d'erreur
+          1380786645         pas d'erreur
+           572547749         pas d'erreur
+          1812423305         pas d'erreur
+          1754711750         pas d'erreur
+           345205660         pas d'erreur
+          1520045408         pas d'erreur
+          1250739826         pas d'erreur
+          2129300975         pas d'erreur
+          1618907922         pas d'erreur
+             9135233         pas d'erreur
+           350213902         pas d'erreur
+          1681462535         pas d'erreur
+            13618678         pas d'erreur
+          1113423936         pas d'erreur
+          1168279881         pas d'erreur
+           828433551         pas d'erreur
+          1523252773         pas d'erreur
+          1752200985         pas d'erreur
+           666082725         pas d'erreur
+          1118753231         pas d'erreur
+           118710301         pas d'erreur
+          1554270778         pas d'erreur
+           108668246         pas d'erreur
+           981747698         pas d'erreur
+           958829066         pas d'erreur
+           614056600         pas d'erreur
+          1493869942         pas d'erreur
+          1462789553         pas d'erreur
+          2119315082         pas d'erreur
+             3559276         pas d'erreur
+            63040415         pas d'erreur
+          1237322014         pas d'erreur
+          1458854790         pas d'erreur
+            76424010         pas d'erreur
+          2090265326         pas d'erreur
+           754451259         pas d'erreur
+           270438668         pas d'erreur
+          2048760595         pas d'erreur
+          2092190962         pas d'erreur
+           540151405         pas d'erreur
+          1928256143         pas d'erreur
+          1492192801         pas d'erreur
+          1429157789         pas d'erreur
+           244116643         pas d'erreur
+           377901844         pas d'erreur
+           927515976         pas d'erreur
+          1476211375         pas d'erreur
+           265509241         pas d'erreur
+           172556931         pas d'erreur
+          2005815168         pas d'erreur
+           772359306         pas d'erreur
+          1073645900         pas d'erreur
+          1442901722         pas d'erreur
+          1625151582         pas d'erreur
+           495149354         pas d'erreur
+          1208178700         pas d'erreur
+          1324160813         pas d'erreur
+           501848673         pas d'erreur
+          1597951663         pas d'erreur
+          1421620242         pas d'erreur
+          2038299455         pas d'erreur
+          1962853713         pas d'erreur
+          1550207535         pas d'erreur
+           948398797         pas d'erreur
+           140351518         pas d'erreur
+          2098478517         pas d'erreur
+           957627099         pas d'erreur
+           368034326         pas d'erreur
+          2018044938         pas d'erreur
+           547517017         pas d'erreur
+          1130301907         pas d'erreur
+           225882722         pas d'erreur
+           791481171         pas d'erreur
+          1532329538         pas d'erreur
+          1872357127         pas d'erreur
+          1502789951         pas d'erreur
+          1300521578         pas d'erreur
+          1158577469         pas d'erreur
+           516341993         pas d'erreur
+          1014428213         pas d'erreur
+           464685720         pas d'erreur
+          1132666827         pas d'erreur
+           523449820         pas d'erreur
+           566211827         pas d'erreur
+           987333031         pas d'erreur
+          1055151242         pas d'erreur
+           571486542         pas d'erreur
+           913090937         pas d'erreur
+           287846867         pas d'erreur
+           367553066         pas d'erreur
+           137017239         pas d'erreur
+          1094482712         pas d'erreur
+          1791728194         pas d'erreur
+           707454749         pas d'erreur
+            97368449         pas d'erreur
+          1647259581         pas d'erreur
+          1995333981         pas d'erreur
+           191110291         pas d'erreur
+          1062211802         pas d'erreur
+          1528087672         pas d'erreur
+           430880848         pas d'erreur
+           936509545         pas d'erreur
+          2098603323         pas d'erreur
+          1124791249         pas d'erreur
+          1270425989         pas d'erreur
+           498383914         pas d'erreur
+           924745991         pas d'erreur
+          2076422669         pas d'erreur
+           669167047         pas d'erreur
+          1373365827         pas d'erreur
+          1483422905         pas d'erreur
+          1230092641         pas d'erreur
+          1763800681         pas d'erreur
+           737904109         pas d'erreur
+          1114057123         pas d'erreur
+          1840127452         pas d'erreur
+          1448530834         pas d'erreur
+          1499932143         pas d'erreur
+          1440942219         pas d'erreur
+           302173467         pas d'erreur
+           816289881         pas d'erreur
+            56564050         pas d'erreur
+          1637121031         pas d'erreur
+          1266605905         pas d'erreur
+           924375754         pas d'erreur
+          1785108623         pas d'erreur
+          1554426957         pas d'erreur
+           346645557         pas d'erreur
+           586802295         pas d'erreur
+          1432477446         pas d'erreur
+          1178402200         pas d'erreur
+          1434444858         pas d'erreur
+          1227464305         pas d'erreur
+           324735801         pas d'erreur
+            67981923         pas d'erreur
+           688574088         pas d'erreur
+           526439152         pas d'erreur
+           822418625         pas d'erreur
+          1312349945         pas d'erreur
+          1101977994         pas d'erreur
+          1396138701         pas d'erreur
+          1045501372         pas d'erreur
+          1525679893         pas d'erreur
+          1300383330         pas d'erreur
+          1510474412         pas d'erreur
+          2014885178         pas d'erreur
+           887972093         pas d'erreur
+          1976226906         pas d'erreur
+          1763464893         pas d'erreur
+           308559366         pas d'erreur
+           539924886         pas d'erreur
+            10341443         pas d'erreur
+          1844185786         pas d'erreur
+          2045329872         pas d'erreur
+           264032583         pas d'erreur
+           937357734         pas d'erreur
+          1645347856         pas d'erreur
+           947609849         pas d'erreur
+          1626979012         pas d'erreur
+           710298152         pas d'erreur
+          1230900943         pas d'erreur
+           245832301         pas d'erreur
+          1056219958         pas d'erreur
+          1728536154         pas d'erreur
+           342695016         pas d'erreur
+           320514920         pas d'erreur
+           817350103         pas d'erreur
+           885295733         pas d'erreur
+           129154963         pas d'erreur
+          1974593930         pas d'erreur
+          1653662175         pas d'erreur
+            67439098         pas d'erreur
+          1121447423         pas d'erreur
+          1867224302         pas d'erreur
+           835740264         pas d'erreur
+          1128868265         pas d'erreur
+          1245245252         pas d'erreur
+          1891469417         pas d'erreur
+          1595850965         pas d'erreur
+           156485094         pas d'erreur
+          1887766716         pas d'erreur
+           192958062         pas d'erreur
+           895063370         pas d'erreur
+          1448891849         pas d'erreur
+          1885902503         pas d'erreur
+          1925270573         pas d'erreur
+           242817255         pas d'erreur
+          1476562295         pas d'erreur
+           307738822         pas d'erreur
+          1521681081         pas d'erreur
+          2095688082         pas d'erreur
+          1462863344         pas d'erreur
+           778248384         pas d'erreur
+          1705698830         pas d'erreur
+           157863577         pas d'erreur
+           967945598         pas d'erreur
+          1590767372         pas d'erreur
+           644506545         pas d'erreur
+           172490263         pas d'erreur
+           511982382         pas d'erreur
+          1789871859         pas d'erreur
+           421567016         pas d'erreur
+          1236261664         pas d'erreur
+          1257726612         pas d'erreur
+           790709220         pas d'erreur
+          1288775057         pas d'erreur
+          1439236387         pas d'erreur
+           864877323         pas d'erreur
+          1703775253         pas d'erreur
+          1030316716         pas d'erreur
+          1388337881         pas d'erreur
+           810383139         pas d'erreur
+           717918286         pas d'erreur
+           311164917         pas d'erreur
+          1834735142         pas d'erreur
+           309543568         pas d'erreur
+            12000564         pas d'erreur
+           820241971         pas d'erreur
+           567222280         pas d'erreur
+          1790245763         pas d'erreur
+           104576980         pas d'erreur
+           809207396         pas d'erreur
+          1623187658         pas d'erreur
+            24761788         pas d'erreur
+          1204554546         pas d'erreur
+           892408778         pas d'erreur
+          1105074254         pas d'erreur
+          1808275516         pas d'erreur
+           998595021         pas d'erreur
+           158592372         pas d'erreur
+          1215867949         pas d'erreur
+          1802916856         pas d'erreur
+           389114983         pas d'erreur
+          1265768165         pas d'erreur
+          1348255381         pas d'erreur
+           108408489         pas d'erreur
+          1606985790         pas d'erreur
+           281369882         pas d'erreur
+          1428738285         pas d'erreur
+          1414318911         pas d'erreur
+          1978847941         pas d'erreur
+          1123289551         pas d'erreur
+          1268000112         pas d'erreur
+          1792486329         pas d'erreur
+          1380889297         pas d'erreur
+          1426245437         pas d'erreur
+           949983030         pas d'erreur
+           594139072         pas d'erreur
+           251766299         pas d'erreur
+          2067029092         pas d'erreur
+          1129966614         pas d'erreur
+          1756872114         pas d'erreur
+          1423551953         pas d'erreur
+          1281453215         pas d'erreur
+          1904228602         pas d'erreur
+           349949756         pas d'erreur
+          1293655196         pas d'erreur
+          1801048634         pas d'erreur
+           840858779         pas d'erreur
+           248263274         pas d'erreur
+          1451839083         pas d'erreur
+          1233398523         pas d'erreur
+          1836275593         pas d'erreur
+          1237874122         pas d'erreur
+          1598733601         pas d'erreur
+           378859177         pas d'erreur
+          2131204601         pas d'erreur
+          1483764290         pas d'erreur
+          1222648130         pas d'erreur
+           933087664         pas d'erreur
+           436279151         pas d'erreur
+          2033924517         pas d'erreur
+          1024245961         pas d'erreur
+          1840728050         pas d'erreur
+            15049442         pas d'erreur
+           108218772         pas d'erreur
+          1377340253         pas d'erreur
+           277117597         pas d'erreur
+          1408508174         pas d'erreur
+          1130552127         pas d'erreur
+          1436461433         pas d'erreur
+           840725871         pas d'erreur
+           265094612         pas d'erreur
+          1391731066         pas d'erreur
+          1822559363         pas d'erreur
+           403681564         pas d'erreur
+          1674303727         pas d'erreur
+          1247622092         pas d'erreur
+           337486262         pas d'erreur
+           363159930         pas d'erreur
+          1441716383         pas d'erreur
+          1244171025         pas d'erreur
+          1502463519         pas d'erreur
+          1823359180         pas d'erreur
+           568356773         pas d'erreur
+           157160838         pas d'erreur
+          1610979730         pas d'erreur
+           353474904         pas d'erreur
+          1660439618         pas d'erreur
+           931853948         pas d'erreur
+          1995702674         pas d'erreur
+           571846525         pas d'erreur
+           553029609         pas d'erreur
+           817391555         pas d'erreur
+          1640814042         pas d'erreur
+          1236634259         pas d'erreur
+           424988141         pas d'erreur
+          1499292696         pas d'erreur
+          1606251140         pas d'erreur
+          1921919877         pas d'erreur
+           821225635         pas d'erreur
+            38193238         pas d'erreur
+          1686783875         pas d'erreur
+          1785742194         pas d'erreur
+           278333844         pas d'erreur
+          2023078861         pas d'erreur
+           173205718         pas d'erreur
+          1667292174         pas d'erreur
+          1059344002         pas d'erreur
+          1380261400         pas d'erreur
+           756589547         pas d'erreur
+          1973792145         pas d'erreur
+           338314785         pas d'erreur
+          1314384011         pas d'erreur
+          1306624515         pas d'erreur
+           286245359         pas d'erreur
+           435546858         pas d'erreur
+           152364256         pas d'erreur
+          2068549816         pas d'erreur
+           424166539         pas d'erreur
+          1834458879         pas d'erreur
+          1737580193         pas d'erreur
+           129412465         pas d'erreur
+          1720494786         pas d'erreur
+           857306752         pas d'erreur
+          1407045001         pas d'erreur
+          1744412146         pas d'erreur
+            68372453         pas d'erreur
+          1862124136         pas d'erreur
+          1791793585         pas d'erreur
+          1266388312         pas d'erreur
+           489115893         pas d'erreur
+           879965255         pas d'erreur
+          1102730555         pas d'erreur
+          1704827493         pas d'erreur
+          1340040770         pas d'erreur
+          1383816528         pas d'erreur
+            55835221         pas d'erreur
+          1379382953         pas d'erreur
+           259181372         pas d'erreur
+           295741964         pas d'erreur
+          1165225319         pas d'erreur
+           175223346         pas d'erreur
+           216485981         pas d'erreur
+          1960657290         pas d'erreur
+Prob d'erreur du test Miller :             0.000000

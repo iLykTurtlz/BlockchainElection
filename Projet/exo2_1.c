@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 
 
@@ -16,14 +17,6 @@ int is_prime_naive(long p)	{
 	return 1;
 }
 
-long modpow_naive(long a, long m, long n)	{
-	/* retourne a^m mod n, complexite O(m) = O(2^(log2(m)))*/
-	long res=1;
-	for (long i=0; i<m; i++)	{
-		res = (res*a) % n;
-	}
-	return res;
-}
 
 long modpow(long a, long m, long n)	{
 	/* complexite O(log2(m))*/
@@ -82,46 +75,31 @@ int is_prime_miller(long p, int k)  {
     return 1;
 }
 
-int main(int argc, char **argv)	{
-    
-    if (argc != 3)  {
-        fprintf(stderr,"usage : %s <val_max_de_k> <nb_essais>\n",argv[0]);
-        exit(1);
-    }
-
-    long p,k;
-    int MAX_K = atoi(argv[1]);
-    int nb_essais = atoi(argv[2]);
-    int echecs=0;
-
-
-
-    //clock_t temps_fin, temps_init;
-
-    FILE *ostream = fopen("fiabiliteTestMillerRabin.txt","w");
-    if (!ostream)    {
-        fprintf(stderr,"Erreur a l'ouverture du fichier\n");
-        exit(1);
-    }
-
-    fprintf(ostream,"%20s %20s\n","p","erreur?");
-
- 
-    
-
-    for (long i=0; i<=nb_essais; i++) {
-        p = rand_long(2,2147483647);
-        k = rand_long(1,MAX_K);
-        if (is_prime_miller(p,k) != is_prime_naive(p))  {
-            fprintf(ostream,"%20ld %20s\n",p,"erreur");
-            echecs++;
-        } else {
-            fprintf(ostream,"%20ld %20s\n",p,"pas d'erreur");
+long random_prime_number(int min_size, int max_size, int k)  {
+    long p = pow(2,min_size);
+    long max_p = pow(2,(max_size+1));
+    while (p < max_p)   {
+        if (is_prime_miller(p,k))   {
+            return p;
         }
+        p++;
     }
-    fprintf(ostream,"Prob d'erreur du test Miller : ");
-    fprintf(ostream,"%20f\n",((double)(echecs))/((double)(nb_essais)));
+    return -1;  //cas d'echec
+}
 
-    fclose(ostream);
-    return 0;
+long extended_gcd(long s, long t, long *u, long *v) {
+    if (t==0)   {
+        *u = 1;
+        *v = 0;
+        return s;
+    }
+    long uPrim, vPrim;
+    long gcd = extended_gcd(t, s%t, &uPrim, &vPrim);
+    *u = vPrim;
+    *v = uPrim - (s/t)*vPrim;
+    return gcd;
+}
+
+void generate_key_values(long p, long q, long *n, long *s, long *u) {
+    
 }
