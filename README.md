@@ -1,7 +1,4 @@
-# ProjetStructureDeDonnees
-
-LU2IN006 - Rapport Projet 
-
+# LU2IN006 - Rapport Projet Structure de donnees
 
 Binôme : (Groupe Mono 2)
 
