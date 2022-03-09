@@ -7,7 +7,7 @@ Margaux Marseloo (Num Etudiant : 28630611)
 
 Description du sujet :
 
-Le but de ce Projet
+Le but de ce Projet est de ...à compléter
 
 PARTIE 1 : Implémentation d’outils de cryptographie
 
