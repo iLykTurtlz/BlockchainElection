@@ -3,28 +3,6 @@
 #include <time.h>
 #include "outilsMathematiques.h"
 
-long modpow_naive(long a, long m, long n)	{
-	/* retourne a^m mod n, complexite O(m) = O(2^(log2(m)))*/
-	long res=1;
-	for (long i=0; i<m; i++)	{
-		res = (res*a) % n;
-	}
-	return res;
-}
-
-long modpow(long a, long m, long n)	{
-	/* complexite O(log2(m))*/
-	long res = 1;
-	while (m > 0)	{
-		if (m % 2 == 1)	{
-			res = (res*a)%n;
-		}
-		a = (a*a) %n;
-		m = m/2;
-	}
-	return res;
-}
-
 
 
 int main(int argc, char **argv)	{
