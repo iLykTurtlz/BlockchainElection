@@ -47,7 +47,15 @@ long modpow_naive(long a, long m, long n)	{
 }
 
 long modpow(long a, long m, long n)	{
-	return 0;
+	p=1;
+	while (m>0){
+		if (m % 2 == 1) {
+			p = (p*a)%n;
+		}
+		a = (a*a)%n;
+		m = m//2;
+	}
+	return p
 }
 
 /*
