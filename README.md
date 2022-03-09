@@ -2,7 +2,8 @@
 
 Binôme : (Groupe Mono 2)
 
-Paul Jarski (Num Etudiant : ???) \n
+Paul Jarski (Num Etudiant : ???)
+et
 Margaux Marseloo (Num Etudiant : 28630611)
 
 Description du sujet :
