@@ -37,5 +37,7 @@ Fonction de tests
        
 
 PARTIE 3 : Manipulation d’une base centralisée de déclarations.
+
 PARTIE 4 : Implémentation d’un mécanisme de consensus.
+
 PARTIE 5 : Manipulation d’une base décentralisée de déclarations.
