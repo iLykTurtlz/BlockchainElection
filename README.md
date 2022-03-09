@@ -11,14 +11,14 @@ Le but de ce Projet
 
 PARTIE 1 : Implémentation d’outils de cryptographie
 
-    1. Résolution du problème de primalité
+    1 - Résolution du problème de primalité
        
 Implémentation d’un test de primalité par une méthode naé
 Exponentiation modulaire rapide
 Test de Miller-Rabin
 Génération de nombres premiers
 
-    2. Implémentation du protocole RSA
+    2 - Implémentation du protocole RSA
 
 Génération d’une paire (clé publique, clé secrète)
 Chiffrement et déchiffrement de messages
@@ -26,14 +26,14 @@ Fonction de tests
 
 PARTIE 2 : Création d’un système de déclarations sécurisés par chiffrement asymétrique.
 
-    1. Manipulations de structures sécurisées
+    1 - Manipulations de structures sécurisées
 
 Manipulation de clés
 Signature
 Déclarations signées
 Fonction de tests
 
-    2. Création de données pour simuler le processus de vote
+    2 - Création de données pour simuler le processus de vote
        
 
 PARTIE 3 : Manipulation d’une base centralisée de déclarations.
