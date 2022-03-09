@@ -1,16 +1,23 @@
 CC = gcc
 CFLAGS = -Wall
 
-all : exo1_1-2 exo1_3-5
+all : comparaisonExponentiationModulaire generationClef generationNbPremier testMillerRabin
 
-exo1_1-2 :
-	$(CC) $(CFLAGS) -o exo1_1-2 exo1_1-2.c
+comparaisonExponentiationModulaire : comparaisonExponentiationModulaire.c outilsMathematiques.o outilsMathematiques.h
+	$(CC) $(CFLAGS) -o comparaisonExponentiationModulaire outilsMathematiques.o comparaisonExponentiationModulaire.c
 
-exo1_3-5 : 
-	$(CC) $(CFLAGS) -o exo1_3-5 exo1_3-5.c
+generationNbPremier : generationNbPremier.c outilsMathematiques.o testMillerRabin.o	generationNbPremier.h outilsMathematiques.h testMillerRabin.h
+	$(CC) $(CFLAGS) -o generationNbPremier generationNbPremier.c outilsMathematiques.o testMillerRabin.o
 
-exo1_6-7 :
-	$(CC) $(CFLAGS) -o exo1_6-7 exo1_6-7.c
+outilsMathematiques.o : outilsMathematiques.c outilsMathematiques.h
+	$(CC) $(CFLAGS) -c outilsMathematiques.c
 
+testMillerRabin.o : testMillerRabin.c outilsMathematiques.h outilsMathematiques.o
+	$(CC) $(CFLAGS) -c testMillerRabin.c outilsMathematiques.o
+
+generationClef.o : generationClef.c outilsMathematiques.h outilsMathematiques.o testMillerRabin.o generationNbPremier.o generationNbPremier.h
+	$(CC) $(CFLAGS) -c generationClef.c outilsMathematiques.o testMillerRabin.o generationNbPremier.o 
+
+ 
 clean :
-	rm -rf exo1_1-2 exo1_3-5 exo1_6-7
+	rm -rf *.o

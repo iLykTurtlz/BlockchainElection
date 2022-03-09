@@ -48,6 +48,8 @@ int is_prime_miller(long p, int k)  {
     return 1;
 }
 
+/*
+
 int main(int argc, char **argv)	{
     
     if (argc != 3)  {
@@ -77,8 +79,10 @@ int main(int argc, char **argv)	{
 
     for (long i=0; i<=nb_essais; i++) {
         p = rand_long(2,2147483647);
-        k = rand_long(1,MAX_K);
-        if (is_prime_miller(p,k) != is_prime_naive(p))  {
+        k = 1; //rand_long(1,MAX_K);
+        int pm = is_prime_miller(p,k);
+        printf("is_prime_miller(%ld, %ld) = %d\n",p,k,pm);
+        if (pm != is_prime_naive(p))  {
             fprintf(ostream,"%20ld %20s\n",p,"erreur");
             echecs++;
         } else {
@@ -91,3 +95,5 @@ int main(int argc, char **argv)	{
     fclose(ostream);
     return 0;
 }
+
+*/
