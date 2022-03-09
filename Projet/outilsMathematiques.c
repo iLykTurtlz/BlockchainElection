@@ -50,10 +50,12 @@ long modpow(long a, long m, long n)	{
 	return 0;
 }
 
+/*
 int main()	{
 	printf("%d\n",is_prime_naive(219000233));
 	printf("%ld est le plus grand nombre premier qu'on peut tester en %d secondes\n",greatest_prime_under(2.),2);
 
 	return 0; 
 }
+*/
  
