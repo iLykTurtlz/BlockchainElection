@@ -20,6 +20,7 @@ long random_prime_number(int min_size, int max_size, int k)  {
     return -1;  //cas d'echec
 }
 
+/*
 int main(int argc, char **argv)	{
     
     if (argc != 4)  {
@@ -41,3 +42,5 @@ int main(int argc, char **argv)	{
 
     return 0;
 }
+
+*/

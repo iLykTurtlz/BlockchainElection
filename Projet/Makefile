@@ -18,6 +18,11 @@ testMillerRabin.o : testMillerRabin.c outilsMathematiques.h outilsMathematiques.
 generationClef.o : generationClef.c outilsMathematiques.h outilsMathematiques.o testMillerRabin.o generationNbPremier.o generationNbPremier.h
 	$(CC) $(CFLAGS) -c generationClef.c outilsMathematiques.o testMillerRabin.o generationNbPremier.o 
 
+test : test.c generationClef.o outilsMathematiques.h outilsMathematiques.o testMillerRabin.o generationNbPremier.o generationNbPremier.h
+	$(CC) $(CFLAGS) -o test test.c generationClef.o testMillerRabin.o outilsMathematiques.o generationNbPremier.o
  
+rsa.o : rsa.c rsa.h generationClef.o outilsMathematiques.h outilsMathematiques.o testMillerRabin.o generationNbPremier.o generationNbPremier.h
+	$(CC) $(CFLAGS) -c rsa.c generationClef.o testMillerRabin.o outilsMathematiques.o generationNbPremier.o
+
 clean :
 	rm -rf *.o
