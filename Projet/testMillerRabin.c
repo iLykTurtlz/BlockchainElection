@@ -1,42 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "outilsMathematiques.h"
+#include "testMillerRabin.h"
 
-
-
-int is_prime_naive(long p)	{
-	/* Hyp : p impair.  Complexité O(p) n=log2p (le nb de bits pour stocker p), donc complexite O(2^n)*/
-	if (p<2)	{
-		return 0;
-	}
-	for (long i=3; i<p; i++)	{
-		if (p%i == 0){
-			return 0;
-		}
-	}
-	return 1;
-}
-
-long modpow_naive(long a, long m, long n)	{
-	/* retourne a^m mod n, complexite O(m) = O(2^(log2(m)))*/
-	long res=1;
-	for (long i=0; i<m; i++)	{
-		res = (res*a) % n;
-	}
-	return res;
-}
-
-long modpow(long a, long m, long n)	{
-	/* complexite O(log2(m))*/
-	long res = 1;
-	while (m > 0)	{
-		if (m % 2 == 1)	{
-			res = (res*a)%n;
-		}
-		a = (a*a) %n;
-		m = m/2;
-	}
-	return res;
-}
 
 int witness(long a, long b, long d, long p) {
     long x = modpow(a,d,p);
