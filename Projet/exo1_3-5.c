@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "outilsMathematiques.h"
 
 long modpow_naive(long a, long m, long n)	{
 	/* retourne a^m mod n, complexite O(m) = O(2^(log2(m)))*/
