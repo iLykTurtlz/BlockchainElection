@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <time.h>
+#include "outilsMathematiques.h"
 
 int is_prime_naive(long p)	{
 	/* Hyp : p impair.  Complexité O(p) n=log2p (le nb de bits pour stocker p), donc complexite O(2^n)*/
