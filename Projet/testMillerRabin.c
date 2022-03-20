@@ -18,8 +18,8 @@ int witness(long a, long b, long d, long p) {
     return 1;
 }
 
-long rand_long(long low, long up)  {
-    return rand() % (up - low + 1) + low;
+long rand_long(long low, long high)  {
+    return rand() % (high - low + 1) + low;
 }
 
 int is_prime_miller(long p, int k)  {

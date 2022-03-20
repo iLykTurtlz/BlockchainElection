@@ -25,4 +25,4 @@ rsa.o : rsa.c rsa.h generationClef.o outilsMathematiques.h outilsMathematiques.o
 	$(CC) $(CFLAGS) -c rsa.c generationClef.o testMillerRabin.o outilsMathematiques.o generationNbPremier.o
 
 clean :
-	rm -rf *.o
+	rm -rf *.o test generationNbPremier comparaisonExponentiationModulaire
