@@ -12,7 +12,7 @@ CellKey *create_cell_key(Key *key)  {
     return new;
 }
 
-void *add_key(CellKey **LCK, Key *key)    {
+void add_key(CellKey **LCK, Key *key)    {
     if (!key)    
         return;
     CellKey *ck = create_cell_key(key);

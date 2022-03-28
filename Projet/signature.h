@@ -1,6 +1,8 @@
 #ifndef SIGNATURE_H
 #define SIGNATURE_H
 
+#include "manipulationClefs.h"
+
 typedef struct signature {
     long *content;
     int size;

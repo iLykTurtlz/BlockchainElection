@@ -9,7 +9,7 @@ typedef struct cellKey {
 } CellKey;
 
 CellKey *create_cell_key(Key *key);
-void *add_key(CellKey **LCK, Key *key);
+void add_key(CellKey **LCK, Key *key);
 CellKey *read_public_keys(char *filename);
 void print_list_keys(CellKey *LCK);
 void delete_cell_key(CellKey *c);

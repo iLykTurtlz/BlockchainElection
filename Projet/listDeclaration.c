@@ -3,6 +3,7 @@
 #include <string.h>
 #include "declaration.h"
 #include "listDeclaration.h"
+#include "manipulationClefs.h"
 
 
 
@@ -13,7 +14,7 @@ CellProtected *create_cell_protected(Protected *pr)  {
     return new;
 }
 
-void *add_protected(CellProtected **LCP, Protected *pr)    {
+void add_protected(CellProtected **LCP, Protected *pr)    {
     if (!pr)    
         return;
     CellProtected *cp = create_cell_protected(pr);
@@ -29,10 +30,10 @@ CellProtected *read_protected(char *filename)   {
     }
     CellProtected *LCP = NULL;
     char buffer[256];
-    char lu[256];
     while (fgets(buffer,256,istream))   {
         Protected *pr = str_to_protected(buffer);
         add_protected(&LCP,pr);
+        free(pr);
     }
     return LCP;
 }

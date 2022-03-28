@@ -45,6 +45,7 @@ void generate_random_data(int nv, int nc) {
             keys[nbKeys++] = *private;
             fprintf(keyFile,"%20s %20s\n",publicString,privateString);
         }
+        fprintf(stderr,"loop\n");
     }
     fclose(keyFile);
 
