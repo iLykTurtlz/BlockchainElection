@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall
 
-all : comparaisonExponentiationModulaire generationClef generationNbPremier testMillerRabin test
+all : comparaisonExponentiationModulaire testDeclaration test
 
 comparaisonExponentiationModulaire : comparaisonExponentiationModulaire.c outilsMathematiques.o outilsMathematiques.h
 	$(CC) $(CFLAGS) -o comparaisonExponentiationModulaire outilsMathematiques.o comparaisonExponentiationModulaire.c
@@ -27,8 +27,17 @@ rsa.o : rsa.c rsa.h generationClef.o outilsMathematiques.h outilsMathematiques.o
 manipulationClefs.o : manipulationClefs.c outilsMathematiques.o generationClef.o generationNbPremier.o testMillerRabin.o rsa.o outilsMathematiques.h generationClef.h generationNbPremier.h testMillerRabin.h rsa.h manipulationClefs.h	
 	$(CC) $(CFLAGS) -c manipulationClefs.c outilsMathematiques.o generationClef.o generationNbPremier.o testMillerRabin.o rsa.o 	
 
-signature.o : signature.c outilsMathematiques.o generationClef.o generationNbPremier.o testMillerRabin.o rsa.o outilsMathematiques.h generationClef.h generationNbPremier.h testMillerRabin.h rsa.h manipulationClefs.h	signature.h
+signature.o : signature.c outilsMathematiques.o generationClef.o generationNbPremier.o testMillerRabin.o rsa.o outilsMathematiques.h generationClef.h generationNbPremier.h testMillerRabin.h rsa.h manipulationClefs.o manipulationClefs.h	signature.h
 	$(CC) $(CFLAGS) -c signature.c manipulationClefs.o outilsMathematiques.o generationClef.o generationNbPremier.o testMillerRabin.o rsa.o 	
 
+declaration.o : signature.c signature.h manipulationClefs.c manipulationClefs.h declaration.c declaration.h
+	$(CC) $(CFLAGS) -c declaration.c signature.c manipulationClefs.c
+
+testDeclaration : signature.c outilsMathematiques.o generationClef.o generationNbPremier.o testMillerRabin.o rsa.o outilsMathematiques.h generationClef.h generationNbPremier.h testMillerRabin.h rsa.h manipulationClefs.h	signature.o signature.h rsa.o rsa.h generationClef.o generationClef.h outilsMathematiques.o outilsMathematiques.h generationNbPremier.o generationNbPremier.h declaration.o declaration.h manipulationClefs.o manipulationClefs.h
+	$(CC) $(CFLAGS) -o testDeclaration testDeclaration.c manipulationClefs.o signature.o testMillerRabin.o declaration.o rsa.o generationClef.o outilsMathematiques.o generationNbPremier.o
+
+donneesVote.o : donneesVote.c donneesVote.h manipulationClefs.o manipulationClefs.h declaration.o declaration.h signature.o signature.h
+	$(CC) $(CFLAGS) -c donneesVote.c manipulationClefs.o declaration.o signature.o
+
 clean :
-	rm -rf *.o test generationNbPremier comparaisonExponentiationModulaire
+	rm -rf *.o test generationNbPremier comparaisonExponentiationModulaire 
