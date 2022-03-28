@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "outilsMathematiques.h"
-#include "generationNbPremier.h"
-#include "generationClef.h"
-#include "testMillerRabin.h"
+//#include "outilsMathematiques.h"
+//#include "generationNbPremier.h"
+//#include "generationClef.h"
+//#include "testMillerRabin.h"
 
 
 long extended_gcd(long s, long t, long *u, long *v) {
@@ -31,7 +31,7 @@ void generate_key_values(long p, long q, long *n, long *s, long *u) {
         pgcd = extended_gcd(*s,t,u,&v);
     }    
     long test = (*s)*(*u) + t*v;
-    if ( test != 1)   {
+    if ( test != 1 )   {
         fprintf(stderr,"Erreur generate_key_values : %ld\n",test);
     }
 }
