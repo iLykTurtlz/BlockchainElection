@@ -18,58 +18,84 @@ void generate_random_data(int nv, int nc) {
         return;
     }
     
-    fprintf(keyFile, "%20s %20s\n","cle publique","cle privee");
+    fprintf(keyFile, "%-20s %-20s\n","cle publique","cle privee");
+    
+    
     //Generation de nv couples cles.
-    Key keys[2*nv];
-
-
-    Key *public = (Key *)malloc(sizeof(Key));
-    Key *private = (Key *)malloc(sizeof(Key));
-    char publicString[256];
-    char privateString[256]; 
-
-    int nbKeys = 0;
-    int i, unique;
-    while (nbKeys < nv)  {
+    
+    Key *pKeys[nv];
+    Key *sKeys[nv];
+    int unique;
+    int i = 0;  
+    while (i < nv)  {
+        printf("i = %d, nv = %d\n",i,nv);
         unique = 1;
+        Key *public = (Key *)malloc(sizeof(Key));
+        Key *private = (Key *)malloc(sizeof(Key));
         init_pair_keys(public, private, 3, 7);
-        strcpy(publicString, key_to_str(public));
-        strcpy(privateString, key_to_str(private));
-        for (i=0; i<nbKeys && unique; i++)    {
-            if (strcmp(publicString, key_to_str(&keys[i])) || strcmp(privateString, key_to_str(&keys[i])))    {
+        char *publicString = key_to_str(public);
+        char *privateString = key_to_str(private);
+
+/*
+        printf("avant boucle for\n");
+
+        
+        for (int j=0; j<i; j++) {
+
+            char *pk = key_to_str(pKeys[j]);
+            char *sk = key_to_str(sKeys[j]);
+            if ( strcmp(publicString,pk) || strcmp(privateString, sk) )   {
+                printf("modification unique\n");
                 unique = 0;
+                break;
             }
+            free(pk);
+            free(sk);
         }
+        printf("fin boucle for\n");
+        */
         if (unique) {
-            keys[nbKeys++] = *public;
-            keys[nbKeys++] = *private;
-            fprintf(keyFile,"%20s %20s\n",publicString,privateString);
+            pKeys[i] = public;
+            sKeys[i] = private;
+            //ecriture dans keys.txt
+            fprintf(keyFile,"%-20s %-20s\n",publicString,privateString);
+            printf("i++\n");
+            i++;
         }
-        fprintf(stderr,"loop\n");
+
+        free(publicString);
+        free(privateString);
     }
     fclose(keyFile);
 
     //Generation fichier candidats, candidates.txt
-    Key candidateKeys[nc];
+    Key *candidateKeys[nc];
     srand(time(NULL));
 
     int indice;
     for (int j=0; j<nc; j++)    {
-        indice = (rand() % nv)*2;
-        candidateKeys[j] = keys[indice];
-        fprintf(candidateFile,"%s\n",key_to_str(&candidateKeys[j]));
+        indice = rand() % nv;
+        candidateKeys[j] = pKeys[indice];
+        fprintf(candidateFile,"%s\n",key_to_str(candidateKeys[j]));
     }
     fclose(candidateFile);
 
     //Generation de declarations de vote aleatoires, declarations.txt
-    char mess[256];
     for (int k=0; k<nv; k++)    {
         Protected *pr;
         indice = rand() % nc;
-        strcpy(mess,key_to_str(&candidateKeys[indice]));
-        pr = init_protected(&keys[2*k], mess, sign(mess,&keys[2*k+1]));
-        fprintf(declarationFile,"%s\n",protected_to_str(pr));
-        free(pr);
+        char *mess = key_to_str(candidateKeys[indice]);
+        pr = init_protected(pKeys[k], mess, sign(mess,sKeys[k]));
+        char *prString = protected_to_str(pr);
+        fprintf(declarationFile,"%s\n",prString);
+        free(prString);
+        free(mess);
+        free(pr->mess);
+        free(pr->sgn);
+    }
+    for (int l=0; l<nv; l++)    {
+        free(pKeys[l]);
+        free(sKeys[l]);
     }
     fclose(declarationFile);
     return;

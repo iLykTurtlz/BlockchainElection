@@ -31,8 +31,8 @@ char *protected_to_str(Protected *pr)    {
     char buffer[256];
     char *sgn = signature_to_str(pr->sgn);
     sprintf(buffer,"%s %s %s",keyStr, pr->mess, sgn);
-    free(sgn);
-    free(keyStr);
+    //free(sgn);
+    //free(keyStr);
     res = strdup(buffer);
     return res;
 }

@@ -21,25 +21,25 @@ int main()  {
 
     /*tests de generationClef.c*/
 
-    /*
-    long p,q,n,s,u;
-    int k = 20;
-    p = random_prime_number(30,32,k);
-    q = random_prime_number(30,32,k);
-    if (p == -1)    {
-        fprintf(stderr,"erreur : p non premier\n");
-    }
-     if (q == -1)    {
-        fprintf(stderr,"erreur : q non premier\n");
-    }
+    for (int i=0; i<100; i++)   {
+        long p,q,n,s,u;
+        int k = 5000;
+        p = random_prime_number(3,7,k);
+        q = random_prime_number(3,7,k);
+        if (p == -1)    {
+            fprintf(stderr,"erreur : p non premier\n");
+        }
+        if (q == -1)    {
+            fprintf(stderr,"erreur : q non premier\n");
+        }
 
-    generate_key_values(p,q,&n,&s,&u);
-    printf("Clef publique : (s,n) = (%ld,%ld), clef privée : (u,n) = (%ld,%ld)\n",s,n,u,n);
-    */
+        generate_key_values(p,q,&n,&s,&u);
+        printf("Clef publique : (s,n) = (%ld,%ld), clef privée : (u,n) = (%ld,%ld)\n",s,n,u,n);
+    }
 
 
     /*tests de rsa.c*/
-
+/*
     srand(time(NULL));
     //Generation de cle :
     long p = random_prime_number(3,7,5000);
@@ -75,6 +75,8 @@ int main()  {
     //Free
     free(decoded);
     free(encrypted);
+
+    */
 
     return 0; 
 

@@ -65,6 +65,10 @@ Signature *str_to_signature(char *str)  {
     return init_signature(content, num);
 }
 
+void freeSignature(Signature *s)    {
+    free(s->content);
+    free(s);
+}
 
 
 

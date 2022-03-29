@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "listDeclaration.h"
 #include "listKey.h"
 #include "donneesVote.h"
@@ -18,19 +19,25 @@
 
 
 int main(void)  {
-    generate_random_data(10,2);
+    srand(time(NULL));
+    generate_random_data(5,3);
 
 
-/*
+
+
+
     //lire les cles publiques des candidats et de tout le monde
     CellKey *candidates = read_public_keys("candidates.txt");
     CellKey *publicKeys = read_public_keys("keys.txt");
+
+    
 
     //afficher ces clefs
     printf("Cles publiques des candidats :\n");
     print_list_keys(candidates);
     printf("Cles publiques de tout le monde:\n");
     print_list_keys(publicKeys);
+
 
     //lire les declarations de vote
     CellProtected *votes = read_protected("declarations.txt");
@@ -43,19 +50,6 @@ int main(void)  {
     thwarted(&votes);
     printf("Declarations de vote apres verification :\n");
     print_list_protected(votes);
-
-    //faire du hacking : creer et rajouter des votes non-autorisees
-    //Protected *fraudulentVote = init_protected(votes->pKey,votes->mess,)
-
-
-
-
-*/
-    
-
-     
-    
-
     
 
     return 0;
