@@ -33,7 +33,6 @@ CellProtected *read_protected(char *filename)   {
     while (fgets(buffer,256,istream))   {
         Protected *pr = str_to_protected(buffer);
         add_protected(&LCP,pr);
-        free(pr);
     }
     return LCP;
 }

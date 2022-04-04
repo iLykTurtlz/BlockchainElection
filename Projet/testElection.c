@@ -51,6 +51,8 @@ int main(void)  {
     printf("Declarations de vote apres verification :\n");
     print_list_protected(votes);
   
-
+    delete_list_protected(votes);
+    delete_list_keys(candidates);
+    delete_list_keys(publicKeys);
     return 0;
 }
