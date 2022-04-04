@@ -1,7 +1,7 @@
 CC = gcc
-CFLAGS = -Wall
+CFLAGS = -Wall -ggdb
 
-all : comparaisonExponentiationModulaire testDeclaration testRSA testElection
+all : comparaisonExponentiationModulaire testDeclaration testRSA testElection testWinner
 
 comparaisonExponentiationModulaire : comparaisonExponentiationModulaire.c outilsMathematiques.o outilsMathematiques.h
 	$(CC) $(CFLAGS) -o comparaisonExponentiationModulaire outilsMathematiques.o comparaisonExponentiationModulaire.c
@@ -45,6 +45,11 @@ listDeclaration.o : listDeclaration.c listDeclaration.h declaration.o declaratio
 testElection : testElection.c listDeclaration.o listDeclaration.h listKey.o listKey.h donneesVote.o donneesVote.h winner.o winner.h manipulationClefs.o manipulationClefs.h generationClef.o generationClef.h signature.o signature.h declaration.o declaration.h rsa.o rsa.h outilsMathematiques.o outilsMathematiques.h testMillerRabin.o testMillerRabin.h generationNbPremier.o generationNbPremier.h
 	$(CC) $(CFLAGS) -o testElection testElection.c listDeclaration.o listKey.o donneesVote.o winner.o manipulationClefs.o generationClef.o signature.o declaration.o rsa.o outilsMathematiques.o testMillerRabin.o generationNbPremier.o
 
+winner.o : winner.c winner.h listKey.o listKey.h listDeclaration.o listDeclaration.h
+	$(CC) $(CFLAGS) -c winner.c
+
+testWinner :  testWinner.c winner.o winner.h listKey.o listKey.h listDeclaration.o listDeclaration.h manipulationClefs.o manipulationClefs.h donneesVote.o donneesVote.h generationClef.o generationClef.h signature.o signature.h declaration.o declaration.h rsa.o rsa.h outilsMathematiques.o outilsMathematiques.h testMillerRabin.o testMillerRabin.h generationNbPremier.o generationNbPremier.h
+	$(CC) $(CFLAGS) -o testWinner testWinner.c listDeclaration.o listKey.o donneesVote.o winner.o manipulationClefs.o generationClef.o signature.o declaration.o rsa.o outilsMathematiques.o testMillerRabin.o generationNbPremier.o
 
 clean :
-	rm -rf *.o testRSA generationNbPremier comparaisonExponentiationModulaire 
+	rm -rf *.o comparaisonExponentiationModulaire testDeclaration testRSA testElection testWinner

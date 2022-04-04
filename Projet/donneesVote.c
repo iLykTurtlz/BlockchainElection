@@ -18,7 +18,6 @@ void generate_random_data(int nv, int nc) {
         return;
     }
     
-    fprintf(keyFile, "%-20s %-20s\n","cle publique","cle privee");
     
     
     //Generation de nv couples cles.
@@ -37,7 +36,7 @@ void generate_random_data(int nv, int nc) {
         pKeys[i] = public;
         sKeys[i] = private;
         //ecriture dans keys.txt
-        fprintf(keyFile,"%-20s %-20s\n",publicString,privateString);
+        fprintf(keyFile,"%s %s\n",publicString,privateString);
         
         free(publicString);
         free(privateString);

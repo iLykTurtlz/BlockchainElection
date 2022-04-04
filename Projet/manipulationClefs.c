@@ -3,6 +3,7 @@
 #include <math.h>
 #include <time.h>
 #include <string.h>
+#include <assert.h>
 #include "outilsMathematiques.h"
 #include "generationNbPremier.h"
 #include "generationClef.h"
@@ -16,6 +17,7 @@ void init_key(Key *key, long val, long n)   {
 }
 
 void init_pair_keys(Key *pKey, Key *sKey, long min_size, long max_size)   {
+    assert(pKey != NULL && sKey != NULL);
     long p = random_prime_number(min_size, max_size,5000);
     long q = random_prime_number(min_size, max_size,5000);
     while (p==q)    {

@@ -19,12 +19,10 @@
 
 
 int main(void)  {
+    int nbCandidates = 3, nbElecteurs = 10;
+
     srand(time(NULL));
-    generate_random_data(10,3);
-
-
-
-
+    generate_random_data(nbElecteurs, nbCandidates);
 
     //lire les cles publiques des candidats et de tout le monde
     CellKey *candidates = read_public_keys("candidates.txt");
@@ -51,8 +49,19 @@ int main(void)  {
     printf("Declarations de vote apres verification :\n");
     print_list_protected(votes);
   
+    //determination du gagnant
+    Key *gagnant = compute_winner(votes, candidates, publicKeys, nbCandidates*2, nbElecteurs*2);
+
+    char *g = key_to_str(gagnant);
+    printf("%s a gagne\n",g);
+
+
+    free(g);
     delete_list_protected(votes);
     delete_list_keys(candidates);
     delete_list_keys(publicKeys);
+
+
+
     return 0;
 }
