@@ -25,62 +25,58 @@ void generate_random_data(int nv, int nc) {
     
     Key *pKeys[nv];
     Key *sKeys[nv];
-    int unique;
+
     int i = 0;  
     while (i < nv)  {
-        printf("i = %d, nv = %d\n",i,nv);
-        unique = 1;
         Key *public = (Key *)malloc(sizeof(Key));
         Key *private = (Key *)malloc(sizeof(Key));
         init_pair_keys(public, private, 3, 7);
         char *publicString = key_to_str(public);
         char *privateString = key_to_str(private);
 
-/*
-        printf("avant boucle for\n");
-
+        pKeys[i] = public;
+        sKeys[i] = private;
+        //ecriture dans keys.txt
+        fprintf(keyFile,"%-20s %-20s\n",publicString,privateString);
         
-        for (int j=0; j<i; j++) {
-
-            char *pk = key_to_str(pKeys[j]);
-            char *sk = key_to_str(sKeys[j]);
-            if ( strcmp(publicString,pk) || strcmp(privateString, sk) )   {
-                printf("modification unique\n");
-                unique = 0;
-                break;
-            }
-            free(pk);
-            free(sk);
-        }
-        printf("fin boucle for\n");
-        */
-        if (unique) {
-            pKeys[i] = public;
-            sKeys[i] = private;
-            //ecriture dans keys.txt
-            fprintf(keyFile,"%-20s %-20s\n",publicString,privateString);
-            printf("i++\n");
-            i++;
-        }
-
         free(publicString);
         free(privateString);
+        i++;
     }
     fclose(keyFile);
 
     //Generation fichier candidats, candidates.txt
     Key *candidateKeys[nc];
-    srand(time(NULL));
 
-    int indice;
-    for (int j=0; j<nc; j++)    {
-        indice = rand() % nv;
-        candidateKeys[j] = pKeys[indice];
-        fprintf(candidateFile,"%s\n",key_to_str(candidateKeys[j]));
+    int cIndices[nc];
+    for (int i=0; i<nc; i++)    {
+        cIndices[i] = -1;
     }
+    int j=0, indice, unique;
+    while (j<nc)    {
+        unique = 1;
+        indice = rand() % nv;
+        for (int k=0; k<=j; k++) {
+            
+            if (cIndices[k] == indice)  {
+                unique = 0;
+                break;
+            }
+        }
+        
+        if (unique == 1) {
+            candidateKeys[j] = pKeys[indice];
+            cIndices[j] = indice;
+            fprintf(candidateFile,"%s\n",key_to_str(candidateKeys[j]));
+            j++;
+        }
+    }
+    
     fclose(candidateFile);
+    
 
     //Generation de declarations de vote aleatoires, declarations.txt
+    
     for (int k=0; k<nv; k++)    {
         Protected *pr;
         indice = rand() % nc;
@@ -97,7 +93,9 @@ void generate_random_data(int nv, int nc) {
         free(pKeys[l]);
         free(sKeys[l]);
     }
+    
     fclose(declarationFile);
+
     return;
 }
 

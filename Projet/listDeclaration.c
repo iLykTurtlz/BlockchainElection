@@ -40,6 +40,7 @@ CellProtected *read_protected(char *filename)   {
 
 void print_list_protected(CellProtected *LCP)  {
     while (LCP) {
+        //new var str
         printf("%s\n",protected_to_str(LCP->data));
         LCP = LCP->next;
     }

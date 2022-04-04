@@ -47,7 +47,7 @@ Protected *str_to_protected(char *str)   {
         //free(str);
         //exit(1);
         return NULL;
-    }
+    } 
     Key *pKey = str_to_key(keyStr);
     Signature *signature = str_to_signature(sgn);
     return init_protected(pKey,mess,signature);

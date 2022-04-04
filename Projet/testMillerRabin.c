@@ -3,7 +3,7 @@
 #include <time.h>
 #include "outilsMathematiques.h"
 #include "testMillerRabin.h"
-//#include "generationNbPremier.h"
+
 
 
 int witness(long a, long b, long d, long p) {

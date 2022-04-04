@@ -20,7 +20,7 @@
 
 int main(void)  {
     srand(time(NULL));
-    generate_random_data(5,3);
+    generate_random_data(10,3);
 
 
 
@@ -50,7 +50,7 @@ int main(void)  {
     thwarted(&votes);
     printf("Declarations de vote apres verification :\n");
     print_list_protected(votes);
-    
+  
 
     return 0;
 }
