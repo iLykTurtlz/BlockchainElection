@@ -46,12 +46,8 @@ int hash_function(Key *key, int size)   {
 int find_position(HashTable *t, Key *key)   {
     assert(key != NULL);
     int indice = hash_function(key, t->size);
-<<<<<<< Updated upstream
-    //fprintf(stderr,"indice = %d\n", indice);
-=======
     fprintf(stderr,"indice = %d\n", indice);
     assert(indice >= 0);
->>>>>>> Stashed changes
     
     int i=0;
     while(i < t->size)    {
@@ -118,11 +114,8 @@ Key *compute_winner(CellProtected *decl, CellKey *candidates, CellKey *voters, i
     //parcours des declarations
     int posV, posC;
     while (decl)    {
-<<<<<<< Updated upstream
-=======
         fprintf(stderr,"tour %d\n", i);
         printf("tour %d\n",i);
->>>>>>> Stashed changes
         posV = find_position(hv, decl->data->pKey); 
         if (hv->tab[posV] != NULL)   {
             if (hv->tab[posV]->val == 0) {            //il n'a jamais vote
@@ -135,12 +128,9 @@ Key *compute_winner(CellProtected *decl, CellKey *candidates, CellKey *voters, i
                 }
             }   
         }
-<<<<<<< Updated upstream
-=======
         fprintf(stderr,"fin tour %d\n",i);
         printf("fin tour %d\n",i);
         i++;
->>>>>>> Stashed changes
         decl = decl->next;
     }
 
