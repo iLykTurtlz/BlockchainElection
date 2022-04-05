@@ -45,16 +45,12 @@ int main(void)  {
     print_list_protected(votes);
 
     //verifier qu'il n'y ait pas eu de hacking
-    //thwarted(&votes);
+    thwarted(&votes);
     printf("Declarations de vote apres verification :\n");
     print_list_protected(votes);
   
     //determination du gagnant
-    printf("Début compute_winner\n");
     Key *gagnant = compute_winner(votes, candidates, publicKeys, nbCandidates*2, nbElecteurs*2);
-    printf("Fin compute_winner\n");
-
-    printf("gagnant : (%ld,%ld)\n", gagnant->m, gagnant->n);
 
     char *g = key_to_str(gagnant);
     printf("%s a gagne\n",g);

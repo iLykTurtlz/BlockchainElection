@@ -125,21 +125,19 @@ Key *compute_winner(CellProtected *decl, CellKey *candidates, CellKey *voters, i
     //afficher_tableH(hc);
 
     HashCell *gagnant = NULL;
-    int pos_gagnant = -1;
     int val_gagnant = -1;
     for (int i=0; i<hc->size; i++)  {
         if (hc->tab[i] != NULL){
             if (val_gagnant < hc->tab[i]->val) {
                 gagnant = hc->tab[i];
                 val_gagnant = hc->tab[i]->val;
-                pos_gagnant = i;
             }
         }
     }
     if (gagnant == NULL){
         fprintf(stderr,"Erreur : compute_winner : gagnant null");
     }
-    
+
     Key *g = gagnant->key;
     delete_hashtable(hc);
     delete_hashtable(hv);
