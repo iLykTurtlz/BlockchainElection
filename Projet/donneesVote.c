@@ -37,6 +37,7 @@ void generate_random_data(int nv, int nc) {
         sKeys[i] = private;
         //ecriture dans keys.txt
         fprintf(keyFile,"%s %s\n",publicString,privateString);
+        fprintf(stderr,"%lx %lx\n", public->m, public->n);
         
         free(publicString);
         free(privateString);

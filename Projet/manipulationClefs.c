@@ -28,7 +28,9 @@ void init_pair_keys(Key *pKey, Key *sKey, long min_size, long max_size)   {
 
     //Pour avoir des cles positives : 
     if (u<0) {
+        
         long t = (p-1)*(q-1);
+        u = u % t;
         u = u+t; //on aura toujours s*u mod t = 1
     }
 

@@ -46,12 +46,22 @@ int hash_function(Key *key, int size)   {
 int find_position(HashTable *t, Key *key)   {
     assert(key != NULL);
     int indice = hash_function(key, t->size);
+<<<<<<< Updated upstream
     //fprintf(stderr,"indice = %d\n", indice);
+=======
+    fprintf(stderr,"indice = %d\n", indice);
+    assert(indice >= 0);
+>>>>>>> Stashed changes
     
     int i=0;
     while(i < t->size)    {
         assert(((indice + i) % t->size) >= 0);
         if (t->tab[(indice + i) % t->size] != NULL) {
+            assert(((indice + i) % t->size) >= 0);
+            assert(t->tab[(indice + i) % t->size] != NULL);
+            assert(t->tab[(indice + i) % t->size]->key != NULL);
+            assert(key != NULL);
+
             if (  (t->tab[(indice + i) % t->size]->key->m == key->m) && (t->tab[(indice + i) % t->size]->key->n == key->n)  ) {
                 return (indice + i) % t->size;
             } 
@@ -99,12 +109,20 @@ Key *compute_winner(CellProtected *decl, CellKey *candidates, CellKey *voters, i
     //TO DO
 
     //creation des deux tables de hachage
+
     HashTable *hc = create_hashtable(candidates,sizeC);
     HashTable *hv = create_hashtable(voters, sizeV);
+
+    fprintf(stderr,"hash tables created\n");
     
     //parcours des declarations
     int posV, posC;
     while (decl)    {
+<<<<<<< Updated upstream
+=======
+        fprintf(stderr,"tour %d\n", i);
+        printf("tour %d\n",i);
+>>>>>>> Stashed changes
         posV = find_position(hv, decl->data->pKey); 
         if (hv->tab[posV] != NULL)   {
             if (hv->tab[posV]->val == 0) {            //il n'a jamais vote
@@ -117,6 +135,12 @@ Key *compute_winner(CellProtected *decl, CellKey *candidates, CellKey *voters, i
                 }
             }   
         }
+<<<<<<< Updated upstream
+=======
+        fprintf(stderr,"fin tour %d\n",i);
+        printf("fin tour %d\n",i);
+        i++;
+>>>>>>> Stashed changes
         decl = decl->next;
     }
 

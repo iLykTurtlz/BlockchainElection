@@ -1,7 +1,11 @@
 CC = gcc 
 CFLAGS = -Wall
 
+<<<<<<< Updated upstream
 all : comparaisonExponentiationModulaire testDeclaration testRSA testElection testWinner 
+=======
+all : comparaisonExponentiationModulaire testDeclaration testRSA testElection testWinner
+>>>>>>> Stashed changes
 
 comparaisonExponentiationModulaire : comparaisonExponentiationModulaire.c outilsMathematiques.o outilsMathematiques.h
 	$(CC) $(CFLAGS) -o comparaisonExponentiationModulaire outilsMathematiques.o comparaisonExponentiationModulaire.c
@@ -53,6 +57,9 @@ testWinner :  testWinner.c winner.o winner.h listKey.o listKey.h listDeclaration
 
 testOpenSSL : testOpenSSL.c
 	$(CC) $(CFLAGS) -lssl -lcrypto -o testOpenSSL testOpenSSL.c
+
+testGenerationClefs : testGenerationClefs.c manipulationClefs.o manipulationClefs.h generationClef.o generationClef.h
+	$(CC) $(CFLAGS) -o testGenerationClefs testGenerationClefs.c manipulationClefs.o generationClef.o
 
 clean :
 	rm -rf *.o comparaisonExponentiationModulaire testDeclaration testRSA testElection testWinner testOpenSSL
