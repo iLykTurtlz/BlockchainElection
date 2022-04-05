@@ -1,11 +1,9 @@
 CC = gcc 
 CFLAGS = -Wall
 
-<<<<<<< Updated upstream
-all : comparaisonExponentiationModulaire testDeclaration testRSA testElection testWinner 
-=======
+
 all : comparaisonExponentiationModulaire testDeclaration testRSA testElection testWinner
->>>>>>> Stashed changes
+
 
 comparaisonExponentiationModulaire : comparaisonExponentiationModulaire.c outilsMathematiques.o outilsMathematiques.h
 	$(CC) $(CFLAGS) -o comparaisonExponentiationModulaire outilsMathematiques.o comparaisonExponentiationModulaire.c
