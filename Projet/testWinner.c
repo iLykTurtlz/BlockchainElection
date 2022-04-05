@@ -22,8 +22,6 @@ int main()  {
     /*
     HashTable *t = create_hashtable(NULL, 10);
     afficher_tableH(t);
-
-
     delete_hashtable(t);
     */
 
@@ -35,6 +33,7 @@ int main()  {
 
     CellKey *candidates = read_public_keys("candidates.txt");
     CellKey *publicKeys = read_public_keys("keys.txt");
+    CellProtected *votes = read_protected("declarations.txt");
 
     /*
     CellKey *tmp = candidates;
@@ -47,15 +46,17 @@ int main()  {
     }
     */
     HashTable *t2 = create_hashtable(candidates, 2*nbCandidates);
-    //afficher_tableH(t2);
-
     HashTable *t3 = create_hashtable(publicKeys, 2*nbElecteurs);
+    printf("Tables crées\n");
+    //afficher_tableH(t2);
     //afficher_tableH(t3);
 
+    compute_winner(votes, candidates, publicKeys, nbCandidates*2, nbElecteurs*2);
+
+    printf("FIN COMPUTE_WINNER\n");
+
+
     delete_hashtable(t3);
-
-
-
     delete_hashtable(t2);
     delete_list_keys(candidates);
     delete_list_keys(publicKeys);

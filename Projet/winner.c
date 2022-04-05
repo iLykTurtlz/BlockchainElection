@@ -39,15 +39,14 @@ HashCell *create_hashcell(Key *key) {
 
 int hash_function(Key *key, int size)   {
     double A = (sqrt(5)-1)/2;
-    int k = (int)key->m + (int)key->n;                 //???c'est quoi la clé???? a verifier!
+    int k = ((int)key->m) + ((int)key->n);                
     return abs((int)(size*(k*A-(int)(k*A))));
 }
 
 int find_position(HashTable *t, Key *key)   {
     assert(key != NULL);
     int indice = hash_function(key, t->size);
-    fprintf("indice = %d\n", indice);
-    assert(indice >= 0);
+    //fprintf(stderr,"indice = %d\n", indice);
     
     int i=0;
     while(i < t->size)    {
@@ -61,6 +60,7 @@ int find_position(HashTable *t, Key *key)   {
         }
         i++;
     }
+    fprintf(stderr,"Erreur : find_position : pas de position trouvee\n");
     return -1;  //indication d'erreur
 }
 
@@ -102,45 +102,48 @@ Key *compute_winner(CellProtected *decl, CellKey *candidates, CellKey *voters, i
     HashTable *hc = create_hashtable(candidates,sizeC);
     HashTable *hv = create_hashtable(voters, sizeV);
     
-    
     //parcours des declarations
-    int i=0; //TEST
     int posV, posC;
     while (decl)    {
-        fprintf(stderr,"tour %d\n", i);
         posV = find_position(hv, decl->data->pKey); 
-        fprintf(stderr,"posV = %d\n",posV);
         if (hv->tab[posV] != NULL)   {
-            fprintf(stderr,"val = %d\n", hv->tab[posV]->val);
             if (hv->tab[posV]->val == 0) {            //il n'a jamais vote
                 Key *keyC = str_to_key(decl->data->mess);
                 posC = find_position(hc,keyC);
                 if(hc->tab[posC] != NULL)   {
                     hv->tab[posV]->val = 1;
-                    hc->tab[posC]->val++;
+                    hc->tab[posC]->val = hc->tab[posC]->val + 1;                 
+
                 }
             }   
         }
-        fprintf(stderr,"fin tour %d\n",i++);
         decl = decl->next;
     }
 
-    //determination du gagnant
+    //determination du gagnant    //ET SI DEUX CANDIDATS SONT EX AEQUO ???
 
-    //ET SI DEUX CANDIDATS SONT EX AEQUO ???
+    //afficher_tableH(hc);
 
-    //Autre question : #include dans le header??? winner.h
-
-    HashCell *gagnant = hc->tab[0];
-    for (int i=1; i<hc->size; i++)  {
-        if (gagnant->val < hc->tab[i]->val) {
-            gagnant = hc->tab[i];
+    HashCell *gagnant = NULL;
+    int pos_gagnant = -1;
+    int val_gagnant = -1;
+    for (int i=0; i<hc->size; i++)  {
+        if (hc->tab[i] != NULL){
+            if (val_gagnant < hc->tab[i]->val) {
+                gagnant = hc->tab[i];
+                val_gagnant = hc->tab[i]->val;
+                pos_gagnant = i;
+            }
         }
     }
-
+    if (gagnant == NULL){
+        fprintf(stderr,"Erreur : compute_winner : gagnant null");
+    }
+    
+    Key *g = gagnant->key;
     delete_hashtable(hc);
     delete_hashtable(hv);
-    return NULL;//gagnant->key;
+    return g;
 }
 
 

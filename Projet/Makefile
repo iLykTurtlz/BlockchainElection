@@ -1,7 +1,7 @@
-CC = gcc
+CC = gcc 
 CFLAGS = -Wall
 
-all : comparaisonExponentiationModulaire testDeclaration testRSA testElection testWinner testOpenSSL
+all : comparaisonExponentiationModulaire testDeclaration testRSA testElection testWinner 
 
 comparaisonExponentiationModulaire : comparaisonExponentiationModulaire.c outilsMathematiques.o outilsMathematiques.h
 	$(CC) $(CFLAGS) -o comparaisonExponentiationModulaire outilsMathematiques.o comparaisonExponentiationModulaire.c
@@ -19,7 +19,7 @@ generationClef.o : generationClef.c generationClef.h outilsMathematiques.h outil
 	$(CC) $(CFLAGS) -c generationClef.c
 
 testRSA : testRSA.c generationClef.o outilsMathematiques.h outilsMathematiques.o testMillerRabin.o generationNbPremier.o generationNbPremier.h rsa.o rsa.h
-	$(CC) $(CFLAGS) -o testRSA testRSA.c generationClef.o testMillerRabin.o outilsMathematiques.o generationNbPremier.o rsa.o
+	$(CC) $(CFLAGS) -o testRSA testRSA.c generationClef.o testMillerRabin.o outilsMathematiques.o generationNbPremier.o rsa.o -lm
  
 rsa.o : rsa.c rsa.h generationClef.o outilsMathematiques.h outilsMathematiques.o testMillerRabin.o generationNbPremier.o generationNbPremier.h
 	$(CC) $(CFLAGS) -c rsa.c 
@@ -34,7 +34,7 @@ declaration.o : signature.c signature.h manipulationClefs.c manipulationClefs.h 
 	$(CC) $(CFLAGS) -c declaration.c 
 
 testDeclaration : signature.c outilsMathematiques.o generationClef.o generationNbPremier.o testMillerRabin.o rsa.o outilsMathematiques.h generationClef.h generationNbPremier.h testMillerRabin.h rsa.h signature.o signature.h rsa.o rsa.h generationClef.o generationClef.h outilsMathematiques.o outilsMathematiques.h generationNbPremier.o generationNbPremier.h declaration.o declaration.h manipulationClefs.o manipulationClefs.h
-	$(CC) $(CFLAGS) -o testDeclaration testDeclaration.c manipulationClefs.o signature.o testMillerRabin.o declaration.o rsa.o generationClef.o outilsMathematiques.o generationNbPremier.o
+	$(CC) $(CFLAGS) -o testDeclaration testDeclaration.c manipulationClefs.o signature.o testMillerRabin.o declaration.o rsa.o generationClef.o outilsMathematiques.o generationNbPremier.o -lm
 
 donneesVote.o : donneesVote.c donneesVote.h manipulationClefs.o manipulationClefs.h declaration.o declaration.h signature.o signature.h
 	$(CC) $(CFLAGS) -c donneesVote.c 
@@ -43,13 +43,13 @@ listDeclaration.o : listDeclaration.c listDeclaration.h declaration.o declaratio
 	$(CC) $(CFLAGS) -c listDeclaration.c
 	
 testElection : testElection.c listDeclaration.o listDeclaration.h listKey.o listKey.h donneesVote.o donneesVote.h winner.o winner.h manipulationClefs.o manipulationClefs.h generationClef.o generationClef.h signature.o signature.h declaration.o declaration.h rsa.o rsa.h outilsMathematiques.o outilsMathematiques.h testMillerRabin.o testMillerRabin.h generationNbPremier.o generationNbPremier.h
-	$(CC) $(CFLAGS) -o testElection testElection.c listDeclaration.o listKey.o donneesVote.o winner.o manipulationClefs.o generationClef.o signature.o declaration.o rsa.o outilsMathematiques.o testMillerRabin.o generationNbPremier.o
+	$(CC) $(CFLAGS) -o testElection testElection.c listDeclaration.o listKey.o donneesVote.o winner.o manipulationClefs.o generationClef.o signature.o declaration.o rsa.o outilsMathematiques.o testMillerRabin.o generationNbPremier.o -lm
 
 winner.o : winner.c winner.h listKey.o listKey.h listDeclaration.o listDeclaration.h
 	$(CC) $(CFLAGS) -c winner.c
 
 testWinner :  testWinner.c winner.o winner.h listKey.o listKey.h listDeclaration.o listDeclaration.h manipulationClefs.o manipulationClefs.h donneesVote.o donneesVote.h generationClef.o generationClef.h signature.o signature.h declaration.o declaration.h rsa.o rsa.h outilsMathematiques.o outilsMathematiques.h testMillerRabin.o testMillerRabin.h generationNbPremier.o generationNbPremier.h
-	$(CC) $(CFLAGS) -o testWinner testWinner.c listDeclaration.o listKey.o donneesVote.o winner.o manipulationClefs.o generationClef.o signature.o declaration.o rsa.o outilsMathematiques.o testMillerRabin.o generationNbPremier.o
+	$(CC) $(CFLAGS) -o testWinner testWinner.c listDeclaration.o listKey.o donneesVote.o winner.o manipulationClefs.o generationClef.o signature.o declaration.o rsa.o outilsMathematiques.o testMillerRabin.o generationNbPremier.o -lm
 
 testOpenSSL : testOpenSSL.c
 	$(CC) $(CFLAGS) -lssl -lcrypto -o testOpenSSL testOpenSSL.c
