@@ -1,7 +1,7 @@
 CC = gcc
-CFLAGS = -Wall -ggdb
+CFLAGS = -Wall
 
-all : comparaisonExponentiationModulaire testDeclaration testRSA testElection testWinner
+all : comparaisonExponentiationModulaire testDeclaration testRSA testElection testWinner testOpenSSL
 
 comparaisonExponentiationModulaire : comparaisonExponentiationModulaire.c outilsMathematiques.o outilsMathematiques.h
 	$(CC) $(CFLAGS) -o comparaisonExponentiationModulaire outilsMathematiques.o comparaisonExponentiationModulaire.c
@@ -51,5 +51,8 @@ winner.o : winner.c winner.h listKey.o listKey.h listDeclaration.o listDeclarati
 testWinner :  testWinner.c winner.o winner.h listKey.o listKey.h listDeclaration.o listDeclaration.h manipulationClefs.o manipulationClefs.h donneesVote.o donneesVote.h generationClef.o generationClef.h signature.o signature.h declaration.o declaration.h rsa.o rsa.h outilsMathematiques.o outilsMathematiques.h testMillerRabin.o testMillerRabin.h generationNbPremier.o generationNbPremier.h
 	$(CC) $(CFLAGS) -o testWinner testWinner.c listDeclaration.o listKey.o donneesVote.o winner.o manipulationClefs.o generationClef.o signature.o declaration.o rsa.o outilsMathematiques.o testMillerRabin.o generationNbPremier.o
 
+testOpenSSL : testOpenSSL.c
+	$(CC) $(CFLAGS) -lssl -lcrypto -o testOpenSSL testOpenSSL.c
+
 clean :
-	rm -rf *.o comparaisonExponentiationModulaire testDeclaration testRSA testElection testWinner
+	rm -rf *.o comparaisonExponentiationModulaire testDeclaration testRSA testElection testWinner testOpenSSL

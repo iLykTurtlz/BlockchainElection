@@ -51,12 +51,13 @@ int main(void)  {
   
     //determination du gagnant
     Key *gagnant = compute_winner(votes, candidates, publicKeys, nbCandidates*2, nbElecteurs*2);
-
+    
     char *g = key_to_str(gagnant);
     printf("%s a gagne\n",g);
 
 
     free(g);
+    
     delete_list_protected(votes);
     delete_list_keys(candidates);
     delete_list_keys(publicKeys);

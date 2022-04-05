@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "outilsmathematiques.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "manipulationclefs.h": "c",
+        "listdeclaration.h": "c"
     }
 }

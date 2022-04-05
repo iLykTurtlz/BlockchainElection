@@ -40,10 +40,14 @@ CellProtected *read_protected(char *filename)   {
 void print_list_protected(CellProtected *LCP)  {
     while (LCP) {
         //new var str
-        printf("%s\n",protected_to_str(LCP->data));
+        char *str = protected_to_str(LCP->data);
+        printf("%s\n",str);
         LCP = LCP->next;
+        free(str);
     }
 }
+
+
 
 void delete_cell_protected(CellProtected *c)    {
     free(c->data);

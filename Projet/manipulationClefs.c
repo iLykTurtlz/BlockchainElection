@@ -21,7 +21,7 @@ void init_pair_keys(Key *pKey, Key *sKey, long min_size, long max_size)   {
     long p = random_prime_number(min_size, max_size,5000);
     long q = random_prime_number(min_size, max_size,5000);
     while (p==q)    {
-        q = random_prime_number(3,7,5000);
+        q = random_prime_number(min_size,max_size,5000);
     }
     long n,s,u;
     generate_key_values(p,q,&n,&s,&u);
@@ -34,6 +34,7 @@ void init_pair_keys(Key *pKey, Key *sKey, long min_size, long max_size)   {
 
     init_key(pKey, s, n);
     init_key(sKey, u, n);
+    
 
 }
 

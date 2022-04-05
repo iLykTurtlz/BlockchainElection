@@ -40,14 +40,18 @@ HashCell *create_hashcell(Key *key) {
 int hash_function(Key *key, int size)   {
     double A = (sqrt(5)-1)/2;
     int k = (int)key->m + (int)key->n;                 //???c'est quoi la clé???? a verifier!
-    return (int)(size*(k*A-(int)(k*A)));
+    return abs((int)(size*(k*A-(int)(k*A))));
 }
 
 int find_position(HashTable *t, Key *key)   {
     assert(key != NULL);
     int indice = hash_function(key, t->size);
+    fprintf("indice = %d\n", indice);
+    assert(indice >= 0);
+    
     int i=0;
     while(i < t->size)    {
+        assert(((indice + i) % t->size) >= 0);
         if (t->tab[(indice + i) % t->size] != NULL) {
             if (  (t->tab[(indice + i) % t->size]->key->m == key->m) && (t->tab[(indice + i) % t->size]->key->n == key->n)  ) {
                 return (indice + i) % t->size;
@@ -94,14 +98,9 @@ Key *compute_winner(CellProtected *decl, CellKey *candidates, CellKey *voters, i
 
     //TO DO
 
-    fprintf(stderr, "debut creation des tables de hachage\n");
     //creation des deux tables de hachage
     HashTable *hc = create_hashtable(candidates,sizeC);
-    fprintf(stderr,"1 table sur 2\n");
-    afficher_tableH(hc);
     HashTable *hv = create_hashtable(voters, sizeV);
-    fprintf(stderr, "fin creation des tables de hachage\n");
-    afficher_tableH(hv);
     
     
     //parcours des declarations
@@ -138,7 +137,6 @@ Key *compute_winner(CellProtected *decl, CellKey *candidates, CellKey *voters, i
             gagnant = hc->tab[i];
         }
     }
-
 
     delete_hashtable(hc);
     delete_hashtable(hv);
