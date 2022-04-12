@@ -32,7 +32,6 @@ int main()  {
         if (q == -1)    {
             fprintf(stderr,"erreur : q non premier\n");
         }
-
         generate_key_values(p,q,&n,&s,&u);
         printf("Clef publique : (s,n) = (%ld,%ld), clef privée : (u,n) = (%ld,%ld)\n",s,n,u,n);
     }

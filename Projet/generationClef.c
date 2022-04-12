@@ -21,6 +21,19 @@ long extended_gcd(long s, long t, long *u, long *v) {
 }
 
 void generate_key_values(long p, long q, long *n, long *s, long *u) {
+    
+    *n = p * q;
+    long t = (p-1) * (q-1);
+    long v;
+    *s = rand_long(0,t);
+    while (extended_gcd( *s, t, u, &v ) != 1)   {
+        *s = rand_long(0,t);
+    }
+    
+    
+    
+
+    /*
     long t = (p-1)*(q-1);
     fprintf(stderr,"(p-1) = %ld \t (q-1) = %ld \t (p-1)*(q-1) = %ld\n",p-1,q-1,t);
     *n = p*q;
@@ -42,6 +55,8 @@ void generate_key_values(long p, long q, long *n, long *s, long *u) {
     if ( test != 1 )   {
         fprintf(stderr,"Erreur generate_key_values : %ld\n",test);
     }
+    */
+    
 }
 
 

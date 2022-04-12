@@ -8,7 +8,7 @@
 
 
 
-Block *creerBlock(Key *author, CellProtected *votes, unsigned char hash, unsigned char previous_hash, int nonce)  {
+Block *creerBlock(Key *author, CellProtected *votes, unsigned char *hash, unsigned char *previous_hash, int nonce)  {
     // hyp: author a deja ete alloue
     Block *new = (Block *)malloc(sizeof(Block));
     new->author = author;
@@ -22,11 +22,11 @@ Block *creerBlock(Key *author, CellProtected *votes, unsigned char hash, unsigne
 void enregistrerBlock(char *filename, Block *block)    {
     FILE *ostream = fopen(filename,"w");
     if (ostream == NULL)    {
-        fprintf("Erreur a l'ouverture du fichier %s en ecriture\n", filename);
+        fprintf(stderr,"Erreur a l'ouverture du fichier %s en ecriture\n", filename);
         return;
     }
     char *author = key_to_str(block->author);
-    fprintf(ostream,"%s %hhu %hhu %d\n",block->author, block->hash, block->previous_hash, block->nonce);
+    fprintf(ostream,"%s %s %s %d\n",author, block->hash, block->previous_hash, block->nonce);
     CellProtected *voteList = block->votes;
     while (voteList) {
         char *str = protected_to_str(voteList->data);
@@ -41,14 +41,14 @@ void enregistrerBlock(char *filename, Block *block)    {
 Block *lireBlock(char *filename)    {
     FILE *istream = fopen(filename,"r");
     if (istream == NULL)    {
-        fprintf("Erreur a l'ouverture du fichier %s en lecture\n", filename);
-        return;
+        fprintf(stderr, "Erreur a l'ouverture du fichier %s en lecture\n", filename);
+        return NULL;
     }
 
     char buffer[256];
     char authorStr[256];
-    unsigned char hash;
-    unsigned char previous_hash;
+    unsigned char hash[32];
+    unsigned char previous_hash[32];
     int nonce;
 
     //Lecture de la premiere ligne
@@ -58,7 +58,7 @@ Block *lireBlock(char *filename)    {
         return NULL;
     } else {
 
-        if ( sscanf(buffer,"%s %hhu %hhu %d\n",authorStr,&hash,&previous_hash,&nonce) != 4)   {
+        if ( sscanf(buffer,"%s %s %s %d\n",authorStr,hash,previous_hash,&nonce) != 4)   {
             fprintf(stderr, "Erreur de formatage de la premiere ligne du fichier\n");
             fclose(istream);
             return NULL;
@@ -75,17 +75,17 @@ Block *lireBlock(char *filename)    {
 }
 
 char *block_to_str(Block *block)    {
-    char *res;
-    char buffer[512];
+    //on prend un buffer assez grand pour tout stocker
+    char buffer[4096];
     buffer[0] = '\0';
-    char previous_hash[8];
-    char nonce[8];
+    char previous_hash[32];
+    char nonce[32];
 
     //on obtient les informations et les concatene au buffer
     char *author = key_to_str(block->author);
     strcat(buffer,author);
 
-    sprintf(previous_hash, " %hhu ", block->previous_hash);
+    sprintf(previous_hash, " %s ", block->previous_hash);
     strcat(buffer,previous_hash);
 
     CellProtected *votes = block->votes;

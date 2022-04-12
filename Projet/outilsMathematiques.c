@@ -49,7 +49,7 @@ long modpow_naive(long a, long m, long n)	{
 
 long modpow(long a, long m, long n)	{
 	/* complexite O(log2(m))*/
-	long res = 1;
+	unsigned long res = 1;
 	while (m > 0)	{
 		if (m % 2 == 1)	{
 			res = (res*a)%n;
