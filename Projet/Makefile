@@ -57,7 +57,7 @@ testWinner :  testWinner.c winner.o winner.h listKey.o listKey.h listDeclaration
 	$(CC) $(CFLAGS) -o testWinner testWinner.c listDeclaration.o listKey.o donneesVote.o winner.o manipulationClefs.o generationClef.o signature.o declaration.o rsa.o outilsMathematiques.o testMillerRabin.o generationNbPremier.o -lm
 
 testOpenSSL : testOpenSSL.c
-	$(CC) $(CFLAGS) -lssl -lcrypto -o testOpenSSL testOpenSSL.c
+	$(CC) $(CFLAGS) -o testOpenSSL testOpenSSL.c -lssl -lcrypto
 
 testGenerationClefs : testGenerationClefs.c manipulationClefs.o manipulationClefs.h generationClef.o generationClef.h
 	$(CC) $(CFLAGS) -o testGenerationClefs testGenerationClefs.c manipulationClefs.o generationClef.o

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <openssl/sha.h>
 #include "listDeclaration.h"
 #include "manipulationClefs.h"
 #include "blockchain.h"
@@ -103,6 +104,8 @@ char *block_to_str(Block *block)    {
     free(author);
     return strdup(buffer);
 }
+
+unsigned char* hash_function_block(const char* str){unsigned char *
 
 
 
