@@ -105,8 +105,33 @@ char *block_to_str(Block *block)    {
     return strdup(buffer);
 }
 
-unsigned char* hash_function_block(const char* str){unsigned char *
+unsigned char* hash_function_block(const char* str, int nonce){
+    return SHA256( (const unsigned char*)str,strlen(str), nonce);
+}
 
+int count_zeros(unsigned char* str){
+    if (str == NULL){
+        fprintf(stderr,"count_zero : str null");
+        return -1;
+    }
+    int nbZeros = 0;
+    while (str[nbZeros]!='\0' && str[nbZeros]=='0'){
+        nbZeros++;
+    }
+    return nbZeros;
+}
+
+void compute_proof_of_work(Block *B, int d){
+    B->nonce = 0;
+
+    char *str = block_to_str(B);
+    unsigned char* hash = hash_function_block((const char*) str, (unsigned char *) B->nonce);
+    while ( count_zeros(hash) < d ){
+        B->nonce ++;
+        hash = hash_function_block((const char*) str, B->nonce);
+    }
+    B->hash = hash;
+}
 
 
 

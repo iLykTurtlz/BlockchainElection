@@ -3,6 +3,7 @@
 
 #include "listDeclaration.h"
 #include "manipulationClefs.h"
+#include <openssl/sha.h>
 
 
 typedef struct block    {
@@ -17,6 +18,9 @@ Block *creerBlock(Key *author, CellProtected *votes, unsigned char *hash, unsign
 void enregistrerBlock(char *filename, Block *block);
 Block *lireBlock(char *filename);
 char *block_to_str(Block *block);
+unsigned char* hash_function_block(const char* str, int nonce);
+int count_zeros(unsigned char* str);
+void compute_proof_of_work(Block *B, int d);
 
 
 #endif

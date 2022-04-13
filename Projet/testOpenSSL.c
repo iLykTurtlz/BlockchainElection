@@ -13,16 +13,13 @@ int main()  {
         printf("%02x",d[i]);
     }
     putchar('\n');
-    free(d);
 
     //fonction test de blockchain
-    unsigned char *res = hash_function_block(s);
-    int i;
+    unsigned char *res = hash_function_block(s,0);
     for (i=0; i<SHA256_DIGEST_LENGTH; i++)  {
         printf("%02x",res[i]);
     }
     putchar('\n');
-    free(res);
 
     return 0;
 }
