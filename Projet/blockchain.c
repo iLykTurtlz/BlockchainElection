@@ -27,6 +27,8 @@ void enregistrerBlock(char *filename, Block *block)    {
         return;
     }
     char *author = key_to_str(block->author);
+    
+    //on écrit dans le fichier ostream les données du block
     fprintf(ostream,"%s %s %s %d\n",author, block->hash, block->previous_hash, block->nonce);
     CellProtected *voteList = block->votes;
     while (voteList) {
@@ -45,7 +47,6 @@ Block *lireBlock(char *filename)    {
         fprintf(stderr, "Erreur a l'ouverture du fichier %s en lecture\n", filename);
         return NULL;
     }
-
     char buffer[256];
     char authorStr[256];
     unsigned char hash[32];
@@ -58,7 +59,6 @@ Block *lireBlock(char *filename)    {
         fclose(istream);
         return NULL;
     } else {
-
         if ( sscanf(buffer,"%s %s %s %d\n",authorStr,hash,previous_hash,&nonce) != 4)   {
             fprintf(stderr, "Erreur de formatage de la premiere ligne du fichier\n");
             fclose(istream);
@@ -102,11 +102,20 @@ char *block_to_str(Block *block)    {
     strcat(buffer,nonce);
 
     free(author);
+    //on alloue avant de renvoyer avec strdup
     return strdup(buffer);
 }
 
 unsigned char* hash_function_block(const char* str){
-    return SHA256( (const unsigned char*)str,strlen(str), 0);
+    char *res = (char*)malloc(2*SHA256_DIGEST_LENGTH+1);
+    unsigned char* d = SHA256( (const unsigned char*)str,strlen(str), 0);
+    res[0]='\0';
+    //on transforme la chaine en écriture héxadécimal
+    for (int i=0; i<SHA256_DIGEST_LENGTH; i++){
+        sprintf(res,"%s%02x",res,d[i]);
+
+    }
+    return (unsigned char *)res;
 }
 
 int count_zeros(unsigned char* str){
@@ -115,7 +124,9 @@ int count_zeros(unsigned char* str){
         return -1;
     }
     int nbZeros = 0;
-    while (str[nbZeros]!='\0' && str[nbZeros]=='0'){
+    int taille_str = strlen((const char*) str);
+    //on compte le nombre de zéro d'affilé en tête de str
+    while ( (nbZeros<taille_str) && (str[nbZeros]=='0') ){
         nbZeros++;
     }
     return nbZeros;
@@ -125,12 +136,14 @@ void compute_proof_of_work(Block *B, int d){
     B->nonce = 0;
     char *str = block_to_str(B);
     unsigned char* hash = hash_function_block((const char*) str);
-    while ( count_zeros(hash) < d ){
+
+    //tant qu'il n'y a pas d zéros en tête de hash, on incrémente nonce et on recalcule hash
+    while (count_zeros(hash) < d ){
         free(str);
         B->nonce ++;
         str = block_to_str(B);
         hash = hash_function_block((const char*) str);
-    }
+        }
     B->hash = hash;
 }
 
@@ -142,4 +155,3 @@ int verify_block(Block *B, int d)	{
     free(str);
     return res;
 }
-
