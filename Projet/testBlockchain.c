@@ -20,7 +20,7 @@ int main()  {
     unsigned char c2[4] = "100";
 
     //on cree juste un bloc avec le premier CellKey
-    Block *b = creerBlock(publicKeys->data, votes, c1,c2);
+    Block *b = creerBlock(publicKeys->data, votes, c1,c2,0);
 
 
     char *strBlock = block_to_str(b);
@@ -28,13 +28,14 @@ int main()  {
     printf("\n%s\n",strBlock);
     free(strBlock);
 
-    int nbZero = 3;
+    int nbZero = 10;
     printf("\nAffichage de hash avant compute_proof_of_work : %s\n", b-> hash);
     compute_proof_of_work(b,nbZero);
     printf("\nAffichage de hash après compute_proof_of_work (avec nb zero = %d): %s\n", nbZero, b-> hash);
     printf("\nAffichage du block après compute_proof_of_work : \n");
     strBlock = block_to_str(b);
     printf("\n%s\n",strBlock);
+    printf("\n"); 
 
     free(strBlock);
     free(b);
