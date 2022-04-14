@@ -129,11 +129,17 @@ void compute_proof_of_work(Block *B, int d){
         free(str);
         B->nonce ++;
         str = block_to_str(B);
-        hash = hash_function_block((const char*) str, B->nonce);
+        hash = hash_function_block((const char*) str);
     }
     B->hash = hash;
 }
 
-
-
+int verify_block(Block *B, int d)	{
+    // Verifie que le nombre de zeros au debut du block hashe est egal a d
+    char *str = block_to_str(B);
+    unsigned char *hashed = hash_function_block(str);
+    int res = count_zeros(hashed) == d;
+    free(str);
+    return res;
+}
 

@@ -15,7 +15,7 @@ int main()  {
     putchar('\n');
 
     //fonction test de blockchain
-    unsigned char *res = hash_function_block(s,0);
+    unsigned char *res = hash_function_block(s);
     for (i=0; i<SHA256_DIGEST_LENGTH; i++)  {
         printf("%02x",res[i]);
     }
