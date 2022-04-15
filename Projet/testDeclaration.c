@@ -35,6 +35,8 @@ int main(void)  {
     printf("key_to_str: %s \n", chaine);
     Key *k = str_to_key(chaine);
     printf("str_to_key: %lx, %lx \n", k->m, k->n);
+    free(chaine);
+    free(k);
 
     //Testing signature
     //Candidate keys:
@@ -44,15 +46,21 @@ int main(void)  {
 
     //Declaration:
     char *mess = key_to_str(pKeyC);
-    printf("%s vote pour %s\n", key_to_str(pKey), mess);
+    chaine = key_to_str(pKey);
+    printf("%s vote pour %s\n", chaine, mess);
+    free(chaine);
+
     Signature *sgn = sign(mess, sKey);
     printf("signature: ");
     print_long_vector(sgn->content, sgn->size);
     chaine = signature_to_str(sgn);
+    freeSignature(sgn);
+
     printf("signature_to_str: %s\n", chaine);
     sgn = str_to_signature(chaine);
     printf("str_to_signature: ");
     print_long_vector(sgn->content, sgn->size);
+    free(chaine);
 
     //Testing protected:
     Protected *pr = init_protected(pKey, mess, sgn);
@@ -64,12 +72,23 @@ int main(void)  {
     }
     chaine = protected_to_str(pr);
     printf("protected_to_str: %s\n", chaine);
+    freeSignature(sgn);
+    free(mess);
+    free(pr);
+
     pr = str_to_protected(chaine);
     printf("str_to_protected: %s %s %s\n", key_to_str(pr->pKey), pr->mess, signature_to_str(pr->sgn));
 
+    free(chaine);
+
+    free(pr->pKey);
+    free(pr->mess);
+    freeSignature(pr->sgn);
+    
     free(pKey);
     free(sKey);
     free(pKeyC);
     free(sKeyC);
+    free(pr);
     return 0;
 }

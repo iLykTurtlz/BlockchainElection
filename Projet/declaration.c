@@ -15,7 +15,8 @@
 Protected *init_protected(Key *pKey, char *mess, Signature *sgn)    {
     Protected *res = (Protected *)malloc(sizeof(Protected));
     res->pKey = pKey;
-    res->mess = strdup(mess);
+    //res->mess = strdup(mess);
+    res->mess = mess;
     res->sgn = sgn;
     return res;
 }
@@ -44,14 +45,13 @@ Protected *str_to_protected(char *str)   {
     char sgn[256];
     if (sscanf(str, "%s %s %s", keyStr, mess, sgn) != 3)   {
         fprintf(stderr, "Erreur de lecture : str_to_protected\n");
-        //free(str);
-        //exit(1);
         return NULL;
     } 
     Key *pKey = str_to_key(keyStr);
     Signature *signature = str_to_signature(sgn);
     return init_protected(pKey,mess,signature);
 }
+
 
 
 
