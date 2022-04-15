@@ -28,7 +28,7 @@ int main()  {
     printf("\n%s\n",strBlock);
     free(strBlock);
 
-    int nbZero = 10;
+    int nbZero = 3;
     printf("\nAffichage de hash avant compute_proof_of_work : %s\n", b-> hash);
     compute_proof_of_work(b,nbZero);
     printf("\nAffichage de hash après compute_proof_of_work (avec nb zero = %d): %s\n", nbZero, b-> hash);

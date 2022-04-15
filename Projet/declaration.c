@@ -15,15 +15,16 @@
 Protected *init_protected(Key *pKey, char *mess, Signature *sgn)    {
     Protected *res = (Protected *)malloc(sizeof(Protected));
     res->pKey = pKey;
-    //res->mess = strdup(mess);
-    res->mess = mess;
+    res->mess = strdup(mess);
     res->sgn = sgn;
     return res;
 }
 
 int verify(Protected *pr)   {
     char *mess = decrypt(pr->sgn->content,pr->sgn->size,pr->pKey->m, pr->pKey->n);
-    return !strcmp(mess,pr->mess);
+    int res = !strcmp(mess,pr->mess);
+    free(mess);
+    return res;
 }
 
 char *protected_to_str(Protected *pr)    {

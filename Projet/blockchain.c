@@ -12,10 +12,24 @@
 Block *creerBlock(Key *author, CellProtected *votes, unsigned char *hash, unsigned char *previous_hash, int nonce)  {
     // hyp: author a deja ete alloue
     Block *new = (Block *)malloc(sizeof(Block));
+
+    //On s'assure de la bonne copie des hash en tant que unsigned char et pas char
+    unsigned char *h = (unsigned char *)malloc((strlen(hash)+1)*sizeof(unsigned char));
+    unsigned char *ph = (unsigned char *)malloc((strlen(previous_hash)+1)*sizeof(unsigned char));
+    int i;
+    for (i=0; i< strlen(hash); i++)	{
+        h[i] = hash[i];
+    }
+    h[i] = (unsigned char *)'\0';
+    for (i=0; i< strlen(previous_hash); i++)     {
+        ph[i] = previous_hash[i];
+    }
+    ph[i] = (unsigned char *)'\0';
+
     new->author = author;
     new->votes = votes;
-    new->hash = hash;
-    new->previous_hash = previous_hash;
+    new->hash = h;
+    new->previous_hash = ph;
     new->nonce = nonce;
     return new;
 }
@@ -154,4 +168,20 @@ int verify_block(Block *B, int d)	{
     int res = count_zeros(hashed) == d;
     free(str);
     return res;
+}
+
+void delete_block(Block *B)	{
+    if (!B)	{
+        fprintf(stderr,"Error: delete_block, block null\n");
+        return;
+    }
+    free(hash);
+    free(previous_hash);
+    CellProtected *curr = B->votes;
+    CellProtected *tmp = NULL;
+    while (curr) {
+        tmp = curr;
+        free(tmp);
+        curr = curr->next;
+    }
 }

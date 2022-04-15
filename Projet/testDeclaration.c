@@ -64,6 +64,7 @@ int main(void)  {
 
     //Testing protected:
     Protected *pr = init_protected(pKey, mess, sgn);
+    free(mess);
     //Verification:
     if (verify(pr)) {
         printf("Signature valide\n");
@@ -73,22 +74,28 @@ int main(void)  {
     chaine = protected_to_str(pr);
     printf("protected_to_str: %s\n", chaine);
     freeSignature(sgn);
-    free(mess);
+    free(pr->mess);
     free(pr);
 
     pr = str_to_protected(chaine);
     printf("str_to_protected: %s %s %s\n", key_to_str(pr->pKey), pr->mess, signature_to_str(pr->sgn));
 
     free(chaine);
-
+    fprintf(stderr,"A\n");
     free(pr->pKey);
+fprintf(stderr,"B\n");
     free(pr->mess);
+fprintf(stderr,"C\n");
     freeSignature(pr->sgn);
-    
+    fprintf(stderr,"D\n");
     free(pKey);
+fprintf(stderr,"E\n");
     free(sKey);
+fprintf(stderr,"F\n");
     free(pKeyC);
+fprintf(stderr,"G\n");
     free(sKeyC);
+fprintf(stderr,"H\n");
     free(pr);
     return 0;
 }
