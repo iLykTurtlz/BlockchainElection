@@ -27,20 +27,21 @@ int update_height(CellTree *father, CellTree *child)    {
         return 1;
     }else {
         //on ne modifie pas le père
-        return 0
+        return 0;
     }
 }
 
 void add_child(CellTree *father, CellTree *child)   {
     if ((father == NULL)||(child == NULL))  {
-        fprintf(stderr,"Error : add_child : father or child null");
+        fprintf(stderr,"Error : add_child : father or child null\n");
         return;
     }
-
+    //On actualise le pere de child
+    child->father = father;
     //on ajoute le fils
     CellTree *curr = father->firstChild;
     if (curr == NULL)   {
-        curr = child;
+        father->firstChild = child;
     }else{
         //on cherche le dernier des frères du fils du père
         while (curr->nextBro)   {
@@ -49,7 +50,7 @@ void add_child(CellTree *father, CellTree *child)   {
         curr->nextBro = child;
     }
 
-    //on mets à jour la hauteur des pères tant qu'il y a des modifications
+    //on met à jour la hauteur des pères tant qu'il y a des modifications
     CellTree *fathers = father;
     CellTree *children = child;
     int modification = 1;
@@ -61,12 +62,11 @@ void add_child(CellTree *father, CellTree *child)   {
 }
 
 void print_tree(CellTree *tree) {
-    if (tree==NULL)  {
-        fprintf(stderr,"Error : print_tree : tree null");
+    if (!tree)  {
         return;
     }
     //on affiche le noeud courrant
-    printf("Block de hauteur : %d, et de d'identifiant : %s", tree->height, tree->block->hash);
+    printf("Block de hauteur : %d, et de d'identifiant : %s\n", tree->height, tree->block->hash);
     
     //on appelle la fonction pour ses frères puis ses fils
     if (tree->nextBro){
@@ -97,8 +97,9 @@ void delete_tree(CellTree *tree){
 }
 
 CellTree* highest_child(CellTree* cell){
+    //retourne l'adresse du fils dont la hauteur est la plus grande
     if (cell==NULL)  {
-        fprintf(stderr,"Error : highest_child : cell null");
+        fprintf(stderr,"Error : highest_child : cell null\n");
         return;
     }
     CellTree* child = cell->firstChild;
