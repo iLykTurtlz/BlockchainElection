@@ -27,8 +27,8 @@ int main(void)  {
     Key *pKey = (Key *)malloc(sizeof(Key));
     Key *sKey = (Key *)malloc(sizeof(Key));
     init_pair_keys(pKey, sKey, 3, 7);
-    printf("pKey: %lx, %lx \n", pKey->m, pKey->n);
-    printf("sKey: %lx, %lx \n", sKey->m, sKey->n);
+    printf("pKey: %lx, %lx\n", pKey->m, pKey->n);
+    printf("sKey: %lx, %lx\n", sKey->m, sKey->n);
 
     //Testing Key Serialization
     char *chaine = key_to_str(pKey);
@@ -81,21 +81,21 @@ int main(void)  {
     printf("str_to_protected: %s %s %s\n", key_to_str(pr->pKey), pr->mess, signature_to_str(pr->sgn));
 
     free(chaine);
-    fprintf(stderr,"A\n");
+    //fprintf(stderr,"A\n");
     free(pr->pKey);
-fprintf(stderr,"B\n");
+//fprintf(stderr,"B\n");
     free(pr->mess);
-fprintf(stderr,"C\n");
+//fprintf(stderr,"C\n");
     freeSignature(pr->sgn);
-    fprintf(stderr,"D\n");
-    free(pKey);
-fprintf(stderr,"E\n");
-    free(sKey);
-fprintf(stderr,"F\n");
-    free(pKeyC);
-fprintf(stderr,"G\n");
-    free(sKeyC);
-fprintf(stderr,"H\n");
     free(pr);
+    //fprintf(stderr,"D\n");
+    free(pKey);
+//fprintf(stderr,"E\n");
+    free(sKey);
+//fprintf(stderr,"F\n");
+    free(pKeyC);
+//fprintf(stderr,"G\n");
+    free(sKeyC);
+//fprintf(stderr,"H\n");
     return 0;
 }
