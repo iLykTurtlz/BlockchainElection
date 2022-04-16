@@ -3,6 +3,9 @@
 #include <time.h>
 #include "manipulationClefs.h"
 #include "generationClef.h"
+#include "testMillerRabin.h"
+#include "generationNbPremier.h"
+
 
 
 
