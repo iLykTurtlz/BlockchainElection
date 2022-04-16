@@ -42,8 +42,8 @@ int main()    {
     char *strBlock = block_to_str(b);
 
     //on fait 5 tests par nombre de zeros
-    for (int nbZeros=0; nbZeros<4; nbZeros++)   {
-        for (int i=0; i<5; i++)	{
+    for (int nbZeros=0; nbZeros<6; nbZeros++)   {
+        for (int i=0; i<8; i++)	{
             temps_initial = clock();
             compute_proof_of_work(b,nbZeros);
             temps_final = clock();
