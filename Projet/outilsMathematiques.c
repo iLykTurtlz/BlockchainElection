@@ -8,7 +8,7 @@ int is_prime_naive(long p)	{
 	if (p<2)	{
 		return 0;
 	}
-	for (long i=3; i<(sqrt(p)); i+=2)	{
+	for (long i=3; i<((long)sqrt((double)p)); i+=2)	{
 		if (p%i == 0){
 			return 0;
 		}
