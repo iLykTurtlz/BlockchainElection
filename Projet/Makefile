@@ -1,5 +1,5 @@
 CC = gcc 
-CFLAGS = -Wall -g
+CFLAGS = -Wall
 
 
 all : comparaisonExponentiationModulaire testDeclaration testRSA testElection testWinner testBlockchain testOpenSSL graphBlockchain
@@ -45,7 +45,7 @@ listDeclaration.o : listDeclaration.c listDeclaration.h declaration.o declaratio
 	$(CC) $(CFLAGS) -c listDeclaration.c
 
 blockchain.o : blockchain.h blockchain.c listDeclaration.h listDeclaration.o manipulationClefs.h manipulationClefs.o generationClef.o generationClef.h
-	$(CC) $(CFLAGS) -c blockchain.c -lssl -lcrypto
+	$(CC) $(CFLAGS) -c blockchain.c
 	
 testElection : testElection.c listDeclaration.o listDeclaration.h listKey.o listKey.h donneesVote.o donneesVote.h winner.o winner.h manipulationClefs.o manipulationClefs.h generationClef.o generationClef.h signature.o signature.h declaration.o declaration.h rsa.o rsa.h outilsMathematiques.o outilsMathematiques.h testMillerRabin.o testMillerRabin.h generationNbPremier.o generationNbPremier.h
 	$(CC) $(CFLAGS) -o testElection testElection.c listDeclaration.o listKey.o donneesVote.o winner.o manipulationClefs.o generationClef.o signature.o declaration.o rsa.o outilsMathematiques.o testMillerRabin.o generationNbPremier.o -lm

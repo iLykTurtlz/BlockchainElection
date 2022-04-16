@@ -15,8 +15,12 @@ CellTree *create_node(Block *b) {
 }
 
 int update_height(CellTree *father, CellTree *child)    {
+    
     if ((father == NULL)||(child == NULL))  {
-        fprintf(stderr,"Error : update_height : father or child null");
+        fprintf(stderr,"Error : update_height : father or child null\n");
+    }
+    if (child->father != father)	{
+        fprintf(stderr,"Error: update_height, You are NOT the father\n");
     }
     if (father->height < child->height+1){
         father->height = child->height+1;
