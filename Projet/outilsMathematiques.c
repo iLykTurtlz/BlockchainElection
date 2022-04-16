@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <math.h>
 #include <time.h>
 #include "outilsMathematiques.h"
 
@@ -8,7 +7,7 @@ int is_prime_naive(long p)	{
 	if (p<2)	{
 		return 0;
 	}
-	for (long i=3; i<((long)sqrt((double)p)); i+=2)	{
+	for (long i=3; i<(p/2); i+=2)	{
 		if (p%i == 0){
 			return 0;
 		}
