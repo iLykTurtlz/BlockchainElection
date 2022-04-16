@@ -26,11 +26,11 @@ int main()  {
         int k = 5000;
         p = random_prime_number(3,7,k);
         q = random_prime_number(3,7,k);
-        if (p == -1)    {
-            fprintf(stderr,"erreur : p non premier\n");
+        if (p < 0)    {
+            fprintf(stderr,"erreur : p non positif\n");
         }
-        if (q == -1)    {
-            fprintf(stderr,"erreur : q non premier\n");
+        if (q < 0)    {
+            fprintf(stderr,"erreur : q non positif\n");
         }
         generate_key_values(p,q,&n,&s,&u);
         printf("Clef publique : (s,n) = (%ld,%ld), clef privée : (u,n) = (%ld,%ld)\n",s,n,u,n);
