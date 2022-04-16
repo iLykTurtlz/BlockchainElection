@@ -15,9 +15,11 @@ int main()  {
     int min_size = 3;
     int max_size = 7;
 
+    //On teste dix fois la generation des clefs
     for (int i=0; i<10; i++)    {
         long p,q,n,s,u;
 
+        //generation de nombres premiers
         p = random_prime_number(min_size, max_size,5000);
         q = random_prime_number(min_size, max_size,5000);
         while (p==-1)   {
@@ -26,6 +28,8 @@ int main()  {
         while (p==q || q == -1)    {
             q = random_prime_number(min_size,max_size,5000);
         }
+
+        //generation des valeurs des clefs
         generate_key_values(p,q,&n,&s,&u);
 
         fprintf(stderr,"Premier essai:\n");

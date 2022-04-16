@@ -18,28 +18,8 @@ void print_long_vector(long *result, int size) {
 }
 
 int main()  {
-
-    /*tests de generationClef.c*/
-
-    for (int i=0; i<100; i++)   {
-        long p,q,n,s,u;
-        int k = 5000;
-        p = random_prime_number(3,7,k);
-        q = random_prime_number(3,7,k);
-        if (p < 0)    {
-            fprintf(stderr,"erreur : p non positif\n");
-        }
-        if (q < 0)    {
-            fprintf(stderr,"erreur : q non positif\n");
-        }
-        generate_key_values(p,q,&n,&s,&u);
-        printf("Clef publique : (s,n) = (%ld,%ld), clef privée : (u,n) = (%ld,%ld)\n",s,n,u,n);
-    }
-
-
-    /*tests de rsa.c*/
-/*
     srand(time(NULL));
+
     //Generation de cle :
     long p = random_prime_number(3,7,5000);
     printf("Random p : %ld\n",p);
@@ -74,9 +54,6 @@ int main()  {
     //Free
     free(decoded);
     free(encrypted);
-
-    */
-
     return 0; 
 
 }
