@@ -35,6 +35,7 @@ CellKey *read_public_keys(char *filename)   {
             add_key(&LCK,key);
         }
     }
+    fclose(istream);
     return LCK;
 }
 

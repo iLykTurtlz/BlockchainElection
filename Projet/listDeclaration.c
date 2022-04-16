@@ -34,6 +34,7 @@ CellProtected *read_protected(char *filename)   {
         Protected *pr = str_to_protected(buffer);   //ne pas desallouer !
         add_protected(&LCP,pr);
     }
+    fclose(istream);
     return LCP;
 }
 
