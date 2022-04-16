@@ -29,28 +29,28 @@ int main(void)  {
     CellKey *publicKeys = read_public_keys("keys.txt");
 
     //afficher ces clefs
-    printf("Cles publiques des candidats :\n");
+    printf("\nCles publiques des candidats :\n");
     print_list_keys(candidates);
-    printf("Cles publiques de tout le monde:\n");
+    printf("\nCles publiques de tout le monde:\n");
     print_list_keys(publicKeys);
 
     //lire les declarations de vote
     CellProtected *votes = read_protected("declarations.txt");
 
     //afficher les declarations
-    printf("Declarations de vote :\n");
+    printf("\nDeclarations de vote :\n");
     print_list_protected(votes);
 
     //verifier qu'il n'y ait pas eu de hacking
     thwarted(&votes);
-    printf("Declarations de vote apres verification :\n");
+    printf("\nDeclarations de vote apres verification :\n");
     print_list_protected(votes);
   
     //determination du gagnant
     Key *gagnant = compute_winner(votes, candidates, publicKeys, nbCandidates*2, nbElecteurs*2);
 
     char *g = key_to_str(gagnant);
-    printf("%s a gagne\n",g);
+    printf("\n%s a gagne\n\n",g);
 
     free(g);
     delete_list_protected_total(votes);

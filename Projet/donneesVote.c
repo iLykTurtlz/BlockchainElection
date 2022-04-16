@@ -15,6 +15,12 @@ void generate_random_data(int nv, int nc) {
 
     if (!keyFile || !candidateFile || !declarationFile) {
         fprintf(stderr,"Erreur : generate_random_data, ouverture de fichier\n");
+        if (keyFile)
+            fclose(keyFile);
+        if (candidateFile)
+            fclose(candidateFile);
+        if (declarationFile)
+            fclose(declarationFile);
         return;
     }
 

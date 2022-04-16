@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <assert.h>
 #include "blockchain.h"
 #include "blockTree.h"
 
@@ -127,10 +128,26 @@ CellTree *last_node(CellTree *tree) {
     }
 }
 
+CellProtected *votesBrancheMax(CellTree *tree)   {
+    //on fusionne les listes de votes de la plus longue branche
+    if (tree == NULL)   {
+        fprintf(stderr, "Erreur : votesBrancheMax, tree NULL\n");
+        return;
+    }
+    CellTree *leaf = last_node(tree);
+    CellProtected *res = NULL;
+    while (leaf != NULL)    {
+        res = fusionner_list_protected(res, leaf->block->votes);
+        leaf = leaf->father;
+    }
+    return res;
+}
+/*
 CellProtected *votesBrancheMax(CellTree *tree)  {
     //on fusionne les listes de votes de la plus longue branche
     if (tree == NULL)   {
         fprintf(stderr, "Erreur : votesBrancheMax, tree NULL\n");
+        return;
     }
     //renvoie une feuille
     if (tree->firstChild == NULL)   {
@@ -139,6 +156,46 @@ CellProtected *votesBrancheMax(CellTree *tree)  {
     } else {
         return fusionner_list_protected(copie_list_protected(tree->block->votes),votesBrancheMax(highest_child));
     }
+}
+*/
+
+void submit_vote(Protected *p)  {
+    FILE *ostream = fopen("./Blockchain/Pending_votes.txt","a");
+    if (!ostream)   {
+        fprintf(stderr,"Erreur: submit_vote, output stream NULL\n");
+        return;
+    }
+    char *vote = protected_to_str(p);
+    fprintf(ostream,"%s\n",vote);
+    free(vote);
+    fclose(ostream);
+}
+
+void create_block(CellTree *tree, Key *author, int d)   {
+    CellProtected *votes = read_protected("./Blockchain/Pending_votes.txt");
+    CellTree *leaf = last_node(tree);
+    Block *b = creerBlock(author,votes,"",leaf->block->hash,0);
+    compute_proof_of_work(b,d);
+    assert(remove("./Blockchain/Pending_votes.txt") == 0);
+    write_block("./Blockchain/Pending_block.txt", b);
+    free(b->hash);
+    free(b->previous_hash);
+    delete_list_protected_total(b->votes);
+    free(b);
+}
+
+void add_block(int d, char *name)   {
+    Block *b = lireBlock("./Blockchain/Pending_block.txt");
+    int verified = verify_block(b,d);
+    if (verified)   {
+        char path[256] = strcat("./Blockchain/",name);
+        write_block(path, b);
+    }
+    assert(remove("./Blockchain/Pending_block.txt") == 0);
+    free(b->hash);
+    free(b->previous_hash);
+    delete_list_protected_total(b->votes);
+    free(b);
 }
 
 

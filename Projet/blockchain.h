@@ -15,7 +15,7 @@ typedef struct block    {
 } Block;
 
 Block *creerBlock(Key *author, CellProtected *votes, unsigned char *hash, unsigned char *previous_hash, int nonce);
-void enregistrerBlock(char *filename, Block *block);
+void write_block(char *filename, Block *block);
 Block *lireBlock(char *filename);
 char *block_to_str(Block *block);
 unsigned char* hash_function_block(const char* str);

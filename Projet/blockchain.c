@@ -34,7 +34,7 @@ Block *creerBlock(Key *author, CellProtected *votes, unsigned char *hash, unsign
     return new;
 }
 
-void enregistrerBlock(char *filename, Block *block)    {
+void write_block(char *filename, Block *block)    {
     FILE *ostream = fopen(filename,"w");
     if (ostream == NULL)    {
         fprintf(stderr,"Erreur a l'ouverture du fichier %s en ecriture\n", filename);
@@ -147,6 +147,7 @@ int count_zeros(unsigned char* str){
 }
 
 void compute_proof_of_work(Block *B, int d){
+    //TO DO : memory leak
     B->nonce = 0;
     char *str = block_to_str(B);
     unsigned char* hash = hash_function_block((const char*) str);
@@ -157,12 +158,13 @@ void compute_proof_of_work(Block *B, int d){
         B->nonce ++;
         str = block_to_str(B);
         hash = hash_function_block((const char*) str);
-        }
+    }
     B->hash = hash;
 }
 
 int verify_block(Block *B, int d)	{
     // Verifie que le nombre de zeros au debut du block hash est superieur ou  egal a d
+    //TO DO : hashed ->memory leak?
     char *str = block_to_str(B);
     unsigned char *hashed = hash_function_block(str);
     int res = count_zeros(hashed) >= d;
@@ -171,6 +173,7 @@ int verify_block(Block *B, int d)	{
 }
 
 void delete_block(Block *B)	{
+    //
     if (!B)	{
         fprintf(stderr,"Error: delete_block, block null\n");
         return;
