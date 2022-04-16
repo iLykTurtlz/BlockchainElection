@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -Wall
 
 
-all : comparaisonExponentiationModulaire testDeclaration testRSA testElection testWinner testBlockchain testOpenSSL graphBlockchain
+all : comparaisonExponentiationModulaire testDeclaration testRSA testElection testWinner testBlockchain testOpenSSL graphBlockchain testGenerationClefs
 
 
 comparaisonExponentiationModulaire : comparaisonExponentiationModulaire.c outilsMathematiques.o outilsMathematiques.h
