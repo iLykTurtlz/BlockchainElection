@@ -127,5 +127,19 @@ CellTree *last_node(CellTree *tree) {
     }
 }
 
+CellProtected *votesBrancheMax(CellTree *tree)  {
+    //on fusionne les listes de votes de la plus longue branche
+    if (tree == NULL)   {
+        fprintf(stderr, "Erreur : votesBrancheMax, tree NULL\n");
+    }
+    //renvoie une feuille
+    if (tree->firstChild == NULL)   {
+        return copie_list_protected(tree->block->votes);
+    //parcourt le plus grand fils    
+    } else {
+        return fusionner_list_protected(copie_list_protected(tree->block->votes),votesBrancheMax(highest_child));
+    }
+}
+
 
 

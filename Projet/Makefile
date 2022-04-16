@@ -72,8 +72,4 @@ blockTree.o : blockTree.c blockTree.h blockchain.o blockchain.h
 	$(CC) $(CFLAGS) -c blockTree.c
 
 clean :
-<<<<<<< Updated upstream
-	rm -rf *.o comparaisonExponentiationModulaire testDeclaration testRSA testElection testWinner testOpenSSL graphBlockchain
-=======
-	rm -rf *.o comparaisonExponentiationModulaire testDeclaration testRSA testElection testWinner testOpenSSL testBlockchain
->>>>>>> Stashed changes
+	rm -rf *.o comparaisonExponentiationModulaire testDeclaration testRSA testElection testWinner testOpenSSL testBlockchain graphBlockchain

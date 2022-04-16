@@ -18,6 +18,8 @@ void print_tree(CellTree *tree);
 void delete_node(CellTree *node);
 void delete_tree(CellTree *tree);
 CellTree* highest_child(CellTree* cell);
+CellTree *last_node(CellTree *tree);
+CellProtected *votesBrancheMax(CellTree *tree);
 
 
 
