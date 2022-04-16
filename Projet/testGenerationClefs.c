@@ -13,7 +13,6 @@ int main()  {
 
     for (int i=0; i<10; i++)    {
         long p,q,*n, *s, *u;
-        long p,q,n,s,u;
 
         p = random_prime_number(min_size, max_size,5000);
         q = random_prime_number(min_size, max_size,5000);
