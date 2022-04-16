@@ -53,7 +53,8 @@ int main()    {
     }
 
     free(strBlock);
-    delete_block(b);
+    free(b->hash);
+    free(b->previous_hash);
     delete_list_keys(publicKeys);
     delete_list_protected(votes);
     fclose(ostream);
