@@ -19,23 +19,20 @@
 
 
 int main(void)  {
-    int nbCandidates = 3, nbElecteurs = 10;
-
     srand(time(NULL));
+
+    int nbCandidates = 3, nbElecteurs = 10;
     generate_random_data(nbElecteurs, nbCandidates);
 
     //lire les cles publiques des candidats et de tout le monde
     CellKey *candidates = read_public_keys("candidates.txt");
     CellKey *publicKeys = read_public_keys("keys.txt");
 
-    
-
     //afficher ces clefs
     printf("Cles publiques des candidats :\n");
     print_list_keys(candidates);
     printf("Cles publiques de tout le monde:\n");
     print_list_keys(publicKeys);
-
 
     //lire les declarations de vote
     CellProtected *votes = read_protected("declarations.txt");

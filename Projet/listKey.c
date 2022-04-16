@@ -31,7 +31,7 @@ CellKey *read_public_keys(char *filename)   {
     char lu[256];
     while (fgets(buffer,256,istream))   {
         if (sscanf(buffer,"%s ",lu) == 1)   {
-            Key *key = str_to_key(lu);
+            Key *key = str_to_key(lu);          //ne pas desallouer !
             add_key(&LCK,key);
         }
     }
@@ -39,8 +39,11 @@ CellKey *read_public_keys(char *filename)   {
 }
 
 void print_list_keys(CellKey *LCK)  {
+    char *keyStr;
     while (LCK) {
-        printf("%s\n",key_to_str(LCK->data));
+        keyStr = key_to_str(LCK->data);
+        printf("%s\n",keyStr);
+        free(keyStr);
         LCK = LCK->next;
     }
 }

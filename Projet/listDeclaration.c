@@ -31,26 +31,26 @@ CellProtected *read_protected(char *filename)   {
     CellProtected *LCP = NULL;
     char buffer[256];
     while (fgets(buffer,256,istream))   {
-        Protected *pr = str_to_protected(buffer);
+        Protected *pr = str_to_protected(buffer);   //ne pas desallouer !
         add_protected(&LCP,pr);
     }
     return LCP;
 }
 
 void print_list_protected(CellProtected *LCP)  {
+    char *prStr;
     while (LCP) {
-        //new var str
-        char *str = protected_to_str(LCP->data);
-        printf("%s\n",str);
+        prStr = protected_to_str(LCP->data);
+        printf("%s\n",prStr);
+        free(prStr);
         LCP = LCP->next;
-        free(str);
     }
 }
 
-
-
 void delete_cell_protected(CellProtected *c)    {
-    free(c->data);
+    //on ne supprime pas les clefs
+    free(c->data->mess);            
+    freeSignature(c->data->sgn);
     free(c);
 }
 
@@ -58,8 +58,8 @@ void delete_list_protected(CellProtected *LCP) {
     CellProtected *tmp;
     while (LCP) {
         tmp = LCP;
-        LCP = LCP->next;
         delete_cell_protected(tmp);
+        LCP = LCP->next;
     }
 }
 
