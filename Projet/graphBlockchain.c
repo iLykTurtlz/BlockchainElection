@@ -2,6 +2,18 @@
 #include <stdlib.h>
 #include <time.h>
 #include "blockchain.h"
+#include "listDeclaration.h"
+#include "generationClef.h"
+#include "manipulationClefs.h"
+#include "donneesVote.h"
+#include "listKey.h"
+#include "declaration.h"
+#include "generationNbPremier.h"
+#include "rsa.h"
+#include "testMillerRabin.h"
+#include "signature.h"
+#include "outilsMathematiques.h"
+
 
 
 int main()    {
