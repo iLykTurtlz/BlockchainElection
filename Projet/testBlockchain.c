@@ -35,10 +35,10 @@ int main()  {
     compute_proof_of_work(b,nbZero);
     printf("\nAffichage de hash après compute_proof_of_work (avec nb zero = %d): %s\n", nbZero, b-> hash);
     printf("\nAffichage du block après compute_proof_of_work : \n");
-    printf("Verification du block, d = 3 (doit etre vraie) : %d\n",verify_block(b,nbZero));
     strBlock = block_to_str(b);
     printf("\n%s\n",strBlock);
     printf("\n"); 
+    printf("Verification du block, d = 3 (doit etre vraie) : %d\n",verify_block(b,nbZero));
 
     free(strBlock);
     free(b);

@@ -90,7 +90,9 @@ void generate_random_data(int nv, int nc) {
 
         free(prStr);
         free(mess);
-        freeProtected(pr);
+        freeSignature(pr->sgn);	//ne pas liberer la pr->pKey, qui est dans le tableau
+	free(pr->mess);
+	free(pr);
     }
     fclose(declarationFile);
     

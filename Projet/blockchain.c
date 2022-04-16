@@ -162,10 +162,10 @@ void compute_proof_of_work(Block *B, int d){
 }
 
 int verify_block(Block *B, int d)	{
-    // Verifie que le nombre de zeros au debut du block hashe est egal a d
+    // Verifie que le nombre de zeros au debut du block hash est superieur ou  egal a d
     char *str = block_to_str(B);
     unsigned char *hashed = hash_function_block(str);
-    int res = count_zeros(hashed) == d;
+    int res = count_zeros(hashed) >= d;
     free(str);
     return res;
 }
