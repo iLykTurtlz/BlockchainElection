@@ -22,11 +22,14 @@ int main()  {
 
     //Generation de cle :
     long p = random_prime_number(3,7,5000);
-    printf("Random p : %ld\n",p);
     long q = random_prime_number(3,7,5000); 
     while(p==q) {
         q = random_prime_number(3,7,5000);
     }
+
+    printf("Random p : %ld\n",p);
+    printf("Random q : %ld\n",q);
+
     long n, s, u;
     generate_key_values(p,q,&n,&s,&u);
     //Pour avoir des cles positives : 

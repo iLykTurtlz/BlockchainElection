@@ -3,6 +3,7 @@
         "outilsmathematiques.h": "c",
         "stdio.h": "c",
         "manipulationclefs.h": "c",
-        "listdeclaration.h": "c"
+        "listdeclaration.h": "c",
+        "generationnbpremier.h": "c"
     }
 }
