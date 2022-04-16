@@ -95,7 +95,7 @@ void delete_hashtable(HashTable *t) {
 
 Key *compute_winner(CellProtected *decl, CellKey *candidates, CellKey *voters, int sizeC, int sizeV)    {
     //verification de sizeC >= len(candidates) && sizeV >= len(voters)
-    assert(   (lenC >= listKeyLength(candidates))   &&   (sizeV >= listKeyLength(voters))   );
+    assert(   (sizeC >= listKeyLength(candidates))   &&   (sizeV >= listKeyLength(voters))   );
 
     //creation des deux tables de hachage
     HashTable *hc = create_hashtable(candidates,sizeC);
