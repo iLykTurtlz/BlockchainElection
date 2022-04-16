@@ -5,6 +5,7 @@
 #include "generationClef.h"
 #include "testMillerRabin.h"
 #include "generationNbPremier.h"
+#include "outilsMathematiques.h"
 
 
 
