@@ -12,7 +12,7 @@ int main()  {
     int max_size = 7;
 
     for (int i=0; i<10; i++)    {
-        long p,q,*n, *s, *u;
+        long p,q,n,s,u;
 
         p = random_prime_number(min_size, max_size,5000);
         q = random_prime_number(min_size, max_size,5000);
@@ -22,7 +22,7 @@ int main()  {
         while (p==q || q == -1)    {
             q = random_prime_number(min_size,max_size,5000);
         }
-        generate_key_values(p,q,n,s,u);
+        generate_key_values(p,q,&n,&s,&u);
 
         fprintf(stderr,"Premier essai:\n");
         fprintf(stderr,"(s,n) = (%ld,%ld) \t (u,n) = (%ld,%ld)\n",s,n,u,n);

@@ -72,4 +72,4 @@ blockTree.o : blockTree.c blockTree.h blockchain.o blockchain.h
 	$(CC) $(CFLAGS) -c blockTree.c
 
 clean :
-	rm -rf *.o comparaisonExponentiationModulaire testDeclaration testRSA testElection testWinner testOpenSSL testBlockchain graphBlockchain
+	rm -rf *.o comparaisonExponentiationModulaire testDeclaration testRSA testElection testWinner testOpenSSL testBlockchain graphBlockchain testGenerationClefs
