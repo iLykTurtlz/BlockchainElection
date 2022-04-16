@@ -31,10 +31,10 @@ char *protected_to_str(Protected *pr)    {
     char *res;
     char *keyStr = key_to_str(pr->pKey);
     char buffer[256];
-    char *sgn = signature_to_str(pr->sgn);
-    sprintf(buffer,"%s %s %s",keyStr, pr->mess, sgn);
-    //free(sgn);
-    //free(keyStr);
+    char *sgnStr = signature_to_str(pr->sgn);
+    sprintf(buffer,"%s %s %s",keyStr, pr->mess, sgnStr);
+    free(sgnStr);
+    free(keyStr);
     res = strdup(buffer);
     return res;
 }
