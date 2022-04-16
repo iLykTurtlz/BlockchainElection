@@ -95,22 +95,22 @@ void delete_hashtable(HashTable *t) {
 
 Key *compute_winner(CellProtected *decl, CellKey *candidates, CellKey *voters, int sizeC, int sizeV)    {
     //verification de sizeC >= len(candidates) && sizeV >= len(voters)
-
-    //TO DO
+    assert(   (lenC >= listKeyLength(candidates))   &&   (sizeV >= listKeyLength(voters))   );
 
     //creation des deux tables de hachage
-
     HashTable *hc = create_hashtable(candidates,sizeC);
     HashTable *hv = create_hashtable(voters, sizeV);
 
     //parcours des declarations
     int posV, posC;
+    Key *keyC;
     while (decl)    {
         posV = find_position(hv, decl->data->pKey); 
         if (hv->tab[posV] != NULL)   {
             if (hv->tab[posV]->val == 0) {            //il n'a jamais vote
-                Key *keyC = str_to_key(decl->data->mess);
+                keyC = str_to_key(decl->data->mess);
                 posC = find_position(hc,keyC);
+                free(keyC);
                 if(hc->tab[posC] != NULL)   {
                     hv->tab[posV]->val = 1;
                     hc->tab[posC]->val = hc->tab[posC]->val + 1;                 
@@ -158,6 +158,22 @@ void afficher_tableH(HashTable *t)  {
             free(key);
         }
     }
+}
+
+int listKeyLength(CellKey *list)    {
+    //Pour vérifier la longueur de la liste de cles
+    if (!list)  {
+        return 0;
+    }
+    return 1 + listKeyLength(list->next);
+}
+
+int listDeclarationLength(CellProtected *list)    {
+    //Pour vérifier la longueur de la liste de cles
+    if (!list)  {
+        return 0;
+    }
+    return 1 + listDeclarationLength(list->next);
 }
 
 
