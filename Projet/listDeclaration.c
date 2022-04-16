@@ -54,12 +54,29 @@ void delete_cell_protected(CellProtected *c)    {
     free(c);
 }
 
+void delete_cell_protected_total(CellProtected *c)     {
+    //supprime aussi les clefs
+    freeProtected(c->data);
+    free(c);
+}  
+
 void delete_list_protected(CellProtected *LCP) {
+    //ne supprime pas les clefs
     CellProtected *tmp;
     while (LCP) {
         tmp = LCP;
-        delete_cell_protected(tmp);
         LCP = LCP->next;
+        delete_cell_protected(tmp);
+    }
+}
+
+void delete_list_protected_total(CellProtected *LCP)  {
+    //supprime aussi les clefs
+    CellProtected *tmp;
+    while (LCP) {
+        tmp = LCP;
+        LCP = LCP->next;
+        delete_cell_protected_total(tmp);
     }
 }
 

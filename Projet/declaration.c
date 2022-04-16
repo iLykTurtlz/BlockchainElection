@@ -54,6 +54,7 @@ Protected *str_to_protected(char *str)   {
 }
 
 void freeProtected(Protected *pr)   {
+    //libere aussi la cle
     free(pr->pKey);
     free(pr->mess);
     freeSignature(pr->sgn);
