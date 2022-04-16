@@ -60,7 +60,7 @@ testOpenSSL : testOpenSSL.c blockchain.o blockchain.h listDeclaration.o listDecl
 	$(CC) $(CFLAGS) -o testOpenSSL testOpenSSL.c blockchain.o listDeclaration.o manipulationClefs.o listKey.o generationClef.o donneesVote.o declaration.o generationNbPremier.o rsa.o testMillerRabin.o signature.o outilsMathematiques.o -lssl -lcrypto -lm
 
 testGenerationClefs : testGenerationClefs.c manipulationClefs.o manipulationClefs.h generationClef.o generationClef.h testMillerRabin.o testMillerRabin.h generationNbPremier.o generationNbPremier.h
-	$(CC) $(CFLAGS) -o testGenerationClefs testGenerationClefs.c manipulationClefs.o generationClef.o testMillerRabin.o generationNbPremier.o
+	$(CC) $(CFLAGS) -o testGenerationClefs testGenerationClefs.c manipulationClefs.o generationClef.o testMillerRabin.o generationNbPremier.o -lm
 
 testBlockchain : testBlockchain.c blockchain.o blockchain.h listDeclaration.o listDeclaration.h manipulationClefs.o manipulationClefs.h donneesVote.o donneesVote.h listKey.o listKey.h generationClef.o generationClef.h donneesVote.o donneesVote.h declaration.o declaration.h generationNbPremier.o generationNbPremier.h rsa.o rsa.h testMillerRabin.o testMillerRabin.h signature.h signature.o outilsMathematiques.o outilsMathematiques.h
 	$(CC) $(CFLAGS) -o testBlockchain testBlockchain.c blockchain.o listDeclaration.o manipulationClefs.o listKey.o generationClef.o donneesVote.o declaration.o generationNbPremier.o rsa.o testMillerRabin.o signature.o outilsMathematiques.o -lssl -lcrypto -lm
