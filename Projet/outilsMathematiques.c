@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <math.h>
 #include <time.h>
 #include "outilsMathematiques.h"
 
@@ -7,7 +8,7 @@ int is_prime_naive(long p)	{
 	if (p<2)	{
 		return 0;
 	}
-	for (long i=3; i<(p/2); i+=2)	{
+	for (long i=3; i<(sqrt(p)); i+=2)	{
 		if (p%i == 0){
 			return 0;
 		}
@@ -60,12 +61,5 @@ long modpow(long a, long m, long n)	{
 	return res;
 }
 
-/*
-int main()	{
-	printf("%d\n",is_prime_naive(219000233));
-	printf("%ld est le plus grand nombre premier qu'on peut tester en %d secondes\n",greatest_prime_under(2.),2);
 
-	return 0; 
-}
-*/
  
