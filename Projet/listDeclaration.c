@@ -62,3 +62,37 @@ void delete_list_protected(CellProtected *LCP) {
         delete_cell_protected(tmp);
     }
 }
+
+//Exercice 8.8
+//Il faudrait une liste doublement chainee pour avoir une fusion en O(1) au lieu de O(len(votes1))
+CellProtected *fusionner_list_protected(CellProtected *votes1, CellProtected *votes2)   {
+    //si une liste est vide, la fusion c'est l'autre
+    if (!votes1)    {
+        return votes2;
+    }
+    if (!votes2)    {
+        return votes1;
+    }
+    //On parcourt votes1
+    CellProtected *curr = votes1;
+    while (curr->next)    {
+        curr = curr->next;
+    }
+    curr->next = votes2;
+    return votes1;
+}
+
+
+CellProtected *copie_list_protected(CellProtected *votes)   {
+    //Cette fonction inverse le sens de la liste, mais ce n'est pas grave
+    if (!votes) {
+        return NULL;
+    }
+    CellProtected *copie = NULL;
+
+    while (votes)   {
+        add_protected(&copie,votes->data);
+        votes = votes->next;
+    }
+    return copie;
+}

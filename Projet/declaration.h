@@ -4,7 +4,6 @@
 #include "signature.h"
 #include "manipulationClefs.h"
 
-
 typedef struct {
     Key *pKey;
     char *mess;

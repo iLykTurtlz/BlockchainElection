@@ -112,3 +112,20 @@ CellTree* highest_child(CellTree* cell){
     }
     return highest_child;
 } 
+
+CellTree *last_node(CellTree *tree) {
+    //Retourne la feuille de la plus longue branche
+    if (tree == NULL)   {
+        fprintf(stderr, "Erreur : last_node, tree NULL\n");
+    }
+    //renvoie une feuille
+    if (tree->firstChild == NULL)   {
+        return tree;
+    //parcourt le plus grand fils    
+    } else {
+        last_node(highest_child(tree));
+    }
+}
+
+
+
