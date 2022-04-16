@@ -1,5 +1,5 @@
 CC = gcc 
-CFLAGS = -Wall
+CFLAGS = -Wall -g
 
 
 all : comparaisonExponentiationModulaire testDeclaration testRSA testElection testWinner testBlockchain testOpenSSL graphBlockchain testGenerationClefs testGenerationNbPremier
