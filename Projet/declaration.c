@@ -53,6 +53,13 @@ Protected *str_to_protected(char *str)   {
     return init_protected(pKey,mess,signature);
 }
 
+void freeProtected(Protected *pr)   {
+    free(pr->pKey);
+    free(pr->mess);
+    freeSignature(pr->sgn);
+    free(pr);
+}
+
 
 
 

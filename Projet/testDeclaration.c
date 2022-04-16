@@ -78,24 +78,18 @@ int main(void)  {
     free(pr);
 
     pr = str_to_protected(chaine);
-    printf("str_to_protected: %s %s %s\n", key_to_str(pr->pKey), pr->mess, signature_to_str(pr->sgn));
+    
+    char *pKeyStr = key_to_str(pr->pKey);
+    char *sgnStr = signature_to_str(pr->sgn);
+    printf("str_to_protected: %s %s %s\n", pKeyStr, pr->mess, sgnStr);
 
+    free(pKeyStr);
+    free(sgnStr);
     free(chaine);
-    //fprintf(stderr,"A\n");
-    free(pr->pKey);
-//fprintf(stderr,"B\n");
-    free(pr->mess);
-//fprintf(stderr,"C\n");
-    freeSignature(pr->sgn);
-    free(pr);
-    //fprintf(stderr,"D\n");
+    freeProtected(pr);
     free(pKey);
-//fprintf(stderr,"E\n");
     free(sKey);
-//fprintf(stderr,"F\n");
     free(pKeyC);
-//fprintf(stderr,"G\n");
     free(sKeyC);
-//fprintf(stderr,"H\n");
     return 0;
 }
