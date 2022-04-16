@@ -17,85 +17,86 @@ void generate_random_data(int nv, int nc) {
         fprintf(stderr,"Erreur : generate_random_data, ouverture de fichier\n");
         return;
     }
-    
-    
-    
+
     //Generation de nv couples cles.
-    
     Key *pKeys[nv];
     Key *sKeys[nv];
 
-    int i = 0;  
-    while (i < nv)  {
+    int nbCles = 0;  
+    while (nbCles < nv)  {
         Key *public = (Key *)malloc(sizeof(Key));
         Key *private = (Key *)malloc(sizeof(Key));
         init_pair_keys(public, private, 3, 7);
         char *publicString = key_to_str(public);
         char *privateString = key_to_str(private);
 
-        pKeys[i] = public;
-        sKeys[i] = private;
+        pKeys[nbCles] = public;
+        sKeys[nbCles] = private;
+
         //ecriture dans keys.txt
         fprintf(keyFile,"%s %s\n",publicString,privateString);
-        //fprintf(stderr,"%lx %lx\n", public->m, public->n);
         
         free(publicString);
         free(privateString);
-        i++;
+        nbCles++;
     }
     fclose(keyFile);
 
+
     //Generation fichier candidats, candidates.txt
     Key *candidateKeys[nc];
-
     int cIndices[nc];
+
+    //On stocke les indices des cles publiques qui sont aussi candidats
     for (int i=0; i<nc; i++)    {
         cIndices[i] = -1;
     }
-    int j=0, indice, unique;
-    while (j<nc)    {
+
+    int nbCand=0, indice, unique;
+    char *candStr;
+    while (nbCand < nc)    {
         unique = 1;
         indice = rand() % nv;
-        for (int k=0; k<=j; k++) {
-            
+        //on verifie si le candidat existe deja
+        for (int k=0; k<=nbCand; k++) {
             if (cIndices[k] == indice)  {
                 unique = 0;
                 break;
             }
         }
-        
+        //on ajoute le nouveau candidat dans la liste et dans le fichier
         if (unique == 1) {
-            candidateKeys[j] = pKeys[indice];
-            cIndices[j] = indice;
-            fprintf(candidateFile,"%s\n",key_to_str(candidateKeys[j]));
-            j++;
+            candidateKeys[nbCand] = pKeys[indice];
+            cIndices[nbCand] = indice;
+            candStr = key_to_str(candidateKeys[nbCand]);
+            fprintf(candidateFile,"%s\n",candStr);
+            free(candStr);
+            nbCand++;
         }
     }
-    
     fclose(candidateFile);
     
 
     //Generation de declarations de vote aleatoires, declarations.txt
-    
     for (int k=0; k<nv; k++)    {
         Protected *pr;
         indice = rand() % nc;
+
         char *mess = key_to_str(candidateKeys[indice]);
         pr = init_protected(pKeys[k], mess, sign(mess,sKeys[k]));
-        char *prString = protected_to_str(pr);
-        fprintf(declarationFile,"%s\n",prString);
-        free(prString);
+        char *prStr = protected_to_str(pr);
+        //Ecriture de la declaration dans le fichier
+        fprintf(declarationFile,"%s\n",prStr);
+
+        free(prStr);
         free(mess);
-        free(pr->mess);
-        free(pr->sgn);
+        freeProtected(pr);
     }
+    fclose(declarationFile);
+    
     for (int l=0; l<nv; l++)    {
         free(pKeys[l]);
         free(sKeys[l]);
     }
-    
-    fclose(declarationFile);
-
-    return;
 }
 
