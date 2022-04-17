@@ -155,11 +155,13 @@ void compute_proof_of_work(Block *B, int d){
     //tant qu'il n'y a pas d zéros en tête de hash, on incrémente nonce et on recalcule hash
     while (count_zeros(hash) < d ){
         free(str);
+        free(hash);
         B->nonce ++;
         str = block_to_str(B);
         hash = hash_function_block((const char*) str);
     }
     free(str);
+    free(B->hash);  //si le hash a deja ete alloue il faut le liberer avant de le remplacer
     B->hash = hash;
 }
 
