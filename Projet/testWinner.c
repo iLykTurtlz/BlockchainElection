@@ -34,7 +34,7 @@ int main()  {
     CellKey *publicKeys = read_public_keys("keys.txt");
     CellProtected *votes = read_protected("declarations.txt");
 
-    delete_cell_protected_total(votes);
+    delete_list_protected_total(votes);
     delete_list_keys(candidates);
     delete_list_keys(publicKeys);
 
