@@ -31,7 +31,7 @@ int main()  {
     printf("Verification du block, d=4 (doit etre fausse) : %d\n",verify_block(b,4));
 
     int nbZero = 3;
-    printf("\nAffichage de hash avant compute_proof_of_work : %s\n", b-> hash);
+    printf("\nAffichage de hash avant compute_proof_of_work : %s\n", b->hash);
     compute_proof_of_work(b,nbZero);
     printf("\nAffichage de hash après compute_proof_of_work (avec nb zero = %d): %s\n", nbZero, b-> hash);
     printf("\nAffichage du block après compute_proof_of_work : \n");
@@ -41,6 +41,8 @@ int main()  {
     printf("Verification du block, d = 3 (doit etre vraie) : %d\n",verify_block(b,nbZero));
 
     free(strBlock);
+    free(b->hash);
+    free(b->previous_hash);
     free(b);
     delete_list_protected_total(votes);
     delete_list_keys(publicKeys);

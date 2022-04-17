@@ -159,6 +159,7 @@ void compute_proof_of_work(Block *B, int d){
         str = block_to_str(B);
         hash = hash_function_block((const char*) str);
     }
+    free(str);
     B->hash = hash;
 }
 
@@ -168,12 +169,13 @@ int verify_block(Block *B, int d)	{
     char *str = block_to_str(B);
     unsigned char *hashed = hash_function_block(str);
     int res = count_zeros(hashed) >= d;
+    free(hashed);
     free(str);
     return res;
 }
 
 void delete_block(Block *B)	{
-    //
+    //Ne libere pas author, ni le contenu des cellules (Protected)
     if (!B)	{
         fprintf(stderr,"Error: delete_block, block null\n");
         return;
