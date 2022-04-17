@@ -19,47 +19,39 @@
 
 
 int main()  {
-    /*
-    HashTable *t = create_hashtable(NULL, 10);
-    afficher_tableH(t);
-    delete_hashtable(t);
-    */
-
-
-    int nbCandidates = 3, nbElecteurs = 10;
-
     srand(time(NULL));
-    generate_random_data(nbElecteurs, nbCandidates);
 
+    //On verifie la creation d'une table de hachage
+    printf("\nOn cree, affiche et detruit une table de hachage\n");
+    HashTable *t1 = create_hashtable(NULL, 10);
+    afficher_tableH(t1);
+    delete_hashtable(t1);
+    
+    //On genere des donnees
+    int nbCandidates = 3, nbElecteurs = 10;
+    generate_random_data(nbElecteurs, nbCandidates);
     CellKey *candidates = read_public_keys("candidates.txt");
     CellKey *publicKeys = read_public_keys("keys.txt");
     CellProtected *votes = read_protected("declarations.txt");
 
-    /*
-    CellKey *tmp = candidates;
-    
-    while (tmp) {
-        char *key = key_to_str(tmp->data);
-        printf("key : %s, hashfun : %d \n", key, hash_function(tmp->data,2*nbElecteurs));
-        free(key);
-        tmp = tmp->next;
-    }
-    */
+    //On cree les tables qui contiennent les cles publiques soit des electeurs ou soit des candidats
     HashTable *t2 = create_hashtable(candidates, 2*nbCandidates);
     HashTable *t3 = create_hashtable(publicKeys, 2*nbElecteurs);
-    printf("Tables crées\n");
-    //afficher_tableH(t2);
-    //afficher_tableH(t3);
+    printf("\nTable candidats :\n");
+    afficher_tableH(t2);
+    printf("\nTable electeurs :\n");
+    afficher_tableH(t3);
 
-    compute_winner(votes, candidates, publicKeys, nbCandidates*2, nbElecteurs*2);
+    //Verification de la fonction compute_winner
+    Key *gagnant = compute_winner(votes, candidates, publicKeys, nbCandidates*2, nbElecteurs*2);
+    char *gagnantStr = key_to_str(gagnant);
+    printf("FIN COMPUTE_WINNER : le gagnant est %s \n",gagnantStr);
+    free(gagnantStr);
 
-    printf("FIN COMPUTE_WINNER\n");
-
-
-    delete_hashtable(t3);
     delete_hashtable(t2);
+    delete_hashtable(t3);
     delete_list_keys(candidates);
     delete_list_keys(publicKeys);
-
+    delete_cell_protected_total(votes);
     return 0;
 }
