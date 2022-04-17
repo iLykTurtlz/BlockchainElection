@@ -8,6 +8,7 @@
 
 
 void thwarted(CellProtected **LCP)  {
+    //supprime les votes non verifies
     if (!(*LCP))
         return;
     CellProtected *first = *LCP;
@@ -17,7 +18,8 @@ void thwarted(CellProtected **LCP)  {
     while (curr)    {
         if (!verify(curr->data))  {
             prev->next = curr->next;
-            delete_cell_protected(curr);
+            //on supprime la cellule et le protected mais pas la cle 
+            delete_cell_protected(curr);    
         } else {
             prev = curr;
         }
@@ -44,6 +46,7 @@ int hash_function(Key *key, int size)   {
 }
 
 int find_position(HashTable *t, Key *key)   {
+    //collisions gerees par probing lineaire
     assert(key != NULL);
     int indice = hash_function(key, t->size);
     assert(indice >= 0);
@@ -51,12 +54,14 @@ int find_position(HashTable *t, Key *key)   {
     int i=0;
     while(i < t->size)    {
         assert(((indice + i) % t->size) >= 0);
+        //on parcourt au plus toute la table a partir de la case indice (hash + 0)
         if (t->tab[(indice + i) % t->size] != NULL) {
+            //key->m correspond a key->val (le nom etait dans les exemples et non dans l'enonce)
             if (  (t->tab[(indice + i) % t->size]->key->m == key->m) && (t->tab[(indice + i) % t->size]->key->n == key->n)  ) {
-                return (indice + i) % t->size;
+                return (indice + i) % t->size; //la cle est deja presente dans la table
             } 
         } else { 
-            return (indice + i) % t->size;
+            return (indice + i) % t->size; //emplacement libre pour inserer la cle
         }
         i++;
     }
@@ -76,9 +81,22 @@ HashTable *create_hashtable(CellKey *keys, int size)    {
     //insertion des cles de la liste keys
     int pos;
     while (keys)    {
-        pos = find_position(table, keys->data);                 //invalid read of size 8
-        HashCell *candidate = create_hashcell(keys->data);
-        table->tab[pos] = candidate;
+        pos = find_position(table, keys->data);
+
+        if (pos == -1)  {
+            fprintf(stderr, "Erreur : create_hashtable, pas de position trouvee\n");
+            for (int i=0; i<table->size; i++)   {
+                free(table->tab[i]);
+            }
+            free(table->tab);
+            free(table);
+            return NULL;
+        }
+        //Si la cle n'est pas dans la table on l'ajoute
+        if (table->tab[pos] == NULL)    {    
+            HashCell *candidate = create_hashcell(keys->data);
+            table->tab[pos] = candidate;
+        }
         keys = keys->next;
     }
     return table;
@@ -111,9 +129,9 @@ Key *compute_winner(CellProtected *decl, CellKey *candidates, CellKey *voters, i
                 keyC = str_to_key(decl->data->mess);
                 posC = find_position(hc,keyC);
                 free(keyC);
-                if(hc->tab[posC] != NULL)   {
-                    hv->tab[posV]->val = 1;
-                    hc->tab[posC]->val = hc->tab[posC]->val + 1;                 
+                if(hc->tab[posC] != NULL)   {     //si le candidat existe
+                    hv->tab[posV]->val = 1;       //il a vote
+                    hc->tab[posC]->val = hc->tab[posC]->val + 1; //le candidat a un vote de plus              
 
                 }
             }   
@@ -121,10 +139,7 @@ Key *compute_winner(CellProtected *decl, CellKey *candidates, CellKey *voters, i
         decl = decl->next;
     }
 
-    //determination du gagnant    //ET SI DEUX CANDIDATS SONT EX AEQUO ???
-
-    //afficher_tableH(hc);
-
+    //determination du gagnant    //ET SI DEUX CANDIDATS SONT EX AEQUO --on prend le premier dans la table
     HashCell *gagnant = NULL;
     int val_gagnant = -1;
     for (int i=0; i<hc->size; i++)  {
@@ -140,7 +155,8 @@ Key *compute_winner(CellProtected *decl, CellKey *candidates, CellKey *voters, i
     }
 
     Key *g = gagnant->key;
-    delete_hashtable(hc);
+    //on ne free pas les cles qui sont stockes egalement dans les listes 
+    delete_hashtable(hc);   
     delete_hashtable(hv);
     return g;
 }
@@ -162,6 +178,7 @@ void afficher_tableH(HashTable *t)  {
 
 int listKeyLength(CellKey *list)    {
     //Pour vérifier la longueur de la liste de cles
+    //utilise dans compute_winner
     if (!list)  {
         return 0;
     }

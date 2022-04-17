@@ -21,6 +21,8 @@ void add_key(CellKey **LCK, Key *key)    {
 }
 
 CellKey *read_public_keys(char *filename)   {
+    //fichier candidates.txt : une cle par ligne
+    //fichier keys.txt : on prend la premiere cle de chaque ligne (avant l'espace) qui est la cle publique
     FILE *istream = fopen(filename, "r");
     if (istream == NULL)    {
         fprintf(stderr, "Erreur : read_public_keys, ouverture du fichier\n");
@@ -30,7 +32,7 @@ CellKey *read_public_keys(char *filename)   {
     char buffer[256];
     char lu[256];
     while (fgets(buffer,256,istream))   {
-        if (sscanf(buffer,"%s ",lu) == 1)   {
+        if (sscanf(buffer,"%s ",lu) == 1)   {   //cle publique avant l'espace (si il y a un espace)
             Key *key = str_to_key(lu);          //ne pas desallouer !
             add_key(&LCK,key);
         }
@@ -50,11 +52,13 @@ void print_list_keys(CellKey *LCK)  {
 }
 
 void delete_cell_key(CellKey *c)    {
+    //supprime l'integralite d'une cellule
     free(c->data);
     free(c);
 }
 
 void delete_list_keys(CellKey *LCK) {
+    //supprime l'integralite de la liste
     CellKey *tmp;
     while (LCK) {
         tmp = LCK;
