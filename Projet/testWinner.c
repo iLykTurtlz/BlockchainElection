@@ -37,15 +37,20 @@ int main()  {
     //On cree les tables qui contiennent les cles publiques soit des electeurs ou soit des candidats
     HashTable *t2 = create_hashtable(candidates, 2*nbCandidates);
     HashTable *t3 = create_hashtable(publicKeys, 2*nbElecteurs);
-    printf("\nTable candidats :\n");
+    printf("\nTable candidats (%d candidats) :\n",nbCandidates);
     afficher_tableH(t2);
-    printf("\nTable electeurs :\n");
+    printf("\nTable electeurs (%d electeurs) :\n", nbElecteurs);
     afficher_tableH(t3);
 
+    //Affichage des declarations
+    printf("\nDeclarations de vote :\n");
+    print_list_protected(votes);
+
     //Verification de la fonction compute_winner
+    printf("\nDebut compute_winner\n");
     Key *gagnant = compute_winner(votes, candidates, publicKeys, nbCandidates*2, nbElecteurs*2);
     char *gagnantStr = key_to_str(gagnant);
-    printf("FIN COMPUTE_WINNER : le gagnant est %s \n",gagnantStr);
+    printf("\nFIN COMPUTE_WINNER : le gagnant est %s \n",gagnantStr);
     free(gagnantStr);
 
     delete_hashtable(t2);
