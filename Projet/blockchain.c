@@ -160,7 +160,7 @@ void compute_proof_of_work(Block *B, int d){
         hash = hash_function_block((const char*) str);
     }
     free(str);
-    //free(B->hash);  //si le hash a deja ete alloue il faut le liberer avant de le remplacer
+    free(B->hash);  //il faut liberer le hash qu'on a utilise pour initialiser le bloc avant de le remplacer
     B->hash = hash;
 }
 
