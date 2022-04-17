@@ -41,6 +41,14 @@ int main(void)  {
     printf("\nDeclarations de vote :\n");
     print_list_protected(votes);
 
+    //rajout d'une fraude
+    printf("\nAvec une declaration frauduleuse :\n");
+    char *KeyStr = key_to_str(candidates->data); 
+    Protected *pr = init_protected( publicKeys->data, KeyStr, sign(KeyStr,publicKeys->next->data) );
+    add_protected(&votes,pr);
+    print_list_protected(votes);
+    free(KeyStr);
+
     //verifier qu'il n'y ait pas eu de hacking
     thwarted(&votes);
     printf("\nDeclarations de vote apres verification :\n");

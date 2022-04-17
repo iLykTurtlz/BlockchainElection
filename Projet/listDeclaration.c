@@ -52,6 +52,7 @@ void delete_cell_protected(CellProtected *c)    {
     //on ne supprime pas les clefs
     free(c->data->mess);            
     freeSignature(c->data->sgn);
+    free(c->data);
     free(c);
 }
 
