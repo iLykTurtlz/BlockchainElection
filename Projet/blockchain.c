@@ -147,7 +147,6 @@ int count_zeros(unsigned char* str){
 }
 
 void compute_proof_of_work(Block *B, int d){
-    //TO DO : memory leak
     B->nonce = 0;
     char *str = block_to_str(B);
     unsigned char* hash = hash_function_block((const char*) str);
@@ -161,7 +160,7 @@ void compute_proof_of_work(Block *B, int d){
         hash = hash_function_block((const char*) str);
     }
     free(str);
-    free(B->hash);  //si le hash a deja ete alloue il faut le liberer avant de le remplacer
+    //free(B->hash);  //si le hash a deja ete alloue il faut le liberer avant de le remplacer
     B->hash = hash;
 }
 

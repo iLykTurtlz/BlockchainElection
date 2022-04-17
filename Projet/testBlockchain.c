@@ -17,10 +17,10 @@ int main()  {
     CellProtected *votes = read_protected("declarations.txt");
 
     unsigned char c1[4] = "001";
-    unsigned char c2[4] = "100";
+    //unsigned char c2[4] = "100";
 
     //on cree juste un bloc avec le premier CellKey
-    Block *b = creerBlock(publicKeys->data, votes, c1,c2,0);
+    Block *b = creerBlock(publicKeys->data, votes, c1,(unsigned char *)"",0);
 
 
     char *strBlock = block_to_str(b);
