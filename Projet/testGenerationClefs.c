@@ -8,8 +8,6 @@
 #include "outilsMathematiques.h"
 
 
-
-
 int main()  {
     srand(time(NULL));
     int min_size = 3;

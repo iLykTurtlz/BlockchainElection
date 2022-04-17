@@ -42,5 +42,7 @@ int main()  {
 
     free(strBlock);
     free(b);
+    delete_list_protected_total(votes);
+    delete_list_keys(publicKeys);
     return 0;
 }
