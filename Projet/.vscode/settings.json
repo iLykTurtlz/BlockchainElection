@@ -4,6 +4,7 @@
         "stdio.h": "c",
         "manipulationclefs.h": "c",
         "listdeclaration.h": "c",
-        "generationnbpremier.h": "c"
+        "generationnbpremier.h": "c",
+        "winner.h": "c"
     }
 }

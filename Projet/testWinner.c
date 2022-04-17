@@ -33,7 +33,7 @@ int main()  {
     CellKey *candidates = read_public_keys("candidates.txt");
     CellKey *publicKeys = read_public_keys("keys.txt");
     CellProtected *votes = read_protected("declarations.txt");
-/*
+
     //On cree les tables qui contiennent les cles publiques soit des electeurs ou soit des candidats
     HashTable *t2 = create_hashtable(candidates, 2*nbCandidates);
     HashTable *t3 = create_hashtable(publicKeys, 2*nbElecteurs);
@@ -55,9 +55,9 @@ int main()  {
 
     delete_hashtable(t2);
     delete_hashtable(t3);
-    */
+    
+    delete_cell_protected_total(votes);
     delete_list_keys(candidates);
     delete_list_keys(publicKeys);
-    delete_cell_protected_total(votes);
     return 0;
 }

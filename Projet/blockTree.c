@@ -2,8 +2,12 @@
 #include <stdlib.h>
 #include <math.h>
 #include <assert.h>
+#include <string.h>
+#include <dirent.h>
 #include "blockchain.h"
 #include "blockTree.h"
+#include "winner.h"
+#include "listKey.h"
 
 CellTree *create_node(Block *b) {
     CellTree *new = (CellTree *)malloc(sizeof(CellTree));
@@ -39,6 +43,14 @@ void add_child(CellTree *father, CellTree *child)   {
     }
     //On actualise le pere de child
     child->father = father;
+    
+
+    //???
+    //child->block->previous_hash = father->block->hash;
+    //???
+
+
+
     //on ajoute le fils
     CellTree *curr = father->firstChild;
     if (curr == NULL)   {
@@ -101,7 +113,7 @@ CellTree* highest_child(CellTree* cell){
     //retourne l'adresse du fils dont la hauteur est la plus grande
     if (cell==NULL)  {
         fprintf(stderr,"Error : highest_child : cell null\n");
-        return;
+        return NULL;
     }
     CellTree* child = cell->firstChild;
     CellTree* highest_child = cell->firstChild;
@@ -118,31 +130,34 @@ CellTree *last_node(CellTree *tree) {
     //Retourne la feuille de la plus longue branche
     if (tree == NULL)   {
         fprintf(stderr, "Erreur : last_node, tree NULL\n");
+        return NULL;
     }
     //renvoie une feuille
     if (tree->firstChild == NULL)   {
         return tree;
     //parcourt le plus grand fils    
     } else {
-        last_node(highest_child(tree));
+        return last_node(highest_child(tree));
     }
 }
 
+//Version qui utilise last_node
 CellProtected *votesBrancheMax(CellTree *tree)   {
     //on fusionne les listes de votes de la plus longue branche
     if (tree == NULL)   {
         fprintf(stderr, "Erreur : votesBrancheMax, tree NULL\n");
-        return;
+        return NULL;
     }
-    CellTree *leaf = last_node(tree);
+    CellTree *node = last_node(tree);
     CellProtected *res = NULL;
-    while (leaf != NULL)    {
-        res = fusionner_list_protected(res, leaf->block->votes);
-        leaf = leaf->father;
+    while (node != NULL)    {
+        res = fusionner_list_protected(res, copie_list_protected(node->block->votes));
+        node = node->father;
     }
     return res;
 }
 /*
+//Version qui utilise highest_child
 CellProtected *votesBrancheMax(CellTree *tree)  {
     //on fusionne les listes de votes de la plus longue branche
     if (tree == NULL)   {
@@ -160,7 +175,7 @@ CellProtected *votesBrancheMax(CellTree *tree)  {
 */
 
 void submit_vote(Protected *p)  {
-    FILE *ostream = fopen("./Blockchain/Pending_votes.txt","a");
+    FILE *ostream = fopen("Pending_votes.txt","a"); //cree le fichier s'il n'existe pas
     if (!ostream)   {
         fprintf(stderr,"Erreur: submit_vote, output stream NULL\n");
         return;
@@ -172,12 +187,14 @@ void submit_vote(Protected *p)  {
 }
 
 void create_block(CellTree *tree, Key *author, int d)   {
-    CellProtected *votes = read_protected("./Blockchain/Pending_votes.txt");
-    CellTree *leaf = last_node(tree);
-    Block *b = creerBlock(author,votes,"",leaf->block->hash,0);
+    //Creation d'un bloc valide a partir de Pending_votes.txt
+    CellProtected *votes = read_protected("Pending_votes.txt"); //ce qu'on met dans le bloc
+    CellTree *leaf = last_node(tree);   
+    Block *b = creerBlock(author,votes,(unsigned char *)"",leaf->block->hash,0);
     compute_proof_of_work(b,d);
-    assert(remove("./Blockchain/Pending_votes.txt") == 0);
-    write_block("./Blockchain/Pending_block.txt", b);
+
+    assert(remove("Pending_votes.txt") == 0);
+    write_block("Pending_block.txt", b);
     free(b->hash);
     free(b->previous_hash);
     delete_list_protected_total(b->votes);
@@ -185,18 +202,116 @@ void create_block(CellTree *tree, Key *author, int d)   {
 }
 
 void add_block(int d, char *name)   {
-    Block *b = lireBlock("./Blockchain/Pending_block.txt");
+    Block *b = lireBlock("Pending_block.txt");
     int verified = verify_block(b,d);
     if (verified)   {
-        char path[256] = strcat("./Blockchain/",name);
+        char path[256] = "\0";
+        strcat(path,"./Blockchain/");
+        strcat(path,name);
         write_block(path, b);
     }
-    assert(remove("./Blockchain/Pending_block.txt") == 0);
+    assert(remove("Pending_block.txt") == 0);
     free(b->hash);
     free(b->previous_hash);
     delete_list_protected_total(b->votes);
     free(b);
 }
+
+CellTree *read_tree()   {
+    DIR *rep = opendir("./Blockchain/");
+    if (rep == NULL)    {
+        fprintf(stderr, "Erreur : read_tree, ouverture du repertoire\n");
+        return NULL;
+    }
+    //on compte d'abord le nombre de fichiers
+    int nbFichiers = 0;
+    struct dirent *dir;
+    while ((dir = readdir(rep)))    {
+        if (strcmp(dir->d_name,".") != 0 && strcmp(dir->d_name,"..") != 0)   {
+            nbFichiers++;
+        }
+    }
+    //creation du tableau
+    CellTree *tab[nbFichiers];
+    for (int i=0; i<nbFichiers; i++)    {
+        tab[i] = NULL;
+    }
+    //creation d'un noeud par fichier
+    Block *b = NULL;
+    char path[256];
+    int i=0;
+    while ((dir = readdir(rep)))    {
+        if (strcmp(dir->d_name,".") != 0 && strcmp(dir->d_name,"..") != 0)   {
+            path[0] = '\0';
+            strcat(path,"./Blockchain/");
+            strcat(path,dir->d_name);
+            b = lireBlock(dir->d_name);
+            tab[i] = create_node(b);
+            i++;
+        }
+    }
+    closedir(rep);
+
+    //on ajoute a chaque noeud ses fils
+    int pere,fils;
+    for (pere=0; pere<nbFichiers; pere++)   {
+        for (fils=0; fils<nbFichiers; fils++)   {
+            if (strcmp((char *)tab[pere]->block->hash,(char *)tab[fils]->block->previous_hash) == 0)    {
+                add_child(tab[pere],tab[fils]);
+            }
+        }
+    }
+
+    //on cherche la racine de l'arbre
+    CellTree *racine = NULL;
+    int nbRacines=0;    //verification de l'unicite de la racine
+    for (i=0; i<nbFichiers; i++)    {
+        if (tab[i]->father == NULL) {
+            racine = tab[i];
+            racine++;
+        }
+    }
+
+    if (nbRacines == 1) {
+        return racine;
+    }
+    else {
+        fprintf(stderr,"Erreur : read_tree, racine non unique ou non existante\n");
+        for (i=0; i<nbFichiers; i++)    {
+            if (tab[i] == NULL) {
+                fprintf(stderr,"tab[%d] NULL\n",i);
+            } else {
+                delete_node(tab[i]);
+            }
+        }
+        return NULL;
+    }
+}
+
+Key *compute_winner_BT(CellTree *tree, CellKey *candidates, CellKey *voters, int sizeC, int sizeV)  {
+    //verification de sizeC >= len(candidates) && sizeV >= len(voters)
+    assert(   (sizeC >= listKeyLength(candidates))   &&   (sizeV >= listKeyLength(voters))   );
+
+    //extraction de la liste des declarations de vote valides
+    CellProtected * votes = votesBrancheMax(tree);
+    thwarted(&votes);
+
+    //Calcul du gagnant
+    Key *gagnant = compute_winner(votes, candidates, voters, sizeC, sizeV);
+    
+    //on libere les cellules mais pas les protected
+    CellProtected *tmp;
+    while (votes)   {
+        tmp = votes;
+        votes = votes->next;
+        free(tmp);
+    }
+    return gagnant;
+}
+
+
+
+
 
 
 
