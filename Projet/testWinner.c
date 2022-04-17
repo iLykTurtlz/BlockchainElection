@@ -22,10 +22,10 @@ int main()  {
     srand(time(NULL));
 
     //On verifie la creation d'une table de hachage
-    printf("\nOn cree, affiche et detruit une table de hachage\n");
-    HashTable *t1 = create_hashtable(NULL, 10);
-    afficher_tableH(t1);
-    delete_hashtable(t1);
+    //printf("\nOn cree, affiche et detruit une table de hachage\n");
+    //HashTable *t1 = create_hashtable(NULL, 10);
+    //afficher_tableH(t1);
+    //delete_hashtable(t1);
     
     //On genere des donnees
     int nbCandidates = 3, nbElecteurs = 10;
@@ -34,6 +34,14 @@ int main()  {
     CellKey *publicKeys = read_public_keys("keys.txt");
     CellProtected *votes = read_protected("declarations.txt");
 
+    delete_cell_protected_total(votes);
+    delete_list_keys(candidates);
+    delete_list_keys(publicKeys);
+
+
+
+
+/*
     //On cree les tables qui contiennent les cles publiques soit des electeurs ou soit des candidats
     HashTable *t2 = create_hashtable(candidates, 2*nbCandidates);
     HashTable *t3 = create_hashtable(publicKeys, 2*nbElecteurs);
@@ -59,5 +67,6 @@ int main()  {
     delete_cell_protected_total(votes);
     delete_list_keys(candidates);
     delete_list_keys(publicKeys);
-    return 0;
+*/    
+return 0;
 }

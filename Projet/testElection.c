@@ -29,16 +29,18 @@ int main(void)  {
     CellKey *publicKeys = read_public_keys("keys.txt");
 
     //afficher ces clefs
+/*
     printf("\nCles publiques des candidats :\n");
     print_list_keys(candidates);
     printf("\nCles publiques de tout le monde:\n");
     print_list_keys(publicKeys);
-
+*/
     //lire les declarations de vote
     CellProtected *votes = read_protected("declarations.txt");
 
     //afficher les declarations
-    printf("\nDeclarations de vote :\n");
+/*  
+  printf("\nDeclarations de vote :\n");
     print_list_protected(votes);
 
     //rajout d'une fraude
@@ -60,7 +62,10 @@ int main(void)  {
     char *g = key_to_str(gagnant);
     printf("\n%s a gagne\n\n",g);
 
-    free(g);
+  
+  free(g);
+*/
+
     delete_list_protected_total(votes);
     delete_list_keys(candidates);
     delete_list_keys(publicKeys);
