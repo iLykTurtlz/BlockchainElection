@@ -286,6 +286,8 @@ CellTree *read_tree()   {
     }
     closedir(rep);
 
+    fprintf(stderr,"\nfinished creating nodes for every file\n");
+
 
 
     //on ajoute a chaque noeud ses fils
