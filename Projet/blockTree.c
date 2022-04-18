@@ -187,24 +187,15 @@ void submit_vote(Protected *p)  {
 void create_block(CellTree **tree, Key *author, int d)   {  //On a modifie la signature pour pouvoir acceder a la tete de l'arbre
     //Creation d'un bloc valide a partir de Pending_votes.txt
     CellProtected *votes = read_protected("Pending_votes.txt"); //ce qu'on met dans le bloc
-    //fprintf(stderr,"\nAffichage de pending_votes (dans create_block)\n");
-    print_list_protected(votes);
-    
+    //print_list_protected(votes);
     
     CellTree *leaf = last_node(*tree);
     unsigned char previous_hash[2*SHA256_DIGEST_LENGTH+1];
     int i;
     //On obtient le previous_hash
     if (leaf == NULL)   {   //Genesis Block
-        
         previous_hash[0] = '0';
         previous_hash[1] = '\0';
-    /*
-        for (i=0; i<(2*SHA256_DIGEST_LENGTH+1); i++)    {
-            previous_hash[i] = '0';  
-        }
-        previous_hash[i] = '\0';
-    */
     } else {
         for (i=0; i<(2*SHA256_DIGEST_LENGTH+1); i++)    {
             previous_hash[i] = leaf->block->hash[i];  
@@ -212,7 +203,6 @@ void create_block(CellTree **tree, Key *author, int d)   {  //On a modifie la si
         previous_hash[i] = '\0';
 
     }
-    //fprintf(stderr,"\nprevious_hash : %s\n",previous_hash);
     Block *b = creerBlock(author,votes,(unsigned char *)"0",previous_hash,0); // ne pas desallouer le bloc !
     compute_proof_of_work(b,d);
     CellTree *new = create_node(b);
@@ -224,24 +214,13 @@ void create_block(CellTree **tree, Key *author, int d)   {  //On a modifie la si
     }
 
     assert(remove("Pending_votes.txt") == 0);
-
-
-
-    char *bStr = block_to_str(b);
-    //fprintf(stderr,"\nAvant write block\nb=%s\n",bStr);
-    free(bStr);
-
-
-
     write_block("Pending_block.txt", b);
-    //fprintf(stderr,"\nApres write block\n");
     //on conserve le block dans l'arbre
 }
 
 void add_block(int d, char *name)   {
     //fprintf(stderr,"Debut add_block\n");
     Block *b = lireBlock("Pending_block.txt");
-
 
     int verified = verify_block(b,d);
     if (verified)   {
@@ -251,6 +230,7 @@ void add_block(int d, char *name)   {
         write_block(path, b);
     }
     assert(remove("Pending_block.txt") == 0);
+    free(b->author);
     free(b->hash);
     free(b->previous_hash);
     delete_list_protected_total(b->votes);
