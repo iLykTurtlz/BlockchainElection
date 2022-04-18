@@ -79,7 +79,6 @@ Block *lireBlock(char *filename)    {
         } 
     }
 
-    //fprintf(stderr,"\nlire_block : %s\n",buffer);
 
     //Lecture des votes (on remet dans l'ordre des votes)
     CellProtected *votesTmp = NULL;
@@ -87,6 +86,9 @@ Block *lireBlock(char *filename)    {
         Protected *pr = str_to_protected(buffer);   //ne pas désallouer pr !
         add_protected(&votesTmp,pr);
     }
+
+    fclose(istream);
+
     CellProtected *votesTmpBis = votesTmp;
     CellProtected *votes = NULL;
     while (votesTmp)    {
