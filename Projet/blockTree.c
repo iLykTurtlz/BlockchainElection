@@ -213,14 +213,14 @@ void create_block(CellTree **tree, Key *author, int d)   {  //On a modifie la si
     }
 
     assert(remove("Pending_votes.txt") == 0);
-    fprintf(stderr,"\nAvant write block\n");
+    //fprintf(stderr,"\nAvant write block\n");
     write_block("Pending_block.txt", b);
-    fprintf(stderr,"\nApres write block\n");
+    //fprintf(stderr,"\nApres write block\n");
     //on conserve le block dans l'arbre
 }
 
 void add_block(int d, char *name)   {
-    fprintf(stderr,"Debut add_block\n");
+    //fprintf(stderr,"Debut add_block\n");
     Block *b = lireBlock("Pending_block.txt");
     int verified = verify_block(b,d);
     if (verified)   {

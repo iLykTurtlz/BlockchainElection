@@ -54,7 +54,7 @@ void write_block(char *filename, Block *block)    {
 }
 
 Block *lireBlock(char *filename)    {
-    fprintf(stderr,"debut lireBlock\n");
+    //fprintf(stderr,"debut lireBlock\n");
     FILE *istream = fopen(filename,"r");
     if (istream == NULL)    {
         fprintf(stderr, "Erreur a l'ouverture du fichier %s en lecture\n", filename);

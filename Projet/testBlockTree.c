@@ -23,8 +23,15 @@ int main()  {
     CellKey *candidates = read_public_keys("candidates.txt");
     CellKey *publicKeys = read_public_keys("keys.txt");
 
+    printf("\ncandidates:\n");
+    print_list_keys(candidates);
+    printf("\npublic keys:\n");
+    print_list_keys(publicKeys);
+
     //lire les declarations de vote
     CellProtected *votes = read_protected("declarations.txt");
+    printf("\nvotes:\n");
+    print_list_protected(votes);
 
     //rajout d'une fraude
     //TO DO
@@ -55,6 +62,7 @@ int main()  {
     delete_list_keys(candidates);
     delete_list_keys(publicKeys);
     
+     printf("\nFIN test blocTree\n");
 
     return 0;
 }
