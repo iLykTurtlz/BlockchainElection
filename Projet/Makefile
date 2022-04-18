@@ -79,5 +79,9 @@ blockTree.o : blockTree.c blockTree.h blockchain.o blockchain.h winner.o winner.
 
 blockchainElection : blockchainElection.c blockTree.o blockTree.h blockchain.o blockchain.h listDeclaration.o listDeclaration.h manipulationClefs.o manipulationClefs.h donneesVote.o donneesVote.h listKey.o listKey.h generationClef.o generationClef.h declaration.o declaration.h generationNbPremier.o generationNbPremier.h rsa.o rsa.h testMillerRabin.o testMillerRabin.h signature.o signature.h outilsMathematiques.o outilsMathematiques.h winner.o winner.h
 	$(CC) $(CFLAGS) -o blockchainElection blockchainElection.c blockTree.o blockchain.o listDeclaration.o manipulationClefs.o listKey.o generationClef.o donneesVote.o declaration.o generationNbPremier.o rsa.o testMillerRabin.o signature.o outilsMathematiques.o winner.o -lssl -lcrypto -lm
+
+testBlockTree : testBlockTree.c blockTree.o blockTree.h blockchain.o blockchain.h listDeclaration.o listDeclaration.h manipulationClefs.o manipulationClefs.h donneesVote.o donneesVote.h listKey.o listKey.h generationClef.o generationClef.h declaration.o declaration.h generationNbPremier.o generationNbPremier.h rsa.o rsa.h testMillerRabin.o testMillerRabin.h signature.o signature.h outilsMathematiques.o outilsMathematiques.h winner.o winner.h
+	$(CC) $(CFLAGS) -o testBlockTree testBlockTree.c blockTree.o blockchain.o listDeclaration.o manipulationClefs.o listKey.o generationClef.o donneesVote.o declaration.o generationNbPremier.o rsa.o testMillerRabin.o signature.o outilsMathematiques.o winner.o -lssl -lcrypto -lm
+
 clean :
 	rm -rf *.o comparaisonExponentiationModulaire testDeclaration testRSA testElection testWinner testOpenSSL testBlockchain graphBlockchain testGenerationClefs testGenerationNbPremier blockchainElection

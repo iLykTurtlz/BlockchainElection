@@ -50,7 +50,7 @@ int main()  {
         }
         create_block(&tree,cleAssesseur,d);
         sprintf(nomFichier,"fichier%d",nbFichier);
-        fprintf(stderr,"\nadd_block : nomFichier = %s\n",nomFichier);
+
         add_block(d,nomFichier);
         nbFichier++;
     }

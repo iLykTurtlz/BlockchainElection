@@ -34,7 +34,7 @@ int main()  {
     CellTree *tree = NULL;  
     int d = 3;  //nombre de bits a 0
 
-    int i, nbFichier = 1, votesParBlock = 10;
+    int i, nbFichier = 1, votesParBlock = 3;
     char nomFichier[256];
     CellProtected *current = votes;
     Protected *pr;
@@ -51,28 +51,12 @@ int main()  {
     create_block(&tree,cleAssesseur,d);
     sprintf(nomFichier,"fichier%d",nbFichier);
     fprintf(stderr,"\nadd_block : nomFichier = %s\n",nomFichier);
-    add_block(d,nomFichier);
+    //add_block(d,nomFichier);
     nbFichier++;
 
     printf("\nFin de l'operation de soumission des votes\n");
 
-    //Ayant enregistre les fichiers dans Blockchain on peut supprimer l'arbre de construction
-    printf("\nAffichage de l'arbre de construction :\n");
-    print_tree(tree);
-    delete_tree(tree);
-
-    //Lecture du repertoire Blockchain, re-creation et affichage de l'arbre
-    tree = read_tree();
-    printf("\nAffichage de l'arbre provenant du repertoire Blockchain :\n");
-    print_tree(tree);
-  
-    //determination du gagnant
-    Key *gagnant = compute_winner_BT(tree, candidates, publicKeys,nbCandidates*2,nbVoters*2);
-
-    char *g = key_to_str(gagnant);
-    printf("\n%s a gagne\n\n",g);
-
-    free(g);
+    
     delete_tree(tree);
     delete_list_protected_total(votes);
     delete_list_keys(candidates);

@@ -213,7 +213,7 @@ void create_block(CellTree **tree, Key *author, int d)   {  //On a modifie la si
         add_child(leaf,new);    //on sait que l'arbre est non vide
     }
 
-    assert(remove("Pending_votes.txt") == 0);
+    //assert(remove("Pending_votes.txt") == 0);
     write_block("Pending_block.txt", b);
     //on conserve le block dans l'arbre
 }
