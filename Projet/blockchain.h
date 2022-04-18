@@ -14,6 +14,8 @@ typedef struct block    {
     int nonce;
 } Block;
 
+
+
 Block *creerBlock(Key *author, CellProtected *votes, unsigned char *hash, unsigned char *previous_hash, int nonce);
 void write_block(char *filename, Block *block);
 Block *lireBlock(char *filename);
