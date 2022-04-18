@@ -186,14 +186,11 @@ void submit_vote(Protected *p)  {
 
 void create_block(CellTree **tree, Key *author, int d)   {  //On a modifie la signature pour pouvoir acceder a la tete de l'arbre
     //Creation d'un bloc valide a partir de Pending_votes.txt
-    fprintf(stderr,"avant read_protected\n");
     CellProtected *votes = read_protected("Pending_votes.txt"); //ce qu'on met dans le bloc
-    fprintf(stderr,"avant last_node\n");
     CellTree *leaf = last_node(*tree);
     unsigned char previous_hash[2*SHA256_DIGEST_LENGTH+1];
     int i;
     //On obtient le previous_hash
-    fprintf(stderr,"avant previous_hash\n");
     if (leaf == NULL)   {   //Genesis Block
         for (i=0; i<(2*SHA256_DIGEST_LENGTH+1); i++)    {
             previous_hash[i] = '0';  
@@ -206,7 +203,8 @@ void create_block(CellTree **tree, Key *author, int d)   {  //On a modifie la si
         previous_hash[i] = '\0';
     }
     fprintf(stderr,"avant creerBlock\n");
-    Block *b = creerBlock(author,votes,(unsigned char *)"",previous_hash,0); // ne pas desallouer le bloc !
+    Block *b = creerBlock(author,votes,(unsigned char *)"123",previous_hash,0); // ne pas desallouer le bloc !
+    fprintf(stderr,"avant proof_of_work\n");
     compute_proof_of_work(b,d);
     fprintf(stderr,"apres compute_proof_of_work\n");
     CellTree *new = create_node(b);
