@@ -49,12 +49,12 @@ int main()  {
     print_tree(tree);
     add_block(d,nomFichier);
 
-    /*
+    
     delete_tree(tree);
     delete_list_protected_total(votes);
     delete_list_keys(candidates);
     delete_list_keys(publicKeys);
-    */
+    
 
     return 0;
 }
