@@ -29,7 +29,7 @@ Block *creerBlock(Key *author, CellProtected *votes, unsigned char *hash, unsign
     new->hash = h;
     new->previous_hash = ph;
     new->nonce = nonce;
-    fprintf(stderr,"\Apres creerBlock\n");
+    fprintf(stderr,"\nApres creerBlock\n");
     return new;
 }
 
