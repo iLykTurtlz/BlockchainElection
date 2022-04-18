@@ -42,8 +42,9 @@ void add_child(CellTree *father, CellTree *child)   {
         return;
     }
     //On actualise le previous hash de child
-    if (child->block->previous_hash != father->block->hash) {
+    if ( strcmp((char *)child->block->previous_hash, (char *)father->block->hash) != 0 ) {
         fprintf(stderr,"Erreur : add_child, you are not HIS child!\n");
+        return;
     }
 
     //on actualise le pere de child
@@ -77,7 +78,7 @@ void print_tree(CellTree *tree) {
         return;
     }
     //on affiche le noeud courrant
-    printf("Block de hauteur : %d, et de d'identifiant : %s\n", tree->height, tree->block->hash);
+    printf("Block de hauteur : %d, et d'identifiant : %s\n", tree->height, tree->block->hash);
     
     //on appelle la fonction pour ses frères puis ses fils
     if (tree->nextBro){
