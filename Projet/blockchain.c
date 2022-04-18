@@ -206,6 +206,7 @@ void delete_block(Block *B)	{
         fprintf(stderr,"Error: delete_block, block null\n");
         return;
     }
+    free(B->author);
     free(B->hash);
     free(B->previous_hash);
     delete_cell_protected_total(B->votes);
