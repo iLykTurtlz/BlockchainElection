@@ -60,14 +60,14 @@ Block *lireBlock(char *filename)    {
         fprintf(stderr, "Erreur a l'ouverture du fichier %s en lecture\n", filename);
         return NULL;
     }
-    char buffer[256];
+    char buffer[4096];
     char authorStr[256];
-    unsigned char hash[32];
-    unsigned char previous_hash[32];
+    unsigned char hash[256];
+    unsigned char previous_hash[256];
     int nonce;
 
     //Lecture de la premiere ligne
-    if (fgets(buffer,256,istream) == NULL)  {
+    if (fgets(buffer,4096,istream) == NULL)  {
         fprintf(stderr,"Erreur a la lecture de la premiere ligne du ficher %s\n", filename);
         fclose(istream);
         return NULL;
@@ -79,13 +79,20 @@ Block *lireBlock(char *filename)    {
         } 
     }
 
+    fprintf(stderr,"\nlire_block : %s\n",buffer);
+
     //Lecture des votes
     CellProtected *votes = NULL;
-    while (fgets(buffer,256,istream) != NULL)   {
+    while (fgets(buffer,4096,istream) != NULL)   {
         Protected *pr = str_to_protected(buffer);   //ne pas désallouer pr !
         add_protected(&votes,pr);
     }
-    return creerBlock(str_to_key(authorStr),votes,hash,previous_hash,nonce);
+    Block *b = creerBlock(str_to_key(authorStr),votes,hash,previous_hash,nonce);
+    char *bStr = block_to_str(b);
+    fprintf(stderr,"\nAffichage du bloc lu dans lire_block : %s\n", bStr);
+    free(bStr);
+
+    return b;
 }
 
 char *block_to_str(Block *block)    {
