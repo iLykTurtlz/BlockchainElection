@@ -44,7 +44,6 @@ int main()  {
         cleAssesseur = current->data->pKey; //la cle de l'assesseur est la cle du premier a voter dans le block
         while (current && i<votesParBlock)   {
             pr = current->data;
-            fprintf(stderr,"Avant submit_vote\n");
             submit_vote(pr);
             current = current->next;
             i++;
