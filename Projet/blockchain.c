@@ -170,8 +170,11 @@ int verify_block(Block *B, int d)	{
     // Verifie que le nombre de zeros au debut du block hash est superieur ou  egal a d
     //TO DO : hashed ->memory leak?
     char *str = block_to_str(B);
+    fprintf(stderr,"\naffichage verify_block : %s\n",str);
     unsigned char *hashed = hash_function_block(str);
+    fprintf(stderr,"hashed : %s\n",hashed);
     int res = count_zeros(hashed) >= d;
+    fprintf(stderr,"res = %d\n",res);
     free(hashed);
     free(str);
     return res;
