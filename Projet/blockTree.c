@@ -197,7 +197,7 @@ void create_block(CellTree **tree, Key *author, int d)   {  //On a modifie la si
         }
         previous_hash[i] = '\0';
     } else {
-        for (i=0; i<(SHA256_DIGEST_LENGTH+1); i++)    {
+        for (i=0; i<(2*SHA256_DIGEST_LENGTH+1); i++)    {
             previous_hash[i] = leaf->block->hash[i];  
         }
         previous_hash[i] = '\0';
