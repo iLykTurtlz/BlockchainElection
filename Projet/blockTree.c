@@ -248,6 +248,13 @@ CellTree *read_tree()   {
             nbFichiers++;
         }
     }
+
+
+
+    fprintf(stderr,"\nread_tree : nbFichiers dans Blockchain = %d\n",nbFichiers);
+
+
+
     //creation du tableau
     CellTree *tab[nbFichiers];
     for (int i=0; i<nbFichiers; i++)    {
