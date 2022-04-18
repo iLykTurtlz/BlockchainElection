@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -Wall -g
 
 
-all : comparaisonExponentiationModulaire testDeclaration testRSA testElection testWinner testBlockchain testOpenSSL graphBlockchain testGenerationClefs testGenerationNbPremier blockchainElection
+all : comparaisonExponentiationModulaire testDeclaration testRSA testElection testWinner testBlockchain testOpenSSL graphBlockchain testGenerationClefs testGenerationNbPremier blockchainElection testBlockTree
 
 
 comparaisonExponentiationModulaire : comparaisonExponentiationModulaire.c outilsMathematiques.o outilsMathematiques.h
@@ -84,4 +84,4 @@ testBlockTree : testBlockTree.c blockTree.o blockTree.h blockchain.o blockchain.
 	$(CC) $(CFLAGS) -o testBlockTree testBlockTree.c blockTree.o blockchain.o listDeclaration.o manipulationClefs.o listKey.o generationClef.o donneesVote.o declaration.o generationNbPremier.o rsa.o testMillerRabin.o signature.o outilsMathematiques.o winner.o -lssl -lcrypto -lm
 
 clean :
-	rm -rf *.o comparaisonExponentiationModulaire testDeclaration testRSA testElection testWinner testOpenSSL testBlockchain graphBlockchain testGenerationClefs testGenerationNbPremier blockchainElection
+	rm -rf *.o comparaisonExponentiationModulaire testDeclaration testRSA testElection testWinner testOpenSSL testBlockchain graphBlockchain testGenerationClefs testGenerationNbPremier blockchainElection testBlockTree

@@ -15,7 +15,7 @@ int main()  {
     srand(time(NULL));
 
     //generation de donnees
-    int nbVoters = 1000, nbCandidates = 5;
+    int nbVoters = 10, nbCandidates = 5;
     generate_random_data(nbVoters, nbCandidates);
     printf("\nOn genere %d electeurs et %d candidats.\n",nbVoters,nbCandidates);
 
@@ -51,7 +51,7 @@ int main()  {
 
     
     delete_tree(tree);
-    delete_list_protected_total(votes);
+    //delete_list_protected_total(votes);
     delete_list_keys(candidates);
     delete_list_keys(publicKeys);
     
