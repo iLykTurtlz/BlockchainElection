@@ -223,7 +223,7 @@ void create_block(CellTree **tree, Key *author, int d)   {  //On a modifie la si
         add_child(leaf,new);    //on sait que l'arbre est non vide
     }
 
-    //assert(remove("Pending_votes.txt") == 0);
+    assert(remove("Pending_votes.txt") == 0);
 
 
 
@@ -250,7 +250,7 @@ void add_block(int d, char *name)   {
         strcat(path,name);
         write_block(path, b);
     }
-    //assert(remove("Pending_block.txt") == 0);
+    assert(remove("Pending_block.txt") == 0);
     free(b->hash);
     free(b->previous_hash);
     delete_list_protected_total(b->votes);
