@@ -192,7 +192,7 @@ void create_block(CellTree **tree, Key *author, int d)   {  //On a modifie la si
     int i;
     //On obtient le previous_hash
     if (leaf == NULL)   {   //Genesis Block
-        for (i=0; i<(SHA256_DIGEST_LENGTH+1); i++)    {
+        for (i=0; i<(2*SHA256_DIGEST_LENGTH+1); i++)    {
             previous_hash[i] = '0';  
         }
         previous_hash[i] = '\0';
@@ -213,7 +213,7 @@ void create_block(CellTree **tree, Key *author, int d)   {  //On a modifie la si
         add_child(leaf,new);    //on sait que l'arbre est non vide
     }
 
-    //assert(remove("Pending_votes.txt") == 0);
+    assert(remove("Pending_votes.txt") == 0);
     write_block("Pending_block.txt", b);
     //on conserve le block dans l'arbre
 }
@@ -229,7 +229,7 @@ void add_block(int d, char *name)   {
         fprintf(stderr, "\nadd_block : path = %s\n",path);
         write_block(path, b);
     }
-    assert(remove("Pending_block.txt") == 0);
+    //assert(remove("Pending_block.txt") == 0);
     free(b->hash);
     free(b->previous_hash);
     delete_list_protected_total(b->votes);
