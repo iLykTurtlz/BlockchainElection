@@ -192,12 +192,12 @@ void create_block(CellTree **tree, Key *author, int d)   {  //On a modifie la si
     int i;
     //On obtient le previous_hash
     if (leaf == NULL)   {   //Genesis Block
-        for (i=0; i<(2*SHA256_DIGEST_LENGTH+1); i++)    {
+        for (i=0; i<(SHA256_DIGEST_LENGTH+1); i++)    {
             previous_hash[i] = '0';  
         }
         previous_hash[i] = '\0';
     } else {
-        for (i=0; i<(2*SHA256_DIGEST_LENGTH+1); i++)    {
+        for (i=0; i<(SHA256_DIGEST_LENGTH+1); i++)    {
             previous_hash[i] = leaf->block->hash[i];  
         }
         previous_hash[i] = '\0';
@@ -205,7 +205,6 @@ void create_block(CellTree **tree, Key *author, int d)   {  //On a modifie la si
 
     Block *b = creerBlock(author,votes,(unsigned char *)"",previous_hash,0); // ne pas desallouer le bloc !
     compute_proof_of_work(b,d);
-    fprintf(stderr,"create_block, verify_block %d\n",verify_block(b,d));
     CellTree *new = create_node(b);
     //On gere le Genesis Block de la chaine
     if (leaf == NULL)   {
