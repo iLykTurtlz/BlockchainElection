@@ -187,7 +187,7 @@ void submit_vote(Protected *p)  {
 void create_block(CellTree **tree, Key *author, int d)   {  //On a modifie la signature pour pouvoir acceder a la tete de l'arbre
     //Creation d'un bloc valide a partir de Pending_votes.txt
     CellProtected *votes = read_protected("Pending_votes.txt"); //ce qu'on met dans le bloc
-    fprintf(stderr,"\nAffichage de pending_votes (dans create_block)\n");
+    //fprintf(stderr,"\nAffichage de pending_votes (dans create_block)\n");
     print_list_protected(votes);
     
     
@@ -212,8 +212,8 @@ void create_block(CellTree **tree, Key *author, int d)   {  //On a modifie la si
         previous_hash[i] = '\0';
 
     }
-    fprintf(stderr,"\nprevious_hash : %s\n",previous_hash);
-    Block *b = creerBlock(author,votes,(unsigned char *)"",previous_hash,0); // ne pas desallouer le bloc !
+    //fprintf(stderr,"\nprevious_hash : %s\n",previous_hash);
+    Block *b = creerBlock(author,votes,(unsigned char *)"0",previous_hash,0); // ne pas desallouer le bloc !
     compute_proof_of_work(b,d);
     CellTree *new = create_node(b);
     //On gere le Genesis Block de la chaine
@@ -228,7 +228,7 @@ void create_block(CellTree **tree, Key *author, int d)   {  //On a modifie la si
 
 
     char *bStr = block_to_str(b);
-    fprintf(stderr,"\nAvant write block\nb=%s\n",bStr);
+    //fprintf(stderr,"\nAvant write block\nb=%s\n",bStr);
     free(bStr);
 
 
@@ -241,11 +241,6 @@ void create_block(CellTree **tree, Key *author, int d)   {  //On a modifie la si
 void add_block(int d, char *name)   {
     //fprintf(stderr,"Debut add_block\n");
     Block *b = lireBlock("Pending_block.txt");
-
-
-    char *blockStr= block_to_str(b);
-    fprintf(stderr,"add_block, b = %s\n",blockStr);
-    free(blockStr);
 
 
     int verified = verify_block(b,d);
@@ -279,7 +274,7 @@ CellTree *read_tree()   {
 
 
 
-    fprintf(stderr,"\nread_tree : nbFichiers dans Blockchain = %d\n",nbFichiers);
+    //fprintf(stderr,"\nread_tree : nbFichiers dans Blockchain = %d\n",nbFichiers);
 
 
 

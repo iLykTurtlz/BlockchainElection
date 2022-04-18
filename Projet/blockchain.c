@@ -79,7 +79,7 @@ Block *lireBlock(char *filename)    {
         } 
     }
 
-    fprintf(stderr,"\nlire_block : %s\n",buffer);
+    //fprintf(stderr,"\nlire_block : %s\n",buffer);
 
     //Lecture des votes (on remet dans l'ordre des votes)
     CellProtected *votesTmp = NULL;
@@ -101,11 +101,11 @@ Block *lireBlock(char *filename)    {
         votesTmpBis = votesTmpBis->next;
         free(tmp);
     }
-    
+
 
     Block *b = creerBlock(str_to_key(authorStr),votes,hash,previous_hash,nonce);
     char *bStr = block_to_str(b);
-    fprintf(stderr,"\nAffichage du bloc lu dans lire_block : %s\n", bStr);
+    //fprintf(stderr,"\nAffichage du bloc lu dans lire_block : %s\n", bStr);
     free(bStr);
 
     return b;
@@ -193,11 +193,11 @@ int verify_block(Block *B, int d)	{
     // Verifie que le nombre de zeros au debut du block hash est superieur ou  egal a d
     //TO DO : hashed ->memory leak?
     char *str = block_to_str(B);
-    fprintf(stderr,"\naffichage verify_block : %s\n",str);
+    //fprintf(stderr,"\naffichage verify_block : %s\n",str);
     unsigned char *hashed = hash_function_block(str);
-    fprintf(stderr,"hashed : %s\n",hashed);
+    //fprintf(stderr,"hashed : %s\n",hashed);
     int res = count_zeros(hashed) >= d;
-    fprintf(stderr,"res = %d\n",res);
+    //fprintf(stderr,"res = %d\n",res);
     free(hashed);
     free(str);
     return res;
