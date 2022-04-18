@@ -201,6 +201,7 @@ int verify_block(Block *B, int d)	{
 }
 
 void delete_block(Block *B)	{
+    //Libere completement le Block
     //???Ne libere pas author, ni le contenu des cellules (Protected) ???
     if (!B)	{
         fprintf(stderr,"Error: delete_block, block null\n");
@@ -209,7 +210,7 @@ void delete_block(Block *B)	{
     free(B->author);
     free(B->hash);
     free(B->previous_hash);
-    delete_cell_protected_total(B->votes);
+    delete_list_protected_total(B->votes);
     free(B);
     /*
     CellProtected *curr = B->votes;
