@@ -38,25 +38,16 @@ int main()  {
     char nomFichier[256];
     CellProtected *current = votes;
     Protected *pr;
-    Key *cleAssesseur = NULL;
+    Key *cleAssesseur = current->data->pKey;
 
-    i=0;
-    cleAssesseur = current->data->pKey; //la cle de l'assesseur est la cle du premier a voter dans le block
-    while (current && i<votesParBlock)   {
-        pr = current->data;
-        submit_vote(pr);
-        current = current->next;
-        i++;
-    }
+    pr = current->data;
+    submit_vote(pr);
+    
     create_block(&tree,cleAssesseur,d);
     sprintf(nomFichier,"fichier%d",nbFichier);
     fprintf(stderr,"\nadd_block : nomFichier = %s\n",nomFichier);
     add_block(d,nomFichier);
-    nbFichier++;
 
-    printf("\nFin de l'operation de soumission des votes\n");
-
-    
     delete_tree(tree);
     delete_list_protected_total(votes);
     delete_list_keys(candidates);

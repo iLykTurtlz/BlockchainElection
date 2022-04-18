@@ -7,8 +7,6 @@
 #include "blockchain.h"
 
 
-
-
 Block *creerBlock(Key *author, CellProtected *votes, unsigned char *hash, unsigned char *previous_hash, int nonce)  {
     // hyp: author a deja ete alloue
     Block *new = (Block *)malloc(sizeof(Block));
@@ -31,6 +29,7 @@ Block *creerBlock(Key *author, CellProtected *votes, unsigned char *hash, unsign
     new->hash = h;
     new->previous_hash = ph;
     new->nonce = nonce;
+    fprintf(stderr,"\Apres creerBlock\n");
     return new;
 }
 
