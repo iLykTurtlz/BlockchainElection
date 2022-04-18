@@ -83,7 +83,7 @@ Block *lireBlock(char *filename)    {
     //Lecture des votes
     CellProtected *votes = NULL;
     while (fgets(buffer,256,istream) != NULL)   {
-        Protected *pr = str_to_protected(buffer);
+        Protected *pr = str_to_protected(buffer);   //ne pas désallouer pr !
         add_protected(&votes,pr);
     }
     return creerBlock(str_to_key(authorStr),votes,hash,previous_hash,nonce);
@@ -122,12 +122,15 @@ char *block_to_str(Block *block)    {
 
 unsigned char* hash_function_block(const char* str){
     char *res = (char*)malloc(2*SHA256_DIGEST_LENGTH+1);
+    char *buffer[2*SHA256_DIGEST_LENGTH+1];
     unsigned char* d = SHA256( (const unsigned char*)str,strlen(str), 0);
     res[0]='\0';
+    buffer[0]='\0';
     //on transforme la chaine en écriture héxadécimal
     for (int i=0; i<SHA256_DIGEST_LENGTH; i++){
-        sprintf(res,"%s%02x",res,d[i]);
-
+        strcpy(buffer, res);
+        sprintf(res,"%s%02x",buffer,d[i]);
+        buffer[0] = '\0';   //on veut s'assurer que le contenu du buffer soit efface
     }
     return (unsigned char *)res;
 }

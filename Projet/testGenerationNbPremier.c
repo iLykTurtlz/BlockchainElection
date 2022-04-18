@@ -16,7 +16,8 @@ int main(int argc, char **argv)	{
     int k = atoi(argv[1]);
     int min_size = atoi(argv[2]);
     int max_size = atoi(argv[3]);
-    double nbSecondes = (double)atoi(argv[4]);
+    double nbSecondes;// = (double)atoi(argv[4]);
+    sscanf(argv[4],"%lf",&nbSecondes);
 
     if (min_size < 0 || max_size > 32 || min_size > max_size)  {
         fprintf(stderr,"usage : min et max entre 0 et 32 avec min <= max\n \n");

@@ -53,6 +53,9 @@ testElection : testElection.c listDeclaration.o listDeclaration.h listKey.o list
 winner.o : winner.c winner.h listKey.o listKey.h listDeclaration.o listDeclaration.h
 	$(CC) $(CFLAGS) -c winner.c
 
+testDuTestMillerRabin : testDuTestMillerRabin.c outilsMathematiques.o outilsMathematiques.h testMillerRabin.o testMillerRabin.h
+	$(CC) $(CFLAGS)	-o testDuTestMillerRabin testDuTestMillerRabin.c outilsMathematiques.o testMillerRabin.o -lm
+
 testWinner :  testWinner.c winner.o winner.h listKey.o listKey.h listDeclaration.o listDeclaration.h manipulationClefs.o manipulationClefs.h donneesVote.o donneesVote.h generationClef.o generationClef.h signature.o signature.h declaration.o declaration.h rsa.o rsa.h outilsMathematiques.o outilsMathematiques.h testMillerRabin.o testMillerRabin.h generationNbPremier.o generationNbPremier.h
 	$(CC) $(CFLAGS) -o testWinner testWinner.c listDeclaration.o listKey.o donneesVote.o winner.o manipulationClefs.o generationClef.o signature.o declaration.o rsa.o outilsMathematiques.o testMillerRabin.o generationNbPremier.o -lm
 

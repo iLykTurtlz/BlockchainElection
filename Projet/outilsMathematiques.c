@@ -20,7 +20,7 @@ long greatest_prime_under(double t)	{
 	clock_t temps_init, temps_fin;
 	double temps = 0;
 	/*commencer par un nombre grand pour economiser du temps*/
-	long p=219000001;
+	long p=10000000;
 	//long p=3;
 	long last_prime = 3;
 	int is_prime=0;
