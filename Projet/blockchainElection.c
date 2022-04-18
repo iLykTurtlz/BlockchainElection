@@ -74,7 +74,8 @@ int main()  {
 
     free(g);
     delete_tree(tree);
-    delete_list_protected_total(votes);
+    //delete_list_protected_total(votes);
+    delete_list_protected(votes);
     delete_list_keys(candidates);
     delete_list_keys(publicKeys);
 
