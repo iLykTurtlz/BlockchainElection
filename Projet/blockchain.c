@@ -130,9 +130,9 @@ unsigned char* hash_function_block(const char* str){
     buffer[0]='\0';
     //on transforme la chaine en écriture héxadécimal
     for (int i=0; i<SHA256_DIGEST_LENGTH; i++){
-        strcpy(buffer, res);
-        sprintf(res,"%s%02x",buffer,d[i]);
-        buffer[0] = '\0';   //on veut s'assurer que le contenu du buffer soit efface
+        //strcpy(buffer, res);
+        sprintf(res,"%s%02x",res,d[i]);
+        //buffer[0] = '\0';   //on veut s'assurer que le contenu du buffer soit efface
     }
     return (unsigned char *)res;
 }
