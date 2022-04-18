@@ -41,7 +41,7 @@ int main()  {
     CellTree *tree = NULL;  
     int d = 3;  //nombre de bits a 0
 
-    int i, nbFichier = 1, votesParBlock = 3;
+    int nbFichier = 1;
     char nomFichier[256];
     CellProtected *current = votes;
     Protected *pr;
