@@ -187,6 +187,10 @@ void submit_vote(Protected *p)  {
 void create_block(CellTree **tree, Key *author, int d)   {  //On a modifie la signature pour pouvoir acceder a la tete de l'arbre
     //Creation d'un bloc valide a partir de Pending_votes.txt
     CellProtected *votes = read_protected("Pending_votes.txt"); //ce qu'on met dans le bloc
+    fprintf(stderr,"\nAffichage de pending_votes (dans create_block)\n");
+    print_list_protected(votes);
+    
+    
     CellTree *leaf = last_node(*tree);
     unsigned char previous_hash[2*SHA256_DIGEST_LENGTH+1];
     int i;
@@ -213,7 +217,15 @@ void create_block(CellTree **tree, Key *author, int d)   {  //On a modifie la si
     }
 
     //assert(remove("Pending_votes.txt") == 0);
-    //fprintf(stderr,"\nAvant write block\n");
+
+
+
+    char *bStr = block_to_str(b);
+    fprintf(stderr,"\nAvant write block\nb=%s\n",bStr);
+    free(bStr);
+
+
+
     write_block("Pending_block.txt", b);
     //fprintf(stderr,"\nApres write block\n");
     //on conserve le block dans l'arbre
