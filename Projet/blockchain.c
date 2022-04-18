@@ -152,10 +152,12 @@ int count_zeros(unsigned char* str){
 }
 
 void compute_proof_of_work(Block *B, int d){
+    fprintf(stderr,"debut proof of work\n");
     B->nonce = 0;
     char *str = block_to_str(B);
+    fprintf(stderr,"fin block to str\n");
     unsigned char* hash = hash_function_block((const char*) str);
-
+    fprintf(stderr,"debut boucle\n");
     //tant qu'il n'y a pas d zéros en tête de hash, on incrémente nonce et on recalcule hash
     while (count_zeros(hash) < d ){
         free(str);
@@ -164,6 +166,7 @@ void compute_proof_of_work(Block *B, int d){
         str = block_to_str(B);
         hash = hash_function_block((const char*) str);
     }
+    fprintf(stderr,"fin boucle\n");
     free(str);
     free(B->hash);  //il faut liberer le hash qu'on a utilise pour initialiser le bloc avant de le remplacer
     B->hash = hash;
