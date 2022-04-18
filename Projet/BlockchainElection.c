@@ -10,7 +10,6 @@
 #include "blockTree.h"
 #include "winner.h"
 
-//?
 
 int main()  {
     srand(time(NULL));
