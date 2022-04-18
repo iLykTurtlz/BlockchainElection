@@ -10,6 +10,7 @@ typedef struct {
     Signature *sgn;
 } Protected;
 
+
 Protected *init_protected(Key *pKey, char *mess, Signature *sgn);
 int verify(Protected *pr);
 char *protected_to_str(Protected *pr);

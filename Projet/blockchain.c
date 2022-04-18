@@ -81,12 +81,28 @@ Block *lireBlock(char *filename)    {
 
     fprintf(stderr,"\nlire_block : %s\n",buffer);
 
-    //Lecture des votes
-    CellProtected *votes = NULL;
+    //Lecture des votes (on remet dans l'ordre des votes)
+    CellProtected *votesTmp = NULL;
     while (fgets(buffer,4096,istream) != NULL)   {
         Protected *pr = str_to_protected(buffer);   //ne pas désallouer pr !
-        add_protected(&votes,pr);
+        add_protected(&votesTmp,pr);
     }
+    CellProtected *votesTmpBis = votesTmp;
+    CellProtected *votes = NULL;
+    while (votesTmp)    {
+        add_protected(&votes,votesTmp->data);
+        votesTmp = votesTmp->next;
+    }
+
+    //On libere votesTmp, mais pas son contenu
+    CellProtected *tmp;
+    while (votesTmpBis) {
+        tmp = votesTmpBis;
+        votesTmpBis = votesTmpBis->next;
+        free(tmp);
+    }
+    
+
     Block *b = creerBlock(str_to_key(authorStr),votes,hash,previous_hash,nonce);
     char *bStr = block_to_str(b);
     fprintf(stderr,"\nAffichage du bloc lu dans lire_block : %s\n", bStr);
