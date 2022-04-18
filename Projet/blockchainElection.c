@@ -39,6 +39,7 @@ int main()  {
     CellProtected *current = votes;
     Protected *pr;
     Key *cleAssesseur = NULL;
+    
     while (current)   {
         i=0;
         cleAssesseur = current->data->pKey; //la cle de l'assesseur est la cle du premier a voter dans le block
