@@ -111,7 +111,7 @@ char *block_to_str(Block *block)    {
     //on prend un buffer assez grand pour tout stocker
     char buffer[4096];
     buffer[0] = '\0';
-    char previous_hash[32];
+    char previous_hash[256];
     char nonce[32];
 
     //on obtient les informations et les concatene au buffer
@@ -119,6 +119,7 @@ char *block_to_str(Block *block)    {
     strcat(buffer,author);
 
     sprintf(previous_hash, " %s ", block->previous_hash);
+    fprintf(stderr,"\n\nblock_to_string : \nbuffer = %s\nprevious_hash = %s\n\n",buffer,previous_hash);
     strcat(buffer,previous_hash);
 
     CellProtected *votes = block->votes;
