@@ -86,9 +86,7 @@ Block *lireBlock(char *filename)    {
         Protected *pr = str_to_protected(buffer);   //ne pas désallouer pr !
         add_protected(&votes,pr);
     }
-    Block *b = creerBlock(str_to_key(authorStr),votes,hash,previous_hash,nonce);
-    fprintf(stderr,"\nlire_block : verify %d\n",verify_block(b,3));
-    return b;
+    return creerBlock(str_to_key(authorStr),votes,hash,previous_hash,nonce);
 }
 
 char *block_to_str(Block *block)    {
@@ -152,12 +150,10 @@ int count_zeros(unsigned char* str){
 }
 
 void compute_proof_of_work(Block *B, int d){
-    fprintf(stderr,"debut proof of work\n");
     B->nonce = 0;
     char *str = block_to_str(B);
-    fprintf(stderr,"fin block to str\n");
     unsigned char* hash = hash_function_block((const char*) str);
-    fprintf(stderr,"debut boucle\n");
+
     //tant qu'il n'y a pas d zéros en tête de hash, on incrémente nonce et on recalcule hash
     while (count_zeros(hash) < d ){
         free(str);
@@ -166,7 +162,6 @@ void compute_proof_of_work(Block *B, int d){
         str = block_to_str(B);
         hash = hash_function_block((const char*) str);
     }
-    fprintf(stderr,"fin boucle\n");
     free(str);
     free(B->hash);  //il faut liberer le hash qu'on a utilise pour initialiser le bloc avant de le remplacer
     B->hash = hash;
@@ -174,8 +169,12 @@ void compute_proof_of_work(Block *B, int d){
 
 int verify_block(Block *B, int d)	{
     // Verifie que le nombre de zeros au debut du block hash est superieur ou  egal a d
-    unsigned char *hashed = B->hash;
+    //TO DO : hashed ->memory leak?
+    char *str = block_to_str(B);
+    unsigned char *hashed = hash_function_block(str);
     int res = count_zeros(hashed) >= d;
+    free(hashed);
+    free(str);
     return res;
 }
 
@@ -195,5 +194,3 @@ void delete_block(Block *B)	{
         curr = curr->next;
     }
 }
-
-

@@ -30,7 +30,7 @@ int main()  {
     //TO DO
 
     //soumission de tous les votes et rajout dans l'arbre
-    printf("\nOperation en cours : soumission des votes (c'est assez long...)\n");
+    printf("\nOperation en cours : soumission des votes\n");
     CellTree *tree = NULL;  
     int d = 3;  //nombre de bits a 0
 
@@ -43,16 +43,13 @@ int main()  {
         i=0;
         cleAssesseur = current->data->pKey; //la cle de l'assesseur est la cle du premier a voter dans le block
         while (current && i<votesParBlock)   {
-            pr = current->data;
+            pr = votes->data;
             submit_vote(pr);
             current = current->next;
             i++;
         }
-        fprintf(stderr,"Fin boucle soumission de votes\n");
         create_block(&tree,cleAssesseur,d);
-        fprintf(stderr,"Fin creation d'un block\n");
         sprintf(nomFichier,"fichier%d",nbFichier);
-        fprintf(stderr,"Avant add_block\n");
         add_block(d,nomFichier);
         nbFichier++;
     }
@@ -79,5 +76,7 @@ int main()  {
     delete_list_protected_total(votes);
     delete_list_keys(candidates);
     delete_list_keys(publicKeys);
+
+
     return 0;
 }

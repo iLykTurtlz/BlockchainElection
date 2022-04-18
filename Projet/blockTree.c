@@ -202,11 +202,9 @@ void create_block(CellTree **tree, Key *author, int d)   {  //On a modifie la si
         }
         previous_hash[i] = '\0';
     }
-    Block *b = creerBlock(author,votes,(unsigned char *)"123",(unsigned char *)"123",0);
-    //Block *b = creerBlock(author,votes,(unsigned char *)"123",previous_hash,0); // ne pas desallouer le bloc !
-    fprintf(stderr,"avant proof_of_work\n");
+
+    Block *b = creerBlock(author,votes,(unsigned char *)"",previous_hash,0); // ne pas desallouer le bloc !
     compute_proof_of_work(b,d);
-    fprintf(stderr,"apres compute_proof_of_work\n");
     CellTree *new = create_node(b);
     //On gere le Genesis Block de la chaine
     if (leaf == NULL)   {
@@ -214,9 +212,8 @@ void create_block(CellTree **tree, Key *author, int d)   {  //On a modifie la si
     } else {    
         add_child(leaf,new);    //on sait que l'arbre est non vide
     }
-    fprintf(stderr,"avant la suppression de Pending_votes.txt\n");
+
     assert(remove("Pending_votes.txt") == 0);
-    fprintf(stderr,"avant write_block\n");
     write_block("Pending_block.txt", b);
     //on conserve le block dans l'arbre
 }
@@ -224,15 +221,13 @@ void create_block(CellTree **tree, Key *author, int d)   {  //On a modifie la si
 void add_block(int d, char *name)   {
     Block *b = lireBlock("Pending_block.txt");
     int verified = verify_block(b,d);
-    fprintf(stderr,"\nadd_block : verified = %d (doit == 1)\n",verified);
     if (verified)   {
         char path[256] = "\0";
         strcat(path,"./Blockchain/");
         strcat(path,name);
-        fprintf(stderr, "\nadd_block : path = %s\n",path);
         write_block(path, b);
     }
-    //assert(remove("Pending_block.txt") == 0);
+    assert(remove("Pending_block.txt") == 0);
     free(b->hash);
     free(b->previous_hash);
     delete_list_protected_total(b->votes);
@@ -337,10 +332,3 @@ Key *compute_winner_BT(CellTree *tree, CellKey *candidates, CellKey *voters, int
     }
     return gagnant;
 }
-
-
-
-
-
-
-
