@@ -253,6 +253,7 @@ CellTree *read_tree()   {
             nbFichiers++;
         }
     }
+    closedir(rep);
 
     fprintf(stderr,"\nread_tree : nbFichiers dans Blockchain = %d\n",nbFichiers);
 
@@ -264,8 +265,9 @@ CellTree *read_tree()   {
         tab[i] = NULL;
     }
     //creation d'un noeud par fichier
+    rep = opendir("./Blockchain/");
     Block *b = NULL;
-    char path[1024];
+    char path[1024]; //??
     int i=0;
     while ((dir = readdir(rep)))    {
         if (strcmp(dir->d_name,".") != 0 && strcmp(dir->d_name,"..") != 0)   {
@@ -275,13 +277,20 @@ CellTree *read_tree()   {
 
 
 
-            fprintf(stderr,"\nread_tree : lireBlock de %s\n",path);
+            //fprintf(stderr,"\nread_tree : lireBlock de %s\n",path);
 
 
 
             b = lireBlock(dir->d_name);
+
+
+            char *bStr = block_to_str(b);
+            //fprintf(stderr,"\nbStr : %s\n",bStr);
+            free(bStr);
             tab[i] = create_node(b);
             i++;
+
+
         }
     }
     closedir(rep);
