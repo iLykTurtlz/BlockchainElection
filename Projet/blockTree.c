@@ -37,12 +37,9 @@ int update_height(CellTree *father, CellTree *child)    {
 }
 
 void add_child(CellTree *father, CellTree *child)   {
-    if (child == NULL)  {
-        fprintf(stderr,"Error : add_child : child null\n");
+    if (child == NULL || father == NULL)  {
+        fprintf(stderr,"Error : add_child : child or father null\n");
         return;
-    }
-    if (father == NULL) {
-        return child;
     }
     //On actualise le previous hash de child
     if (child->block->previous_hash != father->block->hash) {
@@ -186,10 +183,10 @@ void submit_vote(Protected *p)  {
     fclose(ostream);
 }
 
-void create_block(CellTree *tree, Key *author, int d)   {
+void create_block(CellTree **tree, Key *author, int d)   {  //On a modifie la signature pour pouvoir acceder a la tete de l'arbre
     //Creation d'un bloc valide a partir de Pending_votes.txt
     CellProtected *votes = read_protected("Pending_votes.txt"); //ce qu'on met dans le bloc
-    CellTree *leaf = last_node(tree);
+    CellTree *leaf = last_node(*tree);
     unsigned char previous_hash[2*SHA256_DIGEST_LENGTH+1];
     int i;
     //On obtient le previous_hash
@@ -208,8 +205,12 @@ void create_block(CellTree *tree, Key *author, int d)   {
     Block *b = creerBlock(author,votes,(unsigned char *)"",previous_hash,0); // ne pas desallouer le bloc !
     compute_proof_of_work(b,d);
     CellTree *new = create_node(b);
-    add_child(leaf,new);
-
+    //On gere le Genesis Block de la chaine
+    if (leaf == NULL)   {
+        *tree = new;
+    } else {    
+        add_child(leaf,new);    //on sait que l'arbre est non vide
+    }
 
     assert(remove("Pending_votes.txt") == 0);
     write_block("Pending_block.txt", b);

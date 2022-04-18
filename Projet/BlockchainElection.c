@@ -49,7 +49,7 @@ int main()  {
             current = current->next;
             i++;
         }
-        create_block(tree,cleAssesseur,d);
+        create_block(&tree,cleAssesseur,d);
         sprintf(nomFichier,"fichier%d",nbFichier);
         add_block(d,nomFichier);
         nbFichier++;
