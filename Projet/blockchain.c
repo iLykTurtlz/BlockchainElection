@@ -122,7 +122,7 @@ char *block_to_str(Block *block)    {
 
 unsigned char* hash_function_block(const char* str){
     char *res = (char*)malloc(2*SHA256_DIGEST_LENGTH+1);
-    char *buffer[2*SHA256_DIGEST_LENGTH+1];
+    char buffer[2*SHA256_DIGEST_LENGTH+1];
     unsigned char* d = SHA256( (const unsigned char*)str,strlen(str), 0);
     res[0]='\0';
     buffer[0]='\0';
