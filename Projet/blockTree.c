@@ -212,7 +212,7 @@ void create_block(CellTree **tree, Key *author, int d)   {  //On a modifie la si
         add_child(leaf,new);    //on sait que l'arbre est non vide
     }
 
-    assert(remove("Pending_votes.txt") == 0);
+    //assert(remove("Pending_votes.txt") == 0);
     //fprintf(stderr,"\nAvant write block\n");
     write_block("Pending_block.txt", b);
     //fprintf(stderr,"\nApres write block\n");
@@ -222,6 +222,13 @@ void create_block(CellTree **tree, Key *author, int d)   {  //On a modifie la si
 void add_block(int d, char *name)   {
     //fprintf(stderr,"Debut add_block\n");
     Block *b = lireBlock("Pending_block.txt");
+
+
+    char *blockStr= block_to_str(b);
+    fprintf(stderr,"add_block, b = %s\n",blockStr);
+    free(blockStr);
+
+
     int verified = verify_block(b,d);
     if (verified)   {
         char path[256] = "\0";
@@ -229,7 +236,7 @@ void add_block(int d, char *name)   {
         strcat(path,name);
         write_block(path, b);
     }
-    assert(remove("Pending_block.txt") == 0);
+    //assert(remove("Pending_block.txt") == 0);
     free(b->hash);
     free(b->previous_hash);
     delete_list_protected_total(b->votes);
