@@ -280,12 +280,12 @@ CellTree *read_tree()   {
             //fprintf(stderr,"\nread_tree : lireBlock de %s\n",path);
 
 
-            fprintf(stderr,"\n read_tree : file to read into a block = %s\n",dir->d_name);
-            b = lireBlock(dir->d_name);
+            fprintf(stderr,"\n read_tree : file to read into a block = %s\n",path);
+            b = lireBlock(path);
 
 
             char *bStr = block_to_str(b);
-            //fprintf(stderr,"\nbStr : %s\n",bStr);
+            fprintf(stderr,"\nbStr : %s\n",bStr);
             free(bStr);
             tab[i] = create_node(b);
             i++;
