@@ -280,7 +280,7 @@ CellTree *read_tree()   {
             //fprintf(stderr,"\nread_tree : lireBlock de %s\n",path);
 
 
-
+            fprintf(stderr,"\n read_tree : file to read into a block = %s\n",dir->d_name);
             b = lireBlock(dir->d_name);
 
 
