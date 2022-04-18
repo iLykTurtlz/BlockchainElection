@@ -14,6 +14,7 @@ CellKey *read_public_keys(char *filename);
 void print_list_keys(CellKey *LCK);
 void delete_cell_key(CellKey *c);
 void delete_list_keys(CellKey *LCK);
+int listKeyLength(CellKey *list);
 
 
 #endif

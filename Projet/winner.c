@@ -176,21 +176,6 @@ void afficher_tableH(HashTable *t)  {
     }
 }
 
-int listKeyLength(CellKey *list)    {
-    //Pour vérifier la longueur de la liste de cles
-    //utilise dans compute_winner
-    if (!list)  {
-        return 0;
-    }
-    return 1 + listKeyLength(list->next);
-}
 
-int listDeclarationLength(CellProtected *list)    {
-    //Pour vérifier la longueur de la liste de cles
-    if (!list)  {
-        return 0;
-    }
-    return 1 + listDeclarationLength(list->next);
-}
 
 

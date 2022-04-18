@@ -23,7 +23,5 @@ void delete_hashtable(HashTable *t);
 Key *compute_winner(CellProtected *decl, CellKey *candidates, CellKey *voters, int sizeC, int sizeV);
 void afficher_tableH(HashTable *t);
 
-int listKeyLength(CellKey *list);
-int listDeclarationLength(CellProtected *list);
 
 #endif

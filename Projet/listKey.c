@@ -67,6 +67,15 @@ void delete_list_keys(CellKey *LCK) {
     }
 }
 
+int listKeyLength(CellKey *list)    {
+    //Pour vérifier la longueur de la liste de cles
+    //utilise dans compute_winner
+    if (!list)  {
+        return 0;
+    }
+    return 1 + listKeyLength(list->next);
+}
+
 
 
 
