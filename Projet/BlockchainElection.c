@@ -16,6 +16,7 @@ int main()  {
     //generation de donnees
     int nbVoters = 1000, nbCandidates = 5;
     generate_random_data(nbVoters, nbCandidates);
+    printf("\nOn genere %d electeurs et %d candidats.\n",nbVoters,nbCandidates);
 
     //lire les cles publiques des candidats et de tout le monde
     CellKey *candidates = read_public_keys("candidates.txt");
@@ -25,26 +26,22 @@ int main()  {
     CellProtected *votes = read_protected("declarations.txt");
 
     //rajout d'une fraude
-    printf("\nAvec une declaration frauduleuse :\n");
-    char *KeyStr = key_to_str(candidates->data); 
-    Protected *pr = init_protected( publicKeys->data, KeyStr, sign(KeyStr,publicKeys->next->data) );
-    add_protected(&votes,pr);
-    print_list_protected(votes);
-    free(KeyStr);
+    //TO DO
 
     //soumission de tous les votes et rajout dans l'arbre
+    printf("\nOperation en cours : soumission des votes\n");
     CellTree *tree = NULL;  
     int d = 3;  //nombre de bits a 0
 
-    int i, nbFichier = 1, votesParBloc = 10;
+    int i, nbFichier = 1, votesParBlock = 10;
     char nomFichier[256];
     CellProtected *current = votes;
     Protected *pr;
     Key *cleAssesseur = NULL;
     while (current)   {
         i=0;
-        cleAssesseur = current->data->pKey;
-        while (current && i<votesParBloc)   {
+        cleAssesseur = current->data->pKey; //la cle de l'assesseur est la cle du premier a voter dans le block
+        while (current && i<votesParBlock)   {
             pr = votes->data;
             submit_vote(pr);
             current = current->next;
@@ -55,34 +52,29 @@ int main()  {
         add_block(d,nomFichier);
         nbFichier++;
     }
+    printf("\nFin de l'operation de soumission des votes\n");
 
-    //Lecture du repertoire Blockchain et creation de l'arbre
-    read_tree();
-        
+    //Ayant enregistre les fichiers dans Blockchain on peut supprimer l'arbre de construction
+    printf("\nAffichage de l'arbre de construction :\n");
+    print_tree(tree);
+    delete_tree(tree);
 
-
-
-
-    //verifier qu'il n'y ait pas eu de hacking
-    thwarted(&votes);
-    printf("\nDeclarations de vote apres verification :\n");
-    print_list_protected(votes);
+    //Lecture du repertoire Blockchain, re-creation et affichage de l'arbre
+    tree = read_tree();
+    printf("\nAffichage de l'arbre provenant du repertoire Blockchain :\n");
+    print_tree(tree);
   
     //determination du gagnant
-    Key *gagnant = compute_winner(votes, candidates, publicKeys, nbCandidates*2, nbElecteurs*2);
+    Key *gagnant = compute_winner_BT(tree, candidates, publicKeys,nbCandidates*2,nbVoters*2);
 
     char *g = key_to_str(gagnant);
     printf("\n%s a gagne\n\n",g);
 
     free(g);
+    delete_tree(tree);
     delete_list_protected_total(votes);
     delete_list_keys(candidates);
     delete_list_keys(publicKeys);
-
-
-
-
-
 
 
     return 0;

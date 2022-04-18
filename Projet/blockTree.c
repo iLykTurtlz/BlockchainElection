@@ -37,20 +37,21 @@ int update_height(CellTree *father, CellTree *child)    {
 }
 
 void add_child(CellTree *father, CellTree *child)   {
-    if ((father == NULL)||(child == NULL))  {
-        fprintf(stderr,"Error : add_child : father or child null\n");
+    if (child == NULL)  {
+        fprintf(stderr,"Error : add_child : child null\n");
         return;
     }
-    //On actualise le pere de child
+    if (father == NULL) {
+        return child;
+    }
+    //On actualise le previous hash de child
+    if (child->block->previous_hash != father->block->hash) {
+        fprintf(stderr,"Erreur : add_child, you are not HIS child!\n");
+    }
+
+    //on actualise le pere de child
     child->father = father;
     
-
-    //???
-    //child->block->previous_hash = father->block->hash;
-    //???
-
-
-
     //on ajoute le fils
     CellTree *curr = father->firstChild;
     if (curr == NULL)   {
@@ -129,7 +130,6 @@ CellTree* highest_child(CellTree* cell){
 CellTree *last_node(CellTree *tree) {
     //Retourne la feuille de la plus longue branche
     if (tree == NULL)   {
-        fprintf(stderr, "Erreur : last_node, tree NULL\n");
         return NULL;
     }
     //renvoie une feuille
@@ -189,16 +189,31 @@ void submit_vote(Protected *p)  {
 void create_block(CellTree *tree, Key *author, int d)   {
     //Creation d'un bloc valide a partir de Pending_votes.txt
     CellProtected *votes = read_protected("Pending_votes.txt"); //ce qu'on met dans le bloc
-    CellTree *leaf = last_node(tree);   
-    Block *b = creerBlock(author,votes,(unsigned char *)"",leaf->block->hash,0);
+    CellTree *leaf = last_node(tree);
+    unsigned char previous_hash[2*SHA256_DIGEST_LENGTH+1];
+    int i;
+    //On obtient le previous_hash
+    if (leaf == NULL)   {   //Genesis Block
+        for (i=0; i<(2*SHA256_DIGEST_LENGTH+1); i++)    {
+            previous_hash[i] = '0';  
+        }
+        previous_hash[i] = '\0';
+    } else {
+        for (i=0; i<(2*SHA256_DIGEST_LENGTH+1); i++)    {
+            previous_hash[i] = leaf->block->hash[i];  
+        }
+        previous_hash[i] = '\0';
+    }
+
+    Block *b = creerBlock(author,votes,(unsigned char *)"",previous_hash,0); // ne pas desallouer le bloc !
     compute_proof_of_work(b,d);
+    CellTree *new = create_node(b);
+    add_child(leaf,new);
+
 
     assert(remove("Pending_votes.txt") == 0);
     write_block("Pending_block.txt", b);
-    free(b->hash);
-    free(b->previous_hash);
-    delete_list_protected_total(b->votes);
-    free(b);
+    //on conserve le block dans l'arbre
 }
 
 void add_block(int d, char *name)   {
