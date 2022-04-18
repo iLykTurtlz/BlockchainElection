@@ -86,7 +86,9 @@ Block *lireBlock(char *filename)    {
         Protected *pr = str_to_protected(buffer);   //ne pas désallouer pr !
         add_protected(&votes,pr);
     }
-    return creerBlock(str_to_key(authorStr),votes,hash,previous_hash,nonce);
+    Block *b = creerBlock(str_to_key(authorStr),votes,hash,previous_hash,nonce);
+    fprintf(stderr,"\nlire_block : verify %d\n",verify_block(b,3));
+    return b;
 }
 
 char *block_to_str(Block *block)    {

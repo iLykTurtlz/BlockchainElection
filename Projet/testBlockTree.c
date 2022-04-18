@@ -43,7 +43,7 @@ int main()  {
     i=0;
     cleAssesseur = current->data->pKey; //la cle de l'assesseur est la cle du premier a voter dans le block
     while (current && i<votesParBlock)   {
-        pr = votes->data;
+        pr = current->data;
         submit_vote(pr);
         current = current->next;
         i++;
@@ -51,7 +51,7 @@ int main()  {
     create_block(&tree,cleAssesseur,d);
     sprintf(nomFichier,"fichier%d",nbFichier);
     fprintf(stderr,"\nadd_block : nomFichier = %s\n",nomFichier);
-    //add_block(d,nomFichier);
+    add_block(d,nomFichier);
     nbFichier++;
 
     printf("\nFin de l'operation de soumission des votes\n");

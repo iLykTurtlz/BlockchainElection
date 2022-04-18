@@ -226,6 +226,7 @@ void add_block(int d, char *name)   {
         char path[256] = "\0";
         strcat(path,"./Blockchain/");
         strcat(path,name);
+        fprintf(stderr, "\nadd_block : path = %s\n",path);
         write_block(path, b);
     }
     assert(remove("Pending_block.txt") == 0);
