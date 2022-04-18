@@ -30,7 +30,7 @@ int main()  {
     //TO DO
 
     //soumission de tous les votes et rajout dans l'arbre
-    printf("\nOperation en cours : soumission des votes\n");
+    printf("\nOperation en cours : soumission des votes (c'est assez long...)\n");
     CellTree *tree = NULL;  
     int d = 3;  //nombre de bits a 0
 
@@ -50,6 +50,7 @@ int main()  {
         }
         create_block(&tree,cleAssesseur,d);
         sprintf(nomFichier,"fichier%d",nbFichier);
+        fprintf("\nadd_block : nomFichier = %s\n",nomFichier);
         add_block(d,nomFichier);
         nbFichier++;
     }

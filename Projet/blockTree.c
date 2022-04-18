@@ -221,6 +221,7 @@ void create_block(CellTree **tree, Key *author, int d)   {  //On a modifie la si
 void add_block(int d, char *name)   {
     Block *b = lireBlock("Pending_block.txt");
     int verified = verify_block(b,d);
+    fprintf("\nadd_block : verified = %d (doit == 1)\n",verified);
     if (verified)   {
         char path[256] = "\0";
         strcat(path,"./Blockchain/");
