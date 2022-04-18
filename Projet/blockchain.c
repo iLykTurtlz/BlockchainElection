@@ -8,6 +8,7 @@
 
 
 
+
 Block *creerBlock(Key *author, CellProtected *votes, unsigned char *hash, unsigned char *previous_hash, int nonce)  {
     // hyp: author a deja ete alloue
     Block *new = (Block *)malloc(sizeof(Block));
