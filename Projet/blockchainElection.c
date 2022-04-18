@@ -59,7 +59,7 @@ int main()  {
     //Ayant enregistre les fichiers dans Blockchain on peut supprimer l'arbre de construction
     printf("\nAffichage de l'arbre de construction :\n");
     print_tree(tree);
-    //delete_tree(tree);
+    delete_tree(tree);
 
     //Lecture du repertoire Blockchain, re-creation et affichage de l'arbre
     tree = read_tree();

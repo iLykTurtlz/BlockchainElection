@@ -284,9 +284,12 @@ CellTree *read_tree()   {
             b = lireBlock(path);
 
 
-            char *bStr = block_to_str(b);
-            fprintf(stderr,"\nbStr : %s\n",bStr);
-            free(bStr);
+            //char *bStr = block_to_str(b);
+            //fprintf(stderr,"\nbStr : %s\n",bStr);
+            //free(bStr);
+
+
+            
             tab[i] = create_node(b);
             i++;
 
