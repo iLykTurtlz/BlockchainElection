@@ -254,9 +254,7 @@ CellTree *read_tree()   {
         }
     }
 
-
-
-    //fprintf(stderr,"\nread_tree : nbFichiers dans Blockchain = %d\n",nbFichiers);
+    fprintf(stderr,"\nread_tree : nbFichiers dans Blockchain = %d\n",nbFichiers);
 
 
 
@@ -267,13 +265,20 @@ CellTree *read_tree()   {
     }
     //creation d'un noeud par fichier
     Block *b = NULL;
-    char path[256];
+    char path[1024];
     int i=0;
     while ((dir = readdir(rep)))    {
         if (strcmp(dir->d_name,".") != 0 && strcmp(dir->d_name,"..") != 0)   {
             path[0] = '\0';
             strcat(path,"./Blockchain/");
             strcat(path,dir->d_name);
+
+
+
+            fprintf(stderr,"\nread_tree : lireBlock de %s\n",path);
+
+
+
             b = lireBlock(dir->d_name);
             tab[i] = create_node(b);
             i++;
@@ -281,15 +286,22 @@ CellTree *read_tree()   {
     }
     closedir(rep);
 
+
+
     //on ajoute a chaque noeud ses fils
     int pere,fils;
     for (pere=0; pere<nbFichiers; pere++)   {
         for (fils=0; fils<nbFichiers; fils++)   {
+            fprintf(stderr,"\nhash du pere :\n%s\n\nhash du fils :\n%s\n\n",tab[pere]->block->hash,tab[fils]->block->previous_hash);
             if (strcmp((char *)tab[pere]->block->hash,(char *)tab[fils]->block->previous_hash) == 0)    {
                 add_child(tab[pere],tab[fils]);
             }
         }
     }
+
+
+    fprintf(stderr,"\ntermine l'affectations des enfants\n");
+
 
     //on cherche la racine de l'arbre
     CellTree *racine = NULL;
