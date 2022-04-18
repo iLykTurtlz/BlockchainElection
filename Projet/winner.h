@@ -3,7 +3,6 @@
 
 #include "listKey.h"
 
-void thwarted(CellProtected **LCP);
 
 typedef struct hashcell {
     Key *key;
@@ -14,6 +13,9 @@ typedef struct hashtable {
     HashCell **tab;
     int size;
 } HashTable;
+
+void thwarted(CellProtected **LCP);
+
 
 HashCell *create_hashcell(Key *key);
 int hash_function(Key *key, int size);
