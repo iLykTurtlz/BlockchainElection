@@ -93,7 +93,7 @@ Block *lireBlock(char *filename)    {
 
 char *block_to_str(Block *block)    {
     //on prend un buffer assez grand pour tout stocker
-    char buffer[4096];
+    char buffer[10000];
     buffer[0] = '\0';
     char previous_hash[32];
     char nonce[32];
