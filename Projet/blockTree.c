@@ -205,6 +205,7 @@ void create_block(CellTree **tree, Key *author, int d)   {  //On a modifie la si
 
     Block *b = creerBlock(author,votes,(unsigned char *)"",previous_hash,0); // ne pas desallouer le bloc !
     compute_proof_of_work(b,d);
+    fprintf(stderr,"create_block, verify_block %d\n",verify_block(b,d));
     CellTree *new = create_node(b);
     //On gere le Genesis Block de la chaine
     if (leaf == NULL)   {
