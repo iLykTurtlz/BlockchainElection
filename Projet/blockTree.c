@@ -202,11 +202,8 @@ void create_block(CellTree **tree, Key *author, int d)   {  //On a modifie la si
         }
         previous_hash[i] = '\0';
     }
-    fprintf(stderr,"\nAvant creer block\n");
     Block *b = creerBlock(author,votes,(unsigned char *)"",previous_hash,0); // ne pas desallouer le bloc !
-    fprintf(stderr,"\nApres creer block\n");
     compute_proof_of_work(b,d);
-    fprintf(stderr,"\nApres proof of work\n");
     CellTree *new = create_node(b);
     //On gere le Genesis Block de la chaine
     if (leaf == NULL)   {
@@ -223,6 +220,7 @@ void create_block(CellTree **tree, Key *author, int d)   {  //On a modifie la si
 }
 
 void add_block(int d, char *name)   {
+    fprintf(stderr,"Debut add_block\n");
     Block *b = lireBlock("Pending_block.txt");
     int verified = verify_block(b,d);
     if (verified)   {
