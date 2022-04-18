@@ -202,7 +202,8 @@ void create_block(CellTree **tree, Key *author, int d)   {  //On a modifie la si
         }
         previous_hash[i] = '\0';
     }
-    Block *b = creerBlock(author,votes,(unsigned char *)"123",previous_hash,0); // ne pas desallouer le bloc !
+    Block *b = creerBlock(author,votes,(unsigned char *)"123",(unsigned char *)"123",0);
+    //Block *b = creerBlock(author,votes,(unsigned char *)"123",previous_hash,0); // ne pas desallouer le bloc !
     fprintf(stderr,"avant proof_of_work\n");
     compute_proof_of_work(b,d);
     fprintf(stderr,"apres compute_proof_of_work\n");
