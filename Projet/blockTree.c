@@ -90,8 +90,10 @@ void print_tree(CellTree *tree) {
 }
 
 void delete_node(CellTree *node)    {
-    delete_block(node->block);
-    free(node);
+    if (node) {
+        delete_block(node->block);
+        free(node);
+    }
 }
 
 void delete_tree(CellTree *tree){

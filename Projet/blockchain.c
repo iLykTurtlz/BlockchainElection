@@ -102,13 +102,7 @@ Block *lireBlock(char *filename)    {
         free(tmp);
     }
 
-
-    Block *b = creerBlock(str_to_key(authorStr),votes,hash,previous_hash,nonce);
-    char *bStr = block_to_str(b);
-    //fprintf(stderr,"\nAffichage du bloc lu dans lire_block : %s\n", bStr);
-    free(bStr);
-
-    return b;
+    return creerBlock(str_to_key(authorStr),votes,hash,previous_hash,nonce);
 }
 
 char *block_to_str(Block *block)    {
@@ -204,13 +198,16 @@ int verify_block(Block *B, int d)	{
 }
 
 void delete_block(Block *B)	{
-    //Ne libere pas author, ni le contenu des cellules (Protected)
+    //???Ne libere pas author, ni le contenu des cellules (Protected) ???
     if (!B)	{
         fprintf(stderr,"Error: delete_block, block null\n");
         return;
     }
     free(B->hash);
     free(B->previous_hash);
+    delete_cell_protected_total(B->votes);
+    free(B);
+    /*
     CellProtected *curr = B->votes;
     CellProtected *tmp = NULL;
     while (curr) {
@@ -218,4 +215,5 @@ void delete_block(Block *B)	{
         free(tmp);
         curr = curr->next;
     }
+    */
 }
