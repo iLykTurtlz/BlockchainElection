@@ -15,7 +15,7 @@ int main()  {
     srand(time(NULL));
 
     //generation de donnees
-    int nbVoters = 1000, nbCandidates = 5;
+    int nbVoters = 20, nbCandidates = 5;
     generate_random_data(nbVoters, nbCandidates);
     printf("\nOn genere %d electeurs et %d candidats.\n",nbVoters,nbCandidates);
 
@@ -32,7 +32,7 @@ int main()  {
     //soumission de tous les votes et rajout dans l'arbre
     printf("\nOperation en cours : soumission des votes\n");
     CellTree *tree = NULL;  
-    int d = 3;  //nombre de bits a 0
+    int d = 2;  //nombre de bits a 0
 
     int i, nbFichier = 1, votesParBlock = 10;
     char nomFichier[256];
@@ -59,7 +59,7 @@ int main()  {
     //Ayant enregistre les fichiers dans Blockchain on peut supprimer l'arbre de construction
     printf("\nAffichage de l'arbre de construction :\n");
     print_tree(tree);
-    delete_tree(tree);
+    //delete_tree(tree);
 
     //Lecture du repertoire Blockchain, re-creation et affichage de l'arbre
     tree = read_tree();
