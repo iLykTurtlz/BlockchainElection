@@ -78,6 +78,5 @@ int main()  {
     delete_list_keys(candidates);
     delete_list_keys(publicKeys);
 
-
     return 0;
 }
