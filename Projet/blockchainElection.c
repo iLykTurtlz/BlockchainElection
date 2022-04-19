@@ -42,10 +42,15 @@ int main()  {
     
     while (current)   {
         i=0;
+
+
+        //Si je copie la cle, il reste 20 cles non liberees, sinon il n'en reste que 18
         cleAssesseur = current->data->pKey; //la cle de l'assesseur est la cle du premier a voter dans le block
         char *cleAssesseurStr = key_to_str(cleAssesseur);
         Key *cleAssesseurCopie = str_to_key(cleAssesseurStr);
         free(cleAssesseurStr);
+
+
         while (current && i<votesParBlock)   {
             pr = current->data;
             submit_vote(pr);
@@ -77,8 +82,8 @@ int main()  {
 
     free(g);
     delete_tree(tree);
-    //delete_list_protected_total(votes);
-    delete_list_protected(votes);
+    delete_list_protected_total(votes);
+    //delete_list_protected(votes);
     delete_list_keys(candidates);
     delete_list_keys(publicKeys);
 
