@@ -59,3 +59,10 @@ Key *str_to_key(char *str)  {
     init_key(res,m,n);
     return res;
 }
+
+Key *copie_key(Key *key)    {
+    Key *new = (Key *)malloc(sizeof(Key));
+    new->m = key->m;
+    new->n = key->n;
+    return new;
+}

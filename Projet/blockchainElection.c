@@ -32,7 +32,7 @@ int main()  {
     //soumission de tous les votes et rajout dans l'arbre
     printf("\nOperation en cours : soumission des votes\n");
     CellTree *tree = NULL;  
-    int d = 3;  //nombre de bits a 0
+    int d = 2;  //nombre de bits a 0
 
     int i, nbFichier = 1, votesParBlock = 10;
     char nomFichier[256];
@@ -46,10 +46,8 @@ int main()  {
 
         //Si je copie la cle, il reste 20 cles non liberees, sinon il n'en reste que 18
         cleAssesseur = current->data->pKey; //la cle de l'assesseur est la cle du premier a voter dans le block
-        char *cleAssesseurStr = key_to_str(cleAssesseur);
-        Key *cleAssesseurCopie = str_to_key(cleAssesseurStr);
-        free(cleAssesseurStr);
-
+        Key *cleAssesseurCopie = copie_key(cleAssesseur);
+        
 
         while (current && i<votesParBlock)   {
             pr = current->data;
