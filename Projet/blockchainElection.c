@@ -32,7 +32,7 @@ int main()  {
     //soumission de tous les votes et rajout dans l'arbre
     printf("\nOperation en cours : soumission des votes\n");
     CellTree *tree = NULL;  
-    int d = 2;  //nombre de bits a 0
+    int d = 3;  //nombre de bits a 0
 
     int i, nbFichier = 1, votesParBlock = 10;
     char nomFichier[256];

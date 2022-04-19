@@ -76,7 +76,7 @@ Block *lireBlock(char *filename)    {
             fprintf(stderr, "Erreur de formatage de la premiere ligne du fichier\n");
             fclose(istream);
             return NULL;
-        } 
+        
     }
 
 
@@ -119,7 +119,7 @@ char *block_to_str(Block *block)    {
     strcat(buffer,author);
 
     sprintf(previous_hash, " %s ", block->previous_hash);
-    fprintf(stderr,"\n\nblock_to_string : \nbuffer = %s\nprevious_hash = %s\n\n",buffer,previous_hash);
+    //fprintf(stderr,"\n\nblock_to_string : \nbuffer = %s\nprevious_hash = %s\n\n",buffer,previous_hash);
     strcat(buffer,previous_hash);
 
     CellProtected *votes = block->votes;
