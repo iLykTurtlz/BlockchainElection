@@ -27,7 +27,7 @@ int main()  {
     CellProtected *votes = read_protected("declarations.txt");
 
     //rajout d'une fraude
-    //TO DO
+    //TO DO ???
 
     //soumission de tous les votes et rajout dans l'arbre
     printf("\nOperation en cours : soumission des votes\n");
@@ -41,23 +41,22 @@ int main()  {
     Key *cleAssesseur = NULL;
     
     while (current)   {
-        i=0;
 
-
-        //Si je copie la cle, il reste 20 cles non liberees, sinon il n'en reste que 18
-        cleAssesseur = current->data->pKey; //la cle de l'assesseur est la cle du premier a voter dans le block
-        Key *cleAssesseurCopie = copie_key(cleAssesseur);
+        //On copie la cle de l'assesseur afin de pouvoir liberer completement le block et la liste de cles plus tard
+        cleAssesseur = copie_key(current->data->pKey); //la cle de l'assesseur est la cle du premier a voter dans le block
         
-
+        //On cree Pending_votes.txt en soumettant le bon nombre de votes
+        i=0;
         while (current && i<votesParBlock)   {
             pr = current->data;
             submit_vote(pr);
             current = current->next;
             i++;
         }
-        create_block(&tree,cleAssesseurCopie,d);
+
+        create_block(&tree, cleAssesseur, d);       //On cree un block a partir de Pending_votes.txt, puis on ecrit le block dans Pending_block.txt
         sprintf(nomFichier,"fichier%d",nbFichier);
-        add_block(d,nomFichier);
+        add_block(d,nomFichier);                    //On ajoute le contenu du fichier Pending_block.txt au repertoire Blockchain
         nbFichier++;
     }
     printf("\nFin de l'operation de soumission des votes\n");
@@ -81,7 +80,6 @@ int main()  {
     free(g);
     delete_tree(tree);
     delete_list_protected_total(votes);
-    //delete_list_protected(votes);
     delete_list_keys(candidates);
     delete_list_keys(publicKeys);
 

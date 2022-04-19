@@ -54,14 +54,13 @@ void write_block(char *filename, Block *block)    {
 }
 
 Block *lireBlock(char *filename)    {
-    //fprintf(stderr,"debut lireBlock\n");
     FILE *istream = fopen(filename,"r");
     if (istream == NULL)    {
         fprintf(stderr, "Erreur a l'ouverture du fichier %s en lecture\n", filename);
         return NULL;
     }
-    char buffer[4096];
-    char authorStr[256];
+    char buffer[2048];
+    char authorStr[32];
     unsigned char hash[256];
     unsigned char previous_hash[256];
     int nonce;
@@ -78,7 +77,6 @@ Block *lireBlock(char *filename)    {
             return NULL;
         }
     }
-
 
     //Lecture des votes (on remet dans l'ordre des votes)
     CellProtected *votesTmp = NULL;
@@ -135,7 +133,7 @@ char *block_to_str(Block *block)    {
     strcat(buffer,nonce);
 
     free(author);
-    //on alloue avant de renvoyer avec strdup
+    //on alloue avec strdup avant de renvoyer
     return strdup(buffer);
 }
 
@@ -173,7 +171,7 @@ void compute_proof_of_work(Block *B, int d){
     char *str = block_to_str(B);
     unsigned char* hash = hash_function_block((const char*) str);
 
-    //tant qu'il n'y a pas d zéros en tête de hash, on incrémente nonce et on recalcule hash
+    //tant qu'il n'y a pas " d " zéros en tête de hash, on incrémente nonce et on recalcule hash
     while (count_zeros(hash) < d ){
         free(str);
         free(hash);
@@ -188,13 +186,9 @@ void compute_proof_of_work(Block *B, int d){
 
 int verify_block(Block *B, int d)	{
     // Verifie que le nombre de zeros au debut du block hash est superieur ou  egal a d
-    //TO DO : hashed ->memory leak?
     char *str = block_to_str(B);
-    //fprintf(stderr,"\naffichage verify_block : %s\n",str);
     unsigned char *hashed = hash_function_block(str);
-    //fprintf(stderr,"hashed : %s\n",hashed);
     int res = count_zeros(hashed) >= d;
-    //fprintf(stderr,"res = %d\n",res);
     free(hashed);
     free(str);
     return res;
@@ -202,7 +196,6 @@ int verify_block(Block *B, int d)	{
 
 void delete_block(Block *B)	{
     //Libere completement le Block
-    //???Ne libere pas author, ni le contenu des cellules (Protected) ???
     if (!B)	{
         fprintf(stderr,"Error: delete_block, block null\n");
         return;
@@ -210,16 +203,6 @@ void delete_block(Block *B)	{
     free(B->author);
     free(B->hash);
     free(B->previous_hash);
-    //delete_list_protected(B->votes);
     delete_list_protected_total(B->votes);
     free(B);
-    /*
-    CellProtected *curr = B->votes;
-    CellProtected *tmp = NULL;
-    while (curr) {
-        tmp = curr;
-        free(tmp);
-        curr = curr->next;
-    }
-    */
 }
