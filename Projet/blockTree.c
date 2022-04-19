@@ -323,7 +323,7 @@ CellTree *read_tree()   {
     for (i=0; i<nbFichiers; i++)    {
         if (tab[i]->father == NULL) {
             racine = tab[i];
-            racine++;
+            nbRacines++;
         }
     }
 
