@@ -15,7 +15,7 @@ int main()  {
     srand(time(NULL));
 
     //generation de donnees
-    int nbVoters = 20, nbCandidates = 5;
+    int nbVoters = 1000, nbCandidates = 5;
     generate_random_data(nbVoters, nbCandidates);
     printf("\nOn genere %d electeurs et %d candidats.\n",nbVoters,nbCandidates);
 

@@ -38,7 +38,7 @@ int update_height(CellTree *father, CellTree *child)    {
 
 void add_child(CellTree *father, CellTree *child)   {
     if (child == NULL || father == NULL)  {
-        fprintf(stderr,"Error : add_child : child or father null\n");
+        fprintf(stderr,"Error : add_child, child or father null\n");
         return;
     }
     //On actualise le previous hash de child
@@ -255,7 +255,7 @@ CellTree *read_tree()   {
     }
     closedir(rep);
 
-    fprintf(stderr,"\nread_tree : nbFichiers dans Blockchain = %d\n",nbFichiers);
+    //fprintf(stderr,"\nread_tree : nbFichiers dans Blockchain = %d\n",nbFichiers);
 
 
 
@@ -280,12 +280,12 @@ CellTree *read_tree()   {
             //fprintf(stderr,"\nread_tree : lireBlock de %s\n",path);
 
 
-            fprintf(stderr,"\n read_tree : file to read into a block = %s\n",path);
+            //fprintf(stderr,"\n read_tree : file to read into a block = %s\n",path);
             b = lireBlock(path);
 
 
             //char *bStr = block_to_str(b);
-            //fprintf(stderr,"\nbStr : %s\n",bStr);
+            ////fprintf(stderr,"\nbStr : %s\n",bStr);
             //free(bStr);
 
 
@@ -298,7 +298,7 @@ CellTree *read_tree()   {
     }
     closedir(rep);
 
-    fprintf(stderr,"\nfinished creating nodes for every file\n");
+    //fprintf(stderr,"\nfinished creating nodes for every file\n");
 
 
 
@@ -306,7 +306,7 @@ CellTree *read_tree()   {
     int pere,fils;
     for (pere=0; pere<nbFichiers; pere++)   {
         for (fils=0; fils<nbFichiers; fils++)   {
-            fprintf(stderr,"\nhash du pere :\n%s\n\nhash du fils :\n%s\n\n",tab[pere]->block->hash,tab[fils]->block->previous_hash);
+            //fprintf(stderr,"\nhash du pere :\n%s\n\nhash du fils :\n%s\n\n",tab[pere]->block->hash,tab[fils]->block->previous_hash);
             if (strcmp((char *)tab[pere]->block->hash,(char *)tab[fils]->block->previous_hash) == 0)    {
                 add_child(tab[pere],tab[fils]);
             }
@@ -314,7 +314,7 @@ CellTree *read_tree()   {
     }
 
 
-    fprintf(stderr,"\ntermine l'affectations des enfants\n");
+    //fprintf(stderr,"\ntermine l'affectations des enfants\n");
 
 
     //on cherche la racine de l'arbre
