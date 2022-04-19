@@ -76,7 +76,7 @@ Block *lireBlock(char *filename)    {
             fprintf(stderr, "Erreur de formatage de la premiere ligne du fichier\n");
             fclose(istream);
             return NULL;
-        
+        }
     }
 
 
