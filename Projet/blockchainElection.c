@@ -43,13 +43,16 @@ int main()  {
     while (current)   {
         i=0;
         cleAssesseur = current->data->pKey; //la cle de l'assesseur est la cle du premier a voter dans le block
+        char *cleAssesseurStr = key_to_str(cleAssesseur);
+        Key *cleAssesseurCopie = str_to_key(cleAssesseurStr);
+        free(cleAssesseurStr);
         while (current && i<votesParBlock)   {
             pr = current->data;
             submit_vote(pr);
             current = current->next;
             i++;
         }
-        create_block(&tree,cleAssesseur,d);
+        create_block(&tree,cleAssesseurCopie,d);
         sprintf(nomFichier,"fichier%d",nbFichier);
         add_block(d,nomFichier);
         nbFichier++;
