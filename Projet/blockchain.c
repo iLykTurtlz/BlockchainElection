@@ -210,8 +210,8 @@ void delete_block(Block *B)	{
     free(B->author);
     free(B->hash);
     free(B->previous_hash);
-    delete_list_protected(B->votes);
-    //delete_list_protected_total(B->votes);
+    //delete_list_protected(B->votes);
+    delete_list_protected_total(B->votes);
     free(B);
     /*
     CellProtected *curr = B->votes;
